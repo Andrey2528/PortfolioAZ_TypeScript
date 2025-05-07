@@ -1,15 +1,15 @@
 import router from '@/router';
 import { StrictMode } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
-import ReactGA from 'react-ga4';
 import { RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from '@/ThemeContext';
 
 import './i18n';
 
-ReactGA.initialize('G-1C7BB6MY4W', { debug: false });
+const rootElement = document.getElementById('root') as HTMLElement;
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(rootElement).render(
     <StrictMode>
         <ThemeProvider>
             <RouterProvider router={router} />

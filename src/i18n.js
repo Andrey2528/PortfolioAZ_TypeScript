@@ -16,6 +16,17 @@ i18n.use(LanguageDetector)
         resources: {
             en: {
                 translation: {
+                    filter: {
+                        "role": "Role:",
+                        "year": "Year:",
+                        "time": "Time:",
+                        "all": "All",
+                        "timeLessThan10": "Less than 10 hours",
+                        "timeLessThan20": "Less than 20 hours",
+                        "timeLessThan50": "Less than 50 hours",
+                        "timeLessThan100": "Less than 100 hours",
+                        "reset": "Reset Filters"
+                    },
                     navMenu: {
                         logo: 'Andrey Zhukov',
                         link1: 'Front-end\n' + 'Developer',
@@ -156,6 +167,17 @@ i18n.use(LanguageDetector)
             },
             uk: {
                 translation: {
+                    filter: {
+                        "role": "Роль:",
+                        "year": "Рік завершення роботи:",
+                        "time": "Час на роботу:",
+                        "all": "Всі",
+                        "timeLessThan10": "Меньше 10 годин",
+                        "timeLessThan20": "Меньше 20 годин",
+                        "timeLessThan50": "Меньше 50 годин",
+                        "timeLessThan100": "Меньше 100 годин",
+                        "reset": "Скинути фільтри",
+                    },
                     navMenu: {
                         logo: 'Андрій Жуков',
                         link1: 'Фронт-енд\n' + 'Розробник',
@@ -297,6 +319,17 @@ i18n.use(LanguageDetector)
             },
             ru: {
                 translation: {
+                    filter: {
+                        "role": "Роль:",
+                        "year": "Год завершения работы:",
+                        "time": "Время на работу:",
+                        "all": "Все",
+                        "timeLessThan10": "Меньше 10 часов",
+                        "timeLessThan20": "Меньше 20 часов",
+                        "timeLessThan50": "Меньше 50 часов",
+                        "timeLessThan100": "Меньше 100 часов",
+                        "reset": "Сбросить фильтры",
+                    },
                     navMenu: {
                         logo: 'Андрей Жуков',
                         link1: 'Фронт-енд\n' + 'Разработчик',

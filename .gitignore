@@ -1,0 +1,11 @@
+/node_modules/
+.eslint.json
+.prettierrc.json
+.prettierignore
+.DS_Store
+.package-lock.json
+/src/.DS_Store
+/.vscode
+/dist/
+/dist/index.html
+node_modules

@@ -1,6 +1,7 @@
 import { createHashRouter } from 'react-router-dom';
 
-import { HomePage, InfoPage, SertificatePage } from '@/pages';
+import { InfoPage, SertificatePage } from '@/pages';
+import HomePage from '@/pages/HomePage';
 
 import Layout from '@/layout/layout';
 

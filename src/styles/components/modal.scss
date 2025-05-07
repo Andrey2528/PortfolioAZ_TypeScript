@@ -1,0 +1,135 @@
+@use '@/styles/partials/_variables.scss' as vars;
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+
+    &__content {
+        border-radius: 8px;
+        width: 97%;
+        height: 80%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        padding: 10px;
+        @media (max-width: vars.$maxMobile) {
+            flex-direction: column;
+            width: 100%;
+            padding: 20px;
+            min-height: 100vh;
+            box-sizing: border-box;
+            overflow-y: auto;
+            border-radius: 0;
+        }
+    }
+
+    &__link {
+        text-decoration: underline;
+        padding-bottom: 2px;
+    }
+
+    &__column {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-right: 30px;
+    }
+
+    &__row {
+        &-border {
+            padding: 7px 0px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid vars.$dark-theme-40;
+
+            &:first-child {
+                border-top: 1px solid vars.$dark-theme-40;
+            }
+
+            &:not(:first-child) {
+                border-top: none;
+            }
+        }
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    img {
+        border-radius: vars.$border_radius_main;
+        margin-right: 20px;
+        @media (max-width: vars.$maxMobile) {
+            margin-bottom: 10px;
+        }
+    }
+
+    &__close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+
+        width: 24px;
+        height: 24px;
+        background-color: black;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        border-radius: 100px;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        font-size: 24px;
+
+        @media (max-width: vars.$maxMobile) {
+            top: 10px;
+            right: 10px;
+        }
+
+        &:hover,
+        &:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        span {
+            width: 12px;
+            height: 2px;
+            display: block;
+        }
+
+        &:hover {
+            background-color: darkgray;
+        }
+
+        &:active {
+            transform: scale(0.9);
+        }
+    }
+
+    .card {
+        &__title {
+            margin: 0;
+            margin-bottom: 6px;
+        }
+        &__desc {
+            padding-right: 15px;
+        }
+    }
+}

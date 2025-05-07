@@ -1,0 +1,60 @@
+@keyframes scale{
+    from {
+        transform: scale(1);
+        animation-timing-function: ease-out;
+    }
+    50%{
+        transform: scale(1.2);
+        animation-timing-function: ease-out;
+    }
+    to{
+        transform: scale(1);
+        animation-timing-function: ease-out;
+    }
+}
+
+@keyframes move {
+    from {
+          transform: translate(0px, 0px);
+          animation-timing-function: ease-out;
+    }
+    50% {
+          transform: translate(0px, -9px);
+          animation-timing-function: ease-out;
+    }
+    to {
+          transform: translate(0px, 0px);
+    }
+}
+
+@keyframes move-bubbles {
+    from {
+          transform: translate(0px, 0px);
+          animation-timing-function: ease-out;
+    }
+    50% {
+          transform: translate(0px, -69px);
+          animation-timing-function: ease-out;
+    }
+    to {
+          transform: translate(0px, 0px);
+    }
+}
+
+@keyframes border-dance {
+    0% {
+         background-position: 0px 0px, 75px 100%, 0px 75px, 100% 0px;
+    }
+    100% {
+        background-position: 75px 0px, 0px 100%, 0px 0px, 100% 75px;
+    }
+}
+
+@keyframes border-dance-reverse {
+    0% {
+        background-position: 75px 0px, 0px 100%, 0px 0px, 100% 75px;
+    }
+    100% {
+        background-position: 0px 0px, 75px 100%, 0px 75px, 100% 0px;
+    }
+}

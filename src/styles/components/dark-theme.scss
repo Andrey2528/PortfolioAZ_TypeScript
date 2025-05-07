@@ -1,0 +1,63 @@
+@use '@/styles/partials/_variables.scss' as vars;
+.dark {
+    background: vars.$dark-theme-black;
+    color: vars.$dark-theme-white;
+    .main {
+        &__title {
+            color: vars.$dark-theme-white;
+        }
+    }
+    .navbar__nav__link {
+        color: vars.$dark-theme-10;
+    }
+    .active_li {
+        color: vars.$dark-theme-white;
+    }
+    .info {
+        &__title {
+            color: vars.$dark-theme-white;
+        }
+        &__subtitle {
+            color: vars.$dark-theme-white;
+        }
+        &__text {
+            color: vars.$dark-theme-white;
+        }
+    }
+    .card {
+        border-top: 1px solid vars.$dark-theme-50;
+        &__miniature {
+            background-color: vars.$dark-theme-50;
+            transition: background-color 0.5s ease-in-out;
+            &:hover {
+                background-color: vars.$dark-theme-40;
+            }
+        }
+        &__title {
+            color: vars.$dark-theme-white;
+        }
+    }
+    .card__expanded-content {
+        background-color: vars.$dark-theme-50;
+    }
+    .modal {
+        &__content {
+            background-color: vars.$dark-theme-50;
+        }
+        &__close {
+            background-color: vars.$dark-theme-60;
+            span {
+                background-color: vars.$dark-theme-10;
+            }
+            &:hover {
+                background-color: vars.$dark-theme-40;
+            }
+        }
+        &__row {
+            &-border {
+                border-top: 1px solid vars.$dark-theme-40;
+                border-bottom: 1px solid vars.$dark-theme-40;
+            }
+        }
+    }
+}

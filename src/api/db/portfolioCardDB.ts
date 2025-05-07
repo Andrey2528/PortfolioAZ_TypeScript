@@ -77,7 +77,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
     {
         id: '8',
         title: i18next.t('portfolioCard.title.title8'),
-        subTitle: i18next.t('portfolioCard.description.subTitle'),
+        subTitle: i18next.t('portfolioCard.subTitle'),
         year: 2023,
         design: '-',
         role: i18next.t('portfolioCard.role1'),

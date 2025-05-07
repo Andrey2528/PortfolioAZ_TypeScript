@@ -62,4 +62,32 @@
             }
         }
     }
+    .filter__label {
+        color: vars.$light-theme-black;
+    }
+    .filter__select {
+        background: vars.$dark-theme-50-radius;
+        color: vars.$light-theme-black;
+        border: 1px solid vars.$dark-theme-50-light;
+    }
+    .filter__select:hover,
+    .filter__select:focus {
+        border-color: vars.$light-theme-20;
+        background: vars.$light-theme-white;
+    }
+    .filter__checkbox {
+        accent-color: vars.$light-theme-20;
+    }
+    .filter__reset {
+        background: vars.$light-theme-20;
+        color: vars.$light-theme-white;
+        border: 1px solid vars.$dark-theme-50-light;
+    }
+    .filter__reset:hover {
+        background: darken(vars.$light-theme-20, 10%);
+        border-color: vars.$light-theme-20;
+    }
+    .filter__container {
+        border-top: 1px solid vars.$dark-theme-50-light;
+    }
 }

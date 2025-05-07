@@ -1,0 +1,15 @@
+@use 'partials/reset.scss';
+@use 'partials/_fonts.scss';
+@use 'partials/_header.scss';
+@use 'partials/_footer.scss';
+@use 'partials/_buttons.scss';
+@use 'partials/_variables.scss';
+@use 'partials/_text.scss';
+@use 'partials/_general.scss';
+
+@use 'components/nav.scss';
+@use 'components/cardPortfolio.scss';
+@use 'components/info.scss';
+@use 'components/dark-theme.scss';
+@use 'components/light-theme.scss';
+@use 'components/modal.scss';

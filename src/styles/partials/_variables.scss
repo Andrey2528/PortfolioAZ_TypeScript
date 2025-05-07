@@ -1,0 +1,81 @@
+$bigDesc: '2560px';
+$maxDesc: '1440px';
+$maxTablet: '1024px';
+$mobile_menu_breakpoint: '900px';
+$maxMobile: '768px';
+
+$container_max_size: 1320px;
+
+/*
+@media (max-width: $bigDesc) {
+
+}
+@media (max-width: $maxDesc) {
+
+}
+@media (max-width: $maxTablet) {
+
+}
+@media (max-width: $mobile_menu_breakpoint) {
+
+}
+@media (max-width: $maxMobile) {
+
+}
+*/
+
+/*--fonts--*/
+
+$interFont: Inter;
+
+/*header*/
+$base_header_font_size: 223px;
+$base_header_line_height: auto;
+$base_header_font_weight: 600;
+
+/*h2*/
+$base_h2_font_size: 28px;
+$base_h2_line_height: 114%;
+//$_h2_line_height: 20px;
+
+/*head*/
+$base_head_font_size: 12px;
+$base_head_line_height: 133%;
+
+/*body*/
+$base_body_font_size: 14px;
+$base_body_line_height: 114%;
+
+$base_font_weight: 400;
+
+/*--color--*/
+$dark-theme-10:  rgba(196, 196, 196, 1);
+$dark-theme-20: rgba(153, 153, 153, 1);
+$dark-theme-30: rgba(107, 107, 107, 1);
+$dark-theme-40: rgba(69, 69, 69, 1);
+$dark-theme-50: rgba(51, 51, 51, 1);
+$dark-theme-60: rgba(41, 41, 41, 1);
+
+//dark mode
+$dark-theme-black: rgba(28, 28, 28, 1);
+$dark-theme-white: rgba(255, 255, 255, 1);
+
+//light mode
+$light-theme-white: rgba(250, 250, 250, 1);
+$light-theme-black: rgba(41, 41, 41, 1);
+$dark-theme-50-radius: rgba(247, 247, 247, 1);
+$dark-theme-50-light: rgba(235, 235, 235, 1);
+
+
+$light-theme-10: rgba(153, 153, 153, 1);
+$light-theme-20: rgba(107, 107, 107, 1);
+$light-theme-30: rgba(196, 196, 196, 1);
+$light-theme-40: rgba(209, 209, 209, 1);
+$light-theme-50: rgba(235, 235, 235, 1);
+$light-theme-60: rgba(247, 247, 247, 1);
+
+
+
+/*------border------*/
+$border_radius_main: 8px;
+/*----------*/

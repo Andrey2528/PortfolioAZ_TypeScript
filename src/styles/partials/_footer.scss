@@ -1,0 +1,40 @@
+@use '@/styles/partials/_variables.scss' as vars;
+
+.footer {
+    width: 100%;
+    margin-top: 70px;
+
+    .container {
+        border-top: 1px solid vars.$dark-theme-50;
+        padding-top: 20px;
+        padding-bottom: 26px;
+    }
+
+    &__row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        @media (max-width: vars.$maxMobile) {
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+    }
+
+    &__text {
+        font-family: Inter;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: 0px;
+        color: vars.$dark-theme-30;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: row;
+        column-gap: 10px;
+    }
+}

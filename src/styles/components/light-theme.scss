@@ -1,0 +1,61 @@
+@use '@/styles/partials/_variables.scss' as vars;
+
+.light {
+    background: vars.$light-theme-white;
+    color: vars.$light-theme-black;
+
+    .main {
+        &__title {
+            color: vars.$light-theme-black;
+        }
+    }
+    .info {
+        &__title {
+            color: vars.$light-theme-black;
+        }
+        &__subtitle {
+            color: vars.$light-theme-black;
+        }
+        &__text {
+            color: vars.$light-theme-black;
+        }
+    }
+    .navbar__nav__link {
+        color: vars.$light-theme-10;
+    }
+    .active_li {
+        color: vars.$dark-theme-black;
+    }
+    .card {
+        border-top: 1px solid vars.$dark-theme-50-light;
+        &__miniature {
+            background-color: vars.$dark-theme-50-radius;
+        }
+        &__title {
+            color: vars.$dark-theme-60;
+        }
+        &__number {
+            color: vars.$dark-theme-30;
+        }
+    }
+    .modal {
+        &__content {
+            background-color: vars.$dark-theme-50-radius;
+        }
+        &__close {
+            background-color: vars.$light-theme-50;
+            span {
+                background-color: vars.$light-theme-10;
+            }
+            &:hover {
+                background-color: vars.$light-theme-40;
+            }
+        }
+        &__row {
+            &-border {
+                border-top: 1px solid vars.$dark-theme-50-light;
+                border-bottom: 1px solid vars.$dark-theme-50-light;
+            }
+        }
+    }
+}

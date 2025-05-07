@@ -1,0 +1,39 @@
+@use '@/styles/partials/_variables.scss' as vars;
+
+.main {
+    &__title {
+        text-align: center;
+        font-family: Inter;
+        font-size: 200px;
+        font-style: normal;
+        font-weight: vars.$base_header_font_weight;
+        line-height: vars.$base_header_line_height;
+        text-transform: uppercase;
+
+        @media (max-width: 1440px) {
+            font-size: 154px;
+            font-weight: 600;
+            line-height: 204px;
+            letter-spacing: 0em;
+        }
+
+        @media (max-width: 1200px) {
+            font-size: 99.75px;
+            line-height: 169.13px;
+        }
+
+        @media (max-width: 1150px) {
+            font-size: 80.75px;
+            line-height: 133.86px;
+        }
+
+        @media (max-width: 768px) {
+            font-size: 77.42px;
+            line-height: 105.79px;
+        }
+    }
+
+    &__desc {
+        // Добавь стили, если нужно
+    }
+}

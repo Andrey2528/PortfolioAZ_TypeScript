@@ -41,6 +41,10 @@
         background-color: vars.$dark-theme-50;
     }
     .modal {
+        &__img {
+            background: vars.$dark-theme-40;
+            transition: opacity 0.3s ease;
+        }
         &__content {
             background-color: vars.$dark-theme-50;
         }

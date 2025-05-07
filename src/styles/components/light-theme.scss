@@ -39,6 +39,10 @@
         }
     }
     .modal {
+        &__img {
+            background: vars.$light-theme-40;
+            transition: opacity 0.3s ease;
+        }
         &__content {
             background-color: vars.$dark-theme-50-radius;
         }

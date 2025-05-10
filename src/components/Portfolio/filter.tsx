@@ -1,19 +1,20 @@
-import { portfolioCardDB } from '@/api/db/portfolioCardDB';
+//import { portfolioCardDB } from '@/api/db/portfolioCardDB';
 import { certificateDB } from '@/api/db/certificateDB';
 import { TFunction } from 'i18next';
+import { IPortfolioCardFull } from './types';
 
-export const getUniqueRoles = () => {
+export const getUniqueRoles = (cards: IPortfolioCardFull[]): string[] => {
     return Array.from(
         new Set(
-            portfolioCardDB.flatMap((card) =>
+            cards.flatMap((card) =>
                 card.role.split(',').map((role) => role.trim()),
             ),
         ),
     );
 };
 
-export const getUniqueYears = () => {
-    return Array.from(new Set(portfolioCardDB.map((card) => card.year))).sort(
+export const getUniqueYears = (cards: IPortfolioCardFull[]): number[] => {
+    return Array.from(new Set(cards.map((card) => card.year))).sort(
         (a, b) => b - a,
     );
 };

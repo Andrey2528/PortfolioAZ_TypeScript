@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Modal from '@/shared/components/Modal/Modal';
 import Card from '@/shared/components/Card/Card';
-import portfolioCard from '@/api/db/portfolioCardDB';
+//import portfolioCard from '@/api/db/portfolioCardDB';
 import { IPortfolioCardFull } from './types';
 import {
     getUniqueRoles,
@@ -11,8 +11,11 @@ import {
 } from '@/components/Portfolio/filter';
 import modalConfig from '@/shared/components/Modal/modalConfig';
 
+import { fetchPortfolioCards } from '@/api/connectDB/databasefetch';
+
 const CardWrapper = () => {
     const { t } = useTranslation();
+    const [cards, setCards] = useState<IPortfolioCardFull[]>([]);
     const [selectedCard, setSelectedCard] = useState<IPortfolioCardFull | null>(
         null,
     );
@@ -21,6 +24,14 @@ const CardWrapper = () => {
     const [selectedYear, setSelectedYear] = useState<string>('');
     const [timeFilter, setTimeFilter] = useState<string>('');
 
+    useEffect(() => {
+        const getCards = async () => {
+            const data = await fetchPortfolioCards();
+            setCards(data);
+        };
+        getCards();
+    }, []);
+
     const resetFilters = () => {
         setSelectedRole('');
         setSelectedYear('');
@@ -28,16 +39,16 @@ const CardWrapper = () => {
     };
 
     // Унікальні ролі для фільтра
-    const uniqueRoles = getUniqueRoles();
+    const uniqueRoles = getUniqueRoles(cards);
 
     // Унікальні роки для фільтра
-    const uniqueYears = getUniqueYears();
+    const uniqueYears = getUniqueYears(cards);
 
     // Опції для фільтра timeToEndWork
     const timeOptions = getTimeOptions(t);
 
     // Фільтрація та сортування карток
-    const filteredCards = portfolioCard
+    const filteredCards = cards
         .filter((card) => {
             const roles = card.role.split(',').map((role) => role.trim());
             const matchesRole = !selectedRole || roles.includes(selectedRole);

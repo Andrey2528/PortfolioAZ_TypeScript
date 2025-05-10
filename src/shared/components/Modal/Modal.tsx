@@ -21,7 +21,7 @@ interface IModalProps<T> {
 const Modal = <T,>({
     card,
     onClose,
-    config,
+    config = [],
     titleKey,
     subTitleKey,
     imgKey,
@@ -34,7 +34,9 @@ const Modal = <T,>({
             <ul className={className}>
                 {items.map((item, index) => (
                     <li key={index} className="modal__item">
-                        <p className="modal__list navbar__nav__link">{item}</p>
+                        <p className="modal__list navbar__nav__link">
+                            {t(item)}
+                        </p>
                     </li>
                 ))}
             </ul>
@@ -52,16 +54,22 @@ const Modal = <T,>({
                     rel="noopener noreferrer"
                     className="navbar__nav__link modal__link"
                 >
-                    {String(value)}
+                    {t(String(value))}
                 </a>
             );
         } else if (field.type === 'list' && typeof value === 'string') {
             const items = value.split(',').map((item) => item.trim());
             return renderList(items, 'modal__list');
+        } else if (field.key === 'timeToEndWork' && typeof value === 'object') {
+            return (
+                <span>
+                    {value.value} {t(value.unit)}
+                </span>
+            );
         } else if (field.transform) {
             return field.transform(value);
         }
-        return String(value);
+        return t(String(value));
     };
 
     useEffect(() => {
@@ -89,10 +97,10 @@ const Modal = <T,>({
                         <span></span>
                     </button>
                     <h2 className="modal__title card__title">
-                        {String(card[titleKey])}
+                        {t(String(card[titleKey]))}
                     </h2>
                     <p className="modal__desc card__desc">
-                        {String(card[subTitleKey])}
+                        {t(String(card[subTitleKey]))}
                     </p>
                     {config.map((field, index) => {
                         const value = renderField(field);

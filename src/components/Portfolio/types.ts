@@ -15,4 +15,6 @@ export interface IPortfolioCardFull extends IPortfolioCardPreview {
     url: string;
     description: string;
     timeToEndWork: string;
+    company: string;
+    data: string;
 }

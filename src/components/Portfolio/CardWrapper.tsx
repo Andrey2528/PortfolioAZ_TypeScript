@@ -1,16 +1,15 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Modal from '@/shared/components/Modal/Modal';
 import Card from '@/shared/components/Card/Card';
 import portfolioCard from '@/api/db/portfolioCardDB';
 import { IPortfolioCardFull } from './types';
-import { useTranslation } from 'react-i18next';
-
-interface ModalFieldConfig<T> {
-    key: keyof T;
-    label: string;
-    type: 'text' | 'link' | 'list';
-    transform?: (value: any) => string;
-}
+import {
+    getUniqueRoles,
+    getUniqueYears,
+    getTimeOptions,
+} from '@/components/Portfolio/filter';
+import modalConfig from '@/shared/components/Modal/modalConfig';
 
 const CardWrapper = () => {
     const { t } = useTranslation();
@@ -23,33 +22,19 @@ const CardWrapper = () => {
     const [timeFilter, setTimeFilter] = useState<string>('');
 
     const resetFilters = () => {
-        setSelectedRole([]);
+        setSelectedRole('');
         setSelectedYear('');
         setTimeFilter('');
     };
 
     // Унікальні ролі для фільтра
-    const uniqueRoles = Array.from(
-        new Set(
-            portfolioCard.flatMap((card) =>
-                card.role.split(',').map((role) => role.trim()),
-            ),
-        ),
-    );
+    const uniqueRoles = getUniqueRoles();
 
     // Унікальні роки для фільтра
-    const uniqueYears = Array.from(
-        new Set(portfolioCard.map((card) => card.year)),
-    ).sort((a, b) => b - a);
+    const uniqueYears = getUniqueYears();
 
     // Опції для фільтра timeToEndWork
-    const timeOptions = [
-        { value: '', label: t('filter.all') },
-        { value: '10', label: t('filter.timeLessThan10') },
-        { value: '20', label: t('filter.timeLessThan20') },
-        { value: '50', label: t('filter.timeLessThan50') },
-        { value: '100', label: t('filter.timeLessThan100') },
-    ];
+    const timeOptions = getTimeOptions(t);
 
     // Фільтрація та сортування карток
     const filteredCards = portfolioCard
@@ -85,29 +70,6 @@ const CardWrapper = () => {
     const handleTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setTimeFilter(e.target.value);
     };
-
-    const modalConfig: ModalFieldConfig<IPortfolioCardFull>[] = [
-        { key: 'id', label: 'modal.ID', type: 'text' },
-        { key: 'year', label: 'modal.Year', type: 'text' },
-        { key: 'design', label: 'modal.Design', type: 'text' },
-        { key: 'role', label: 'modal.Role', type: 'list' },
-        { key: 'tag', label: 'modal.Tags', type: 'list' },
-        { key: 'platform', label: 'modal.Platform', type: 'text' },
-        { key: 'type', label: 'modal.Type', type: 'text' },
-        {
-            key: 'url',
-            label: 'modal.URL',
-            type: 'link',
-            transform: (value: string) =>
-                value && value !== 'portfolioCard.urlNotAviable' ? value : null,
-        },
-        { key: 'description', label: 'modal.description', type: 'text' },
-        {
-            key: 'timeToEndWork',
-            label: 'portfolioCard.timeWork.title',
-            type: 'text',
-        },
-    ];
 
     return (
         <div className="container">

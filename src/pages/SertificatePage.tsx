@@ -1,4 +1,4 @@
-import SertificateWrapper from '@/components/SerificateWrapper';
+import SertificateWrapper from '@/components/Serificate/SertificateWrapper';
 
 const SertificatePage = () => {
     return (

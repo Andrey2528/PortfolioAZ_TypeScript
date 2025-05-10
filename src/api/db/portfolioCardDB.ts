@@ -1,17 +1,5 @@
 import i18next from '@/i18n';
 import { IPortfolioCardFull } from '@/components/Portfolio/types';
-import img1 from '@/assets/images/portfolioIMG/portfolioImg1.webp';
-import img2 from '@/assets/images/portfolioIMG/portfolioImg2.webp';
-import img3 from '@/assets/images/portfolioIMG/portfolioImg3.webp';
-import img4 from '@/assets/images/portfolioIMG/portfolioImg4.webp';
-import img5 from '@/assets/images/portfolioIMG/portfolioImg5.webp';
-import img6 from '@/assets/images/portfolioIMG/portfolioImg6.webp';
-import img7 from '@/assets/images/portfolioIMG/portfolioImg7.webp';
-import img8 from '@/assets/images/portfolioIMG/portfolioImg8.webp';
-import img9 from '@/assets/images/portfolioIMG/portfolioImg9.webp';
-import img10 from '@/assets/images/portfolioIMG/portfolioImg10.webp';
-import img11 from '@/assets/images/portfolioIMG/portfolioImg11.webp';
-import img12 from '@/assets/images/portfolioIMG/portfolioImg12.webp';
 
 export const portfolioCardDB: IPortfolioCardFull[] = [
     {
@@ -25,7 +13,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform2'),
         type: i18next.t('portfolioCard.type2'),
         url: 'https://andrey2528.github.io/GrillCalc/',
-        img: img12,
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg12-x4RM-yzB.webp',
         description: i18next.t('portfolioCard.description.description12'),
         timeToEndWork: `3 ${i18next.t('portfolioCard.timeWork.Hours1')}`,
     },
@@ -40,7 +28,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform2'),
         type: i18next.t('portfolioCard.type3'),
         url: 'https://andrey2528.github.io/PortfolioAZ/#/',
-        img: img11,
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg11-yWW74hzU.webp',
         description: i18next.t('portfolioCard.description.description11'),
         timeToEndWork: `20 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },
@@ -55,7 +43,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform1'),
         type: i18next.t('portfolioCard.type3'),
         url: i18next.t('portfolioCard.urlNotAviable'),
-        img: img9,
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg9-BwsxAT-b.webp',
         description: i18next.t('portfolioCard.description.description9'),
         timeToEndWork: `50 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },
@@ -70,7 +58,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform1'),
         type: i18next.t('portfolioCard.type3'),
         url: 'https://andrey2528.github.io/1_drop_socks/',
-        img: img10,
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg10-CtA7_jIj.webp',
         description: i18next.t('portfolioCard.description.description10'),
         timeToEndWork: `7 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },
@@ -85,7 +73,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform1'),
         type: i18next.t('portfolioCard.type3'),
         url: 'http://sketch2site.com',
-        img: img8,
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg8-gMkRFxOS.webp',
         description: i18next.t('portfolioCard.description.description8'),
         timeToEndWork: `30 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },
@@ -100,7 +88,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform2'),
         type: i18next.t('portfolioCard.type1'),
         url: 'http://batumikarting.ge',
-        img: img7,
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg7-BgCa2at9.webp',
         description: i18next.t('portfolioCard.description.description7'),
         timeToEndWork: `200 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },
@@ -115,7 +103,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         type: i18next.t('portfolioCard.type2'),
         tag: ['HTML', 'SCSS', 'JS', 'React.js', 'BEM'],
         url: i18next.t('portfolioCard.urlNotAviable'),
-        img: img6,
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg6-DKObKo2i.webp',
         description: i18next.t('portfolioCard.description.description6'),
         timeToEndWork: `15 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },
@@ -130,7 +118,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform2'),
         type: i18next.t('portfolioCard.type3'),
         url: i18next.t('portfolioCard.urlNotAviable'),
-        img: img5,
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg5-C5wJWQCn.webp',
         description: i18next.t('portfolioCard.description.description5'),
         timeToEndWork: `100 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },
@@ -145,7 +133,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform2'),
         type: i18next.t('portfolioCard.type2'),
         url: 'https://andrey2528.github.io/people-taback/',
-        img: img4,
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg4-OWjBVQTc.webp',
         description: i18next.t('portfolioCard.description.description4'),
         timeToEndWork: `9 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },
@@ -160,7 +148,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform2'),
         type: i18next.t('portfolioCard.type3'),
         url: 'https://fairpartner.pl/',
-        img: img3,
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg3-BY486qLq.webp',
         description: i18next.t('portfolioCard.description.description3'),
         timeToEndWork: `20 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },
@@ -175,7 +163,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform2'),
         type: i18next.t('portfolioCard.type2'),
         url: i18next.t('portfolioCard.urlNotAviable'),
-        img: img2,
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg2-3HifPg_d.webp',
         description: i18next.t('portfolioCard.description.description2'),
         timeToEndWork: `10 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },
@@ -190,7 +178,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform1'),
         type: i18next.t('portfolioCard.type2'),
         url: i18next.t('portfolioCard.urlNotAviable'),
-        img: img1,
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg1-BB90i1t3.webp',
         description: i18next.t('portfolioCard.description.description1'),
         timeToEndWork: `10 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },

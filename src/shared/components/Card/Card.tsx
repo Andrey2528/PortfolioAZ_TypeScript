@@ -1,5 +1,6 @@
 import '@/styles/index.scss';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface ICardProps<T> {
     card: T;
@@ -18,6 +19,7 @@ const Card = <T,>({
     imgKey,
     idKey,
 }: ICardProps<T>) => {
+    const { t } = useTranslation();
     const [isActive, setIsActive] = useState(false);
 
     const handleClick = () => {
@@ -31,9 +33,9 @@ const Card = <T,>({
             className={`card ${isActive ? 'active' : ''}`}
             onClick={handleClick}
         >
-            <h3 className="card__title">{String(card[titleKey])}</h3>
+            <h3 className="card__title">{t(String(card[titleKey]))}</h3>
             <div className="card__row">
-                <p className="card__desc">{String(card[subTitleKey])}</p>
+                <p className="card__desc">{t(String(card[subTitleKey]))}</p>
                 <span className="card__number card__desc">
                     {String(card[idKey])}
                 </span>

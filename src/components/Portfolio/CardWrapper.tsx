@@ -12,7 +12,6 @@ import {
 import modalConfig from '@/shared/components/Modal/modalConfig';
 
 import { fetchPortfolioCards } from '@/api/connectDB/databasefetch';
-import Loader from '../Loader/Loader';
 
 const CardWrapper = () => {
     const { t } = useTranslation();
@@ -24,22 +23,14 @@ const CardWrapper = () => {
     const [selectedRole, setSelectedRole] = useState<string>('');
     const [selectedYear, setSelectedYear] = useState<string>('');
     const [timeFilter, setTimeFilter] = useState<string>('');
-    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const getCards = async () => {
-            setLoading(true);
             const data = await fetchPortfolioCards();
-            // Додати затримку (наприклад, 1 секунда)
-            setTimeout(() => {
-                setCards(data);
-                setLoading(false);
-            }, 1000); // 1000 мс = 1 секунда
+            setCards(data);
         };
         getCards();
     }, []);
-
-    if (loading) return <Loader />;
 
     const resetFilters = () => {
         setSelectedRole('');

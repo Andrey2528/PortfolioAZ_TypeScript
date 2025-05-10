@@ -17,3 +17,19 @@ export const fetchPortfolioCards = async (): Promise<IPortfolioCardFull[]> => {
         return [];
     }
 };
+
+export const fetchSertificateCards = async (): Promise<
+    IPortfolioCardFull[]
+> => {
+    try {
+        const querySnapshot = await getDocs(collection(db, 'sertificateData'));
+        const cards: IPortfolioCardFull[] = [];
+        querySnapshot.forEach((doc) => {
+            cards.push(doc.data() as IPortfolioCardFull);
+        });
+        return cards;
+    } catch (error) {
+        console.error('Error fetching sertificate cards:', error);
+        return [];
+    }
+};

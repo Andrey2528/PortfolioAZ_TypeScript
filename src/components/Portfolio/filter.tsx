@@ -3,14 +3,19 @@ import { certificateDB } from '@/api/db/certificateDB';
 import { TFunction } from 'i18next';
 import { IPortfolioCardFull } from './types';
 
-export const getUniqueRoles = (cards: IPortfolioCardFull[]): string[] => {
-    return Array.from(
+export const getUniqueRoles = (
+    cards: IPortfolioCardFull[],
+    t: TFunction,
+): string[] => {
+    const roles = Array.from(
         new Set(
             cards.flatMap((card) =>
                 card.role.split(',').map((role) => role.trim()),
             ),
         ),
     );
+
+    return roles.map((role) => t(role));
 };
 
 export const getUniqueYears = (cards: IPortfolioCardFull[]): number[] => {
@@ -27,6 +32,12 @@ export const getTimeOptions = (t: TFunction) => [
     { value: '100', label: t('filter.timeLessThan100') },
 ];
 
-export const getUniqueCompanies = () => {
-    return Array.from(new Set(certificateDB.map((cert) => cert.company)));
+export const getUniqueCompanies = (
+    sertificates: IPortfolioCardFull[],
+    t: TFunction,
+): string[] => {
+    const comoany = Array.from(
+        new Set(sertificates.map((cert) => cert.company || '')),
+    );
+    return comoany.map((company) => t(company));
 };

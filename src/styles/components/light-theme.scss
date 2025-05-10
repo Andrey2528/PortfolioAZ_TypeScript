@@ -3,7 +3,9 @@
 .light {
     background: vars.$light-theme-white;
     color: vars.$light-theme-black;
-
+    .loader {
+        background: vars.$light-theme-white;
+    }
     .main {
         &__title {
             color: vars.$light-theme-black;

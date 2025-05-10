@@ -2,6 +2,9 @@
 .dark {
     background: vars.$dark-theme-black;
     color: vars.$dark-theme-white;
+    .loader {
+        background: vars.$dark-theme-black;
+    }
     .main {
         &__title {
             color: vars.$dark-theme-white;

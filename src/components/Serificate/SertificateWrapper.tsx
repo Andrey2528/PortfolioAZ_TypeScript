@@ -1,21 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import certificateDB from '@/api/db/certificateDB';
 import IPortfolioCardFull from '@/types';
 import Card from '@/shared/components/Card/Card';
 import Modal from '@/shared/components/Modal/Modal';
 import modalConfig from '@/shared/components/Modal/modalConfig';
 import { getUniqueCompanies } from '@/components/Portfolio/filter';
+import { fetchSertificateCards } from '@/api/connectDB/databasefetch';
 
 const SertificateWrapper = () => {
     const { t } = useTranslation();
+    const [sertificates, setSertificates] = useState<IPortfolioCardFull[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [selectedCard, setSelectedCard] = useState<IPortfolioCardFull | null>(
         null,
     );
     const [selectedCompany, setSelectedCompany] = useState<string>('');
-    const [selectedYear, setSelectedYear] = useState<string>('');
+
+    useEffect(() => {
+        const getSertificates = async () => {
+            const data = await fetchSertificateCards();
+            setSertificates(data);
+        };
+        getSertificates();
+    }, []);
 
     const openModal = (card: IPortfolioCardFull) => {
         setSelectedCard(card);
@@ -31,15 +39,13 @@ const SertificateWrapper = () => {
         setSelectedCompany('');
     };
 
-    const filteredAndSortedCertificates = certificateDB
+    const filteredAndSortedCertificates = sertificates
         .filter((cert) => {
             return !selectedCompany || cert.company === selectedCompany;
         })
-        .sort(
-            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-        );
+        .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
-    const uniqueCompany = getUniqueCompanies();
+    const uniqueCompany = getUniqueCompanies(sertificates, t);
 
     const handleCompanyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedCompany(e.target.value);

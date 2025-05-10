@@ -1,4 +1,4 @@
-import i18next from '@/i18n';
+/*import i18next from '@/i18n';
 import { IPortfolioCardFull } from '@/components/Portfolio/types';
 
 export const portfolioCardDB: IPortfolioCardFull[] = [
@@ -43,7 +43,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform1'),
         type: i18next.t('portfolioCard.type3'),
         url: i18next.t('portfolioCard.urlNotAviable'),
-        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg9-BwsxAT-b.webp',
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg10-CtA7_jIj.webp',
         description: i18next.t('portfolioCard.description.description9'),
         timeToEndWork: `50 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },
@@ -58,7 +58,7 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
         platform: i18next.t('portfolioCard.platform1'),
         type: i18next.t('portfolioCard.type3'),
         url: 'https://andrey2528.github.io/1_drop_socks/',
-        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg10-CtA7_jIj.webp',
+        img: 'https://andrey2528.github.io/PortfolioAZ_TypeScript/assets/portfolioImg9-BwsxAT-b.webp',
         description: i18next.t('portfolioCard.description.description10'),
         timeToEndWork: `7 ${i18next.t('portfolioCard.timeWork.Hours2')}`,
     },
@@ -185,3 +185,4 @@ export const portfolioCardDB: IPortfolioCardFull[] = [
 ];
 
 export default portfolioCardDB;
+*/

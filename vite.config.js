@@ -19,5 +19,5 @@ export default defineConfig({
             },
         },
     },
-    base: '/', // Для Vercel
+    base: '/PortfolioAZ_TypeScript/', // Для Vercel
 });

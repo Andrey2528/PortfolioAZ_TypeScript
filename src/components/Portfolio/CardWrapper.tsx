@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Modal from '@/shared/components/Modal/Modal';
 import Card from '@/shared/components/Card/Card';
 //import portfolioCard from '@/api/db/portfolioCardDB';
-import { IPortfolioCardFull } from './types';
+import { IPortfolioCardFull } from '@/utils/interface/interfaceCard';
 import {
     getUniqueRoles,
     getUniqueYears,

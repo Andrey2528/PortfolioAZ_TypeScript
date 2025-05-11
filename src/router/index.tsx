@@ -1,12 +1,9 @@
 import { createHashRouter } from 'react-router-dom';
 
-import { InfoPage } from '@/pages';
-import HomePage from '@/pages/HomePage';
-import SertificatePage from '@/pages/SertificatePage';
+import { InfoPage, HomePage, SertificatePage } from '@/pages';
 
+import { PAGE_HOME, PAGE_INFO, PAGE_SERTIFICATE } from '@/router/routes';
 import Layout from '@/layout/layout';
-
-import { PAGE_HOME, PAGE_INFO, PAGE_SERTIFICATE } from './routes';
 
 const routes = [
     {

@@ -2,27 +2,32 @@ import { useTranslation } from 'react-i18next';
 import socialLinks from '@/api/db/socialLinks';
 import skillsListDB from '@/api/db/skillsList';
 import logo from '@/assets/logo.png';
+import { FC } from 'react';
 
-const InfoPage = () => {
+import { ISkill } from '@/utils/interface/interfaceSocial';
+import { ISocialLink } from '@/utils/interface/interfaceSocial';
+
+const InfoPage: FC = () => {
     const { t } = useTranslation();
-    const socialLinksDb = socialLinks.map((item, index) => {
-        return (
-            <li className="info__item">
-                <a href={item.link} className="info__text" key={item.id}>
-                    {item.title}
-                </a>
-            </li>
-        );
-    });
-    const skillsList = skillsListDB.map((item, index) => {
-        return (
-            <li className="info__item">
-                <p className="info__text info_description" key={item.id}>
-                    {item.title}
-                </p>
-            </li>
-        );
-    });
+
+    const socialLinksDb = socialLinks.map((item: ISocialLink) => (
+        <li className="info__item" key={item.id}>
+            <a
+                href={item.link}
+                className="info__text"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {item.title}
+            </a>
+        </li>
+    ));
+
+    const skillsList = skillsListDB.map((item: ISkill) => (
+        <li className="info__item" key={item.id}>
+            <p className="info__text info_description">{item.title}</p>
+        </li>
+    ));
 
     return (
         <section className="info">
@@ -39,6 +44,7 @@ const InfoPage = () => {
                             {t('InfoPage.aboutText')}
                         </p>
                     </div>
+
                     <div className="info__column">
                         <h6 className="info__title">
                             {t('InfoPage.skills.skillsTitle')}
@@ -64,6 +70,7 @@ const InfoPage = () => {
                         </ul>
                     </div>
                 </div>
+
                 <div className="info__img-container">
                     <img src={logo} alt="Logo" />
                 </div>
@@ -71,4 +78,5 @@ const InfoPage = () => {
         </section>
     );
 };
+
 export default InfoPage;

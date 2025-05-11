@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
-import React from 'react';
 import '@/styles/index.scss';
 
 interface IThemeProviderProps {

@@ -1,11 +1,5 @@
-import { IPortfolioCardFull } from '../../../components/Portfolio/types';
-
-interface ModalFieldConfig<T> {
-    key: keyof T;
-    label: string;
-    type: 'text' | 'link' | 'list';
-    transform?: (value: any) => string | null;
-}
+import { IPortfolioCardFull } from '@/utils/interface/interfaceCard';
+import { ModalFieldConfig } from '@/utils/interface/interfaceModal';
 
 const modalConfig: ModalFieldConfig<IPortfolioCardFull>[] = [
     { key: 'id', label: 'modal.ID', type: 'text' },

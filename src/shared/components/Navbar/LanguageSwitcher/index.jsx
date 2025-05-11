@@ -1,3 +1,4 @@
+import i18n from 'i18next'; // Додайте цей імпорт, якщо не імпортується
 import Cookies from 'js-cookie';
 import Menu, { Item as MenuItem } from 'rc-menu';
 import { useEffect, useState } from 'react';
@@ -7,7 +8,14 @@ import { useTranslation } from 'react-i18next';
 
 const LanguageSwitcher = () => {
     const { t } = useTranslation();
-    const [defaultLang, setDefaultLang] = useState('en');
+    const [defaultLang, setDefaultLang] = useState(() => {
+        const savedLang = Cookies.get('language') || 'en';
+        return savedLang;
+    });
+
+    useEffect(() => {
+        console.log(Cookies.get('language')); // Це має працювати в компоненті
+    }, []);
 
     const handleChange = (e) => {
         const lang = e.key;
@@ -18,7 +26,8 @@ const LanguageSwitcher = () => {
             action: `${lang} version is chosen`,
         });
 
-        window.location.reload(false);
+        i18n.changeLanguage(lang); // 🔥 без перезавантаження
+        setDefaultLang(lang); // оновлюємо локальний стейт
     };
 
     const menu = (
@@ -49,17 +58,6 @@ const LanguageSwitcher = () => {
             </MenuItem>
         </Menu>
     );
-
-    useEffect(() => {
-        const savedLang = localStorage.getItem('i18nextLng');
-        const supportedLangs = ['en', 'uk', 'ru'];
-
-        if (!supportedLangs.includes(savedLang)) {
-            setDefaultLang('');
-        } else {
-            setDefaultLang(savedLang);
-        }
-    }, [defaultLang]);
 
     return (
         <ul className="language__list">

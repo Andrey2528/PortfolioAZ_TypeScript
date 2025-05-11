@@ -1,0 +1,146 @@
+{
+    "translation": {
+        "filter": {
+            "role": "Роль:",
+            "year": "Рік завершення роботи:",
+            "time": "Час на роботу:",
+            "company": "Компанія:",
+            "all": "Всі",
+            "timeLessThan10": "Меньше 10 годин",
+            "timeLessThan20": "Меньше 20 годин",
+            "timeLessThan50": "Меньше 50 годин",
+            "timeLessThan100": "Меньше 100 годин",
+            "reset": "Скинути фільтри"
+        },
+        "navMenu": {
+            "logo": "Андрій Жуков",
+            "link1": "Фронт-енд\nРозробник",
+            "link2": "Про мене",
+            "link3": "Портфоліо",
+            "link4": "Сертифікати",
+            "link5": "English",
+            "link6": "Українська",
+            "link7": "руский",
+            "link8": "Темний режим",
+            "link9": "Світлий режим"
+        },
+        "theme": {
+            "dark": "Темний режим",
+            "light": "Світлий режим"
+        },
+        "portfolioCard": {
+            "title": {
+                "title1": "Denis Portfolio",
+                "title2": "Konstruct",
+                "title3": "Fair Partner",
+                "title4": "People Tobacco",
+                "title5": "Meat Hammer Site",
+                "title6": "Manipura",
+                "title7": "Batumi Racing Club",
+                "title8": "Sketch2Site Development",
+                "title9": "Sers",
+                "title10": "Biko Butik",
+                "title11": "Andriy Zhukov",
+                "title12": "Шашличний калькулятор"
+            },
+            "description": {
+                "description1": "Denis Portfolio - базовий сайт який є в портфоліо у кожного",
+                "description2": "Konstruct - базовий сайт який є в портфоліо у кожного",
+                "description3": "Fair Partner - сайт для польської компанії Fair Partner. Спільний проект з Meat Hammer Studio",
+                "description4": "People Tobacco - сайт для компанії яка виготовляє табак для кальяну",
+                "description5": "Meat Hammer Site - компанія в якій я працював з 2020 року. Саме це є корпоративний сайт",
+                "description6": "Manipura - сайт візитка для центру йоги",
+                "description7": "Batumi Racing Club - сайт створений для грузинського картодрому - найбільшого картодрому в Європі",
+                "description8": "Sketch2Site Development - сайт виконаний на замовлення від міжнародної компанії по розробці сайтів",
+                "description9": "Sers - Сайт виконаний на замовлення іспанської компанії розробки сайтів. Час на розробку - 50 годин",
+                "description10": "Biko Butik - сайт візитка для інтернет магазину",
+                "description11": "Andriy Zhukov - сайт портфоліо для себе",
+                "description12": "Шашличний калькулятор - сайт для розрахунку кількості м'яса для свята"
+            },
+            "subTitle": "Веб-сайт",
+            "role1": "Розробник",
+            "role2": "Дизайнер",
+            "role3": "Менеджер проекту",
+            "role4": "Керівник команди",
+            "platform1": "Статичний сайт",
+            "platform2": "Адаптивний сайт",
+            "type1": "Магазин",
+            "type2": "Односторінковий сайт",
+            "type3": "Багато сторінковий сайт",
+            "urlNotAviable": "На даний момент сайт не знаходиться у відкритому доступі",
+            "old": "(Старий дизайн)",
+            "timeWork": {
+                "title": "Витрачено часу",
+                "Hours1": "Години",
+                "Hours2": "Годин",
+                "Days1": "День",
+                "Days2": "Днів",
+                "Month1": "Місяць",
+                "Month2": "Місяців",
+                "Year": "Рік"
+            }
+        },
+        "InfoPage": {
+            "description": {
+                "description1": "Я спеціалізуюсь на фронтенд-розробці. Будучи незалежним, я працюю з малими та великими компаніями, стартапами, дизайн-студіями та творчими людьми по всьому світу",
+                "description2": "Маючи понад 5 років досвіду, я брав участь у створенні цифрового досвіду, який захоплює та захоплює. Я зосереджуюсь на взаємодії та пропоную ретельний підхід до розробки, орієнтованої на деталі. Мені щиро подобається втілювати ідеї в життя, перетворюючи їх на індивідуальні, зручні та естетично привабливі веб-сайти",
+                "description3": "Але, перш за все, моєю найбільшою пристрастю є формування міцних робочих стосунків і справжніх зв’язків з іншими однодумцями, творчими людьми"
+            },
+            "skills": {
+                "skillsTitle": "Навички",
+                "skillsText1": "HTML, CSS, JavaScript, React, React Native, Redux, Node.js, Express.js, MongoDB, MySQL, PHP",
+                "skillsText2": "C++, C#, Java, Python",
+                "skillsText3": "Figma, Photoshop",
+                "skillsText4": "Git, GitHub, Trello",
+                "skillsText5": "Responsive Design, Mobile First, Progressive Enhancement"
+            },
+            "experience": {
+                "experienceTitle": "Досвід роботи",
+                "experienceText1": "Meat Hammer Studio (2020-2023): Web-розробка, SMM, адміністрування соцмереж, управління проектами",
+                "experienceText2": "Фріланс (2023 - зараз): Web-розробка, CEO, дизайн"
+            },
+            "titleLocation": "Локація",
+            "titleContact": "Контакти",
+            "location1": "Івано-Франківськ, Україна",
+            "location2": "Херсон, Україна",
+            "aboutTitle": "Про себе",
+            "aboutSubtitle": "Швидка адаптація, ефективне планування часу",
+            "aboutText": "Командний гравець, відповідальний, швидко навчаюсь новим технологіям. Досвід в IT — 5 років"
+        },
+        "modal": {
+            "ID": "Id",
+            "Year": "Рік",
+            "Design": "Дизайн",
+            "Role": "Роль",
+            "Tags": "Технології",
+            "Platform": "Платформа",
+            "Type": "Тип",
+            "URL": "Посилання",
+            "description": "Опис",
+            "company": "Компанія",
+            "date": "Дата"
+        },
+        "certificate": {
+            "title": {
+                "title1": "Адаптивний веб-дизайн",
+                "title2": "Бібліотеки Front-End розробки",
+                "title3": "Візуалізація даних",
+                "title4": "Класичні алгоритми та структури даних на JavaScript",
+                "title5": "Основи блокчейна",
+                "title6": "Введення в ESIO - нетехнічне",
+                "title7": "Введення в ESIO - технічне",
+                "title8": "Налаштування середовища розробника ESIO",
+                "title9": "Маркетинг IT-продукту"
+            },
+            "subTitle": {
+                "subTitle1": "Сертифікат",
+                "subTitle2": "Курс"
+            },
+            "company": {
+                "company1": "Genesis",
+                "company2": "ESIO",
+                "company3": "FreeCodeCamp"
+            }
+        }
+    }
+}

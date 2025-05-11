@@ -86,7 +86,7 @@
         border: 1px solid vars.$dark-theme-50-light;
     }
     .filter__reset:hover {
-        background: darken(vars.$light-theme-20, 10%);
+        background: vars.$light-theme-20;
         border-color: vars.$light-theme-20;
     }
     .filter__container {

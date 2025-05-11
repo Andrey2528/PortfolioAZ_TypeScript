@@ -2,7 +2,10 @@
 
 .card {
     position: relative;
-    transition: all 0.5s ease-in-out;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
     z-index: 1;
 
     cursor: pointer;
@@ -92,6 +95,13 @@
         border-radius: 8px;
         position: relative;
         overflow: hidden;
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+        &:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
 
         @media (max-width: 1200px) {
             padding: 60px 30px 0px 30px;
@@ -218,7 +228,7 @@
 }
 
 .filter__reset:hover {
-    background: darken(vars.$light-theme-20, 10%);
+    background: vars.$light-theme-20;
     border-color: vars.$light-theme-20;
 }
 

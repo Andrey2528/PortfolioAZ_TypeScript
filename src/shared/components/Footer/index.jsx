@@ -24,7 +24,12 @@ const Footer = ({ theme }) => {
         return (
             <li key={uuidv4()} className="footer__item">
                 <div className="footer__img-wrapper">
-                    <a href={link} target="_blank" rel="noopener noreferrer">
+                    <a
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="effect"
+                    >
                         <img src={item.img} alt={item.title || ''} />
                     </a>
                 </div>
@@ -39,7 +44,7 @@ const Footer = ({ theme }) => {
                     <div className="footer__text">{t('navMenu.logo')}</div>
                     <a
                         href="mailto:Zhukovandrey02@gmail.com"
-                        className="footer__mail footer__text"
+                        className="footer__mail footer__text effect"
                     >
                         Zhukovandrey02@gmail.com
                     </a>

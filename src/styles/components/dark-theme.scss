@@ -89,7 +89,7 @@
         border: 1px solid vars.$dark-theme-40;
     }
     .filter__reset:hover {
-        background: darken(vars.$dark-theme-20, 10%);
+        background: vars.$dark-theme-20;
         border-color: vars.$dark-theme-20;
     }
 }

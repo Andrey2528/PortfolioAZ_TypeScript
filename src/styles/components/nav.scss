@@ -9,6 +9,7 @@
         flex-direction: row;
         justify-content: space-between;
         margin-top: 20px;
+
         &-wrapper {
             display: flex;
             flex-direction: column;
@@ -26,6 +27,9 @@
         font-weight: 400;
         line-height: 133%;
         cursor: pointer;
+        &:hover {
+            transform: scale(1.05);
+        }
     }
     .active_li {
         color: vars.$dark-theme-white;
@@ -51,6 +55,12 @@
             line-height: 133%;
             text-align: left;
             cursor: pointer;
+        }
+    }
+    .effect {
+        &:hover {
+            background-color: #0056b3;
+            transform: scale(1.03);
         }
     }
 }

@@ -1,12 +1,18 @@
-import LanguageSwitcher from '@/shared/components/Navbar/LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
-
+import LanguageSwitcher from '@/shared/components/Navbar/LanguageSwitcher';
 import { navPage } from '@/api/navigation/navPage';
 import { NavLink } from 'react-router-dom';
 import ThemeToggle from '@/theme/ThemeToggle';
 import '@/styles/index.scss';
+import { FC } from 'react';
 
-const Navbar = ({ setTheme, theme }) => {
+// Типізація пропсів
+interface NavbarProps {
+    setTheme: (theme: string) => void;
+    theme: string;
+}
+
+const Navbar: FC<NavbarProps> = ({ setTheme, theme }) => {
     const { t } = useTranslation();
 
     const linksPage = navPage.map((el, i) => (

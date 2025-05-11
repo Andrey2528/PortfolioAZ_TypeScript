@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import IPortfolioCardFull from '@/types';
+import { IPortfolioCardFull } from '@/utils/interface/interfaceCard';
 import Card from '@/shared/components/Card/Card';
 import Modal from '@/shared/components/Modal/Modal';
 import modalConfig from '@/shared/components/Modal/modalConfig';

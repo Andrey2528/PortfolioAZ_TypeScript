@@ -1,4 +1,5 @@
-export const socialLinks = [
+import { ISocialLink } from '../../utils/interface/interfaceSocial';
+export const socialLinks: ISocialLink[] = [
     {
         id: 5,
         title: 'Instagram',

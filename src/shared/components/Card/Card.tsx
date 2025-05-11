@@ -1,6 +1,7 @@
 import '@/styles/index.scss';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import placeholderImg from '../../../assets/placeholder.jpg';
 
 interface ICardProps<T> {
     card: T;
@@ -46,6 +47,11 @@ const Card = <T,>({
                     alt={String(card[titleKey])}
                     className="card__img"
                     loading="lazy"
+                    onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.onerror = null; // prevents looping
+                        target.src = placeholderImg; // fallback image
+                    }}
                 />
             </div>
         </div>

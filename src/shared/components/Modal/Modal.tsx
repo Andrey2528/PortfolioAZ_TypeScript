@@ -1,6 +1,7 @@
 import '@/styles/index.scss';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import placeholderImg from '../../../assets/placeholder.jpg';
 
 interface IModalFieldConfig<T> {
     key: keyof T;
@@ -91,6 +92,11 @@ const Modal = <T,>({
                     alt={String(card[titleKey])}
                     className="modal__img"
                     loading="lazy"
+                    onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.onerror = null; // prevents looping
+                        target.src = placeholderImg; // fallback image
+                    }}
                 />
                 <div className="modal__column">
                     <button className="modal__close" onClick={onClose}>

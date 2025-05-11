@@ -13,6 +13,8 @@ import modalConfig from '@/shared/components/Modal/modalConfig';
 
 import { fetchPortfolioCards } from '@/api/connectDB/databasefetch';
 
+import Loader from '../Loader/Loader';
+
 const CardWrapper = () => {
     const { t } = useTranslation();
     const [cards, setCards] = useState<IPortfolioCardFull[]>([]);
@@ -23,11 +25,14 @@ const CardWrapper = () => {
     const [selectedRole, setSelectedRole] = useState<string>('');
     const [selectedYear, setSelectedYear] = useState<string>('');
     const [timeFilter, setTimeFilter] = useState<string>('');
+    const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const getCards = async () => {
+            setIsLoading(true);
             const data = await fetchPortfolioCards();
             setCards(data);
+            setIsLoading(false);
         };
         getCards();
     }, []);
@@ -84,86 +89,109 @@ const CardWrapper = () => {
 
     return (
         <div className="container">
-            <div className="filter__container">
-                <div className="filter__group">
-                    <label htmlFor="roleFilter" className="filter__label">
-                        {t('filter.role')}
-                    </label>
-                    <select
-                        id="roleFilter"
-                        value={selectedRole}
-                        onChange={handleRoleChange}
-                        className="filter__select"
-                    >
-                        <option value="">{t('filter.all')}</option>
-                        {uniqueRoles.map((role) => (
-                            <option key={role} value={role}>
-                                {role}
-                            </option>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <>
+                    <div className="filter__container">
+                        <div className="filter__group">
+                            <label
+                                htmlFor="roleFilter"
+                                className="filter__label"
+                            >
+                                {t('filter.role')}
+                            </label>
+                            <select
+                                id="roleFilter"
+                                value={selectedRole}
+                                onChange={handleRoleChange}
+                                className="filter__select"
+                            >
+                                <option value="">{t('filter.all')}</option>
+                                {uniqueRoles.map((role) => (
+                                    <option key={role} value={role}>
+                                        {role}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="filter__group">
+                            <label
+                                htmlFor="yearFilter"
+                                className="filter__label"
+                            >
+                                {t('filter.year')}
+                            </label>
+                            <select
+                                id="yearFilter"
+                                value={selectedYear}
+                                onChange={handleYearChange}
+                                className="filter__select"
+                            >
+                                <option value="">{t('filter.all')}</option>
+                                {uniqueYears.map((year) => (
+                                    <option key={year} value={year}>
+                                        {year}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="filter__group">
+                            <label
+                                htmlFor="timeFilter"
+                                className="filter__label"
+                            >
+                                {t('filter.time')}
+                            </label>
+                            <select
+                                id="timeFilter"
+                                value={timeFilter}
+                                onChange={handleTimeChange}
+                                className="filter__select"
+                            >
+                                {timeOptions.map((option) => (
+                                    <option
+                                        key={option.value}
+                                        value={option.value}
+                                    >
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <button
+                            onClick={resetFilters}
+                            className="filter__reset"
+                        >
+                            {t('filter.reset')}
+                        </button>
+                    </div>
+
+                    <div className="card__list">
+                        {filteredCards.map((card) => (
+                            <Card<IPortfolioCardFull>
+                                key={card.id}
+                                card={card}
+                                openModal={openModal}
+                                titleKey="title"
+                                subTitleKey="subTitle"
+                                imgKey="img"
+                                idKey="id"
+                            />
                         ))}
-                    </select>
-                </div>
-                <div className="filter__group">
-                    <label htmlFor="yearFilter" className="filter__label">
-                        {t('filter.year')}
-                    </label>
-                    <select
-                        id="yearFilter"
-                        value={selectedYear}
-                        onChange={handleYearChange}
-                        className="filter__select"
-                    >
-                        <option value="">{t('filter.all')}</option>
-                        {uniqueYears.map((year) => (
-                            <option key={year} value={year}>
-                                {year}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="filter__group">
-                    <label htmlFor="timeFilter" className="filter__label">
-                        {t('filter.time')}
-                    </label>
-                    <select
-                        id="timeFilter"
-                        value={timeFilter}
-                        onChange={handleTimeChange}
-                        className="filter__select"
-                    >
-                        {timeOptions.map((option) => (
-                            <option key={option.value} value={option.value}>
-                                {option.label}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <button onClick={resetFilters} className="filter__reset">
-                    {t('filter.reset')}
-                </button>
-            </div>
-            <div className="card__list">
-                {filteredCards.map((card) => (
-                    <Card<IPortfolioCardFull>
-                        key={card.id}
-                        card={card}
-                        openModal={openModal}
-                        titleKey="title"
-                        subTitleKey="subTitle"
-                        imgKey="img"
-                        idKey="id"
-                    />
-                ))}
-            </div>
-            {selectedCard && isModalOpen && (
-                <Modal<IPortfolioCardFull>
-                    card={selectedCard}
-                    onClose={closeModal}
-                    config={modalConfig}
-                    titleKey="title"
-                    subTitleKey="subTitle"
-                    imgKey="img"
-                />
+                    </div>
+
+                    {selectedCard && isModalOpen && (
+                        <Modal<IPortfolioCardFull>
+                            card={selectedCard}
+                            onClose={closeModal}
+                            config={modalConfig}
+                            titleKey="title"
+                            subTitleKey="subTitle"
+                            imgKey="img"
+                        />
+                    )}
+                </>
             )}
         </div>
     );

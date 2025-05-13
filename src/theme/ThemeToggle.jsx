@@ -2,9 +2,7 @@ import { themeDB } from '@/shared/constants/navigation/theme';
 
 const ThemeToggle = ({ setThemes, theme }) => {
     const themesList = themeDB.map((el) => {
-        const toggleTheme = (newTheme) => {
-            setTheme(newTheme);
-        };
+        console.log('Current theme:', theme, 'Element value:', el.value);
 
         return (
             <div

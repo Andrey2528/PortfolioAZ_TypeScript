@@ -1,20 +1,20 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-
+import i18n from '@/i18n';
 import Modal from '@/shared/components/Modal/Modal';
 import Card from '@/shared/components/Card/Card';
-//import portfolioCard from '@/api/db/portfolioCardDB';
 import { IPortfolioCardFull } from '@/utils/interface/interfaceCard';
 import {
-    getUniqueRoles,
-    getUniqueYears,
-    getTimeOptions,
+    getFilteredRoles,
+    getFilteredYears,
+    getRoles,
 } from '@/components/Portfolio/filter';
 import modalConfig from '@/shared/components/Modal/modalConfig';
-
-import { fetchPortfolioCards } from '@/api/connectDB/databasefetch';
-
+import { fetchPortfolioCards } from '@/api/connectDB/databaseFetch';
+import { normalizeDBData } from '@/api/connectDB/normalizeDBData';
 import Loader from '../Loader/Loader';
+
+const tEn = i18n.getFixedT('en');
 
 const CardWrapper = () => {
     const { t } = useTranslation();
@@ -25,15 +25,21 @@ const CardWrapper = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [selectedRole, setSelectedRole] = useState<string>('');
     const [selectedYear, setSelectedYear] = useState<string>('');
-    const [timeFilter, setTimeFilter] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
+    // Отримуємо картки
     useEffect(() => {
         const getCards = async () => {
-            setIsLoading(true);
-            const data = await fetchPortfolioCards();
-            setCards(data);
-            setIsLoading(false);
+            try {
+                setIsLoading(true);
+                const data = await fetchPortfolioCards();
+                const normalizedData = normalizeDBData(data, tEn);
+                setCards(normalizedData);
+            } catch (error) {
+                console.error('Error fetching cards:', error);
+            } finally {
+                setIsLoading(false);
+            }
         };
         getCards();
     }, []);
@@ -41,31 +47,27 @@ const CardWrapper = () => {
     const resetFilters = () => {
         setSelectedRole('');
         setSelectedYear('');
-        setTimeFilter('');
     };
 
-    // Унікальні ролі для фільтра
-    const uniqueRoles = getUniqueRoles(cards, t);
+    // Отримуємо ролі для селекту
+    const roles = getRoles(t);
+    // Фільтруємо картки по ролі
+    console.log('Selected Role:', selectedRole);
+    const filteredByRoleCards = getFilteredRoles(cards, selectedRole);
+    // Отримуємо унікальні роки
+    const uniqueYears = getFilteredYears(filteredByRoleCards);
 
-    // Унікальні роки для фільтра
-    const uniqueYears = getUniqueYears(cards);
-
-    // Опції для фільтра timeToEndWork
-    const timeOptions = getTimeOptions(t);
-
-    // Фільтрація та сортування карток
-    const filteredCards = cards
+    // Фільтруємо картки по ролі, року і часу
+    const filteredCards = filteredByRoleCards
         .filter((card) => {
-            const roles = card.role.split(',').map((role) => role.trim());
-            const matchesRole = !selectedRole || roles.includes(selectedRole);
             const matchesYear =
-                !selectedYear || card.year === Number(selectedYear);
-            const timeHours = parseInt(card.timeToEndWork) || 0;
-            const matchesTime = !timeFilter || timeHours < parseInt(timeFilter);
-            return matchesRole && matchesYear && matchesTime;
-        })
-        .sort((a, b) => b.year - a.year);
+                !selectedYear || Number(card.year) === Number(selectedYear);
 
+            return matchesYear;
+        })
+        .sort((a, b) => Number(b.year) - Number(a.year));
+
+    // Відкриття модалки
     const openModal = (card: IPortfolioCardFull) => {
         setSelectedCard(card);
         setIsModalOpen(true);
@@ -84,10 +86,6 @@ const CardWrapper = () => {
         setSelectedYear(e.target.value);
     };
 
-    const handleTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setTimeFilter(e.target.value);
-    };
-
     return (
         <div className="container">
             {isLoading ? (
@@ -95,6 +93,7 @@ const CardWrapper = () => {
             ) : (
                 <>
                     <div className="filter__container">
+                        {/* Фільтр за роллю */}
                         <div className="filter__group">
                             <label
                                 htmlFor="roleFilter"
@@ -109,13 +108,15 @@ const CardWrapper = () => {
                                 className="filter__select"
                             >
                                 <option value="">{t('filter.all')}</option>
-                                {uniqueRoles.map((role) => (
-                                    <option key={role} value={role}>
-                                        {role}
+                                {roles.map((role) => (
+                                    <option key={role.key} value={role.key}>
+                                        {role.label}
                                     </option>
                                 ))}
                             </select>
                         </div>
+
+                        {/* Фільтр за роком */}
                         <div className="filter__group">
                             <label
                                 htmlFor="yearFilter"
@@ -137,29 +138,8 @@ const CardWrapper = () => {
                                 ))}
                             </select>
                         </div>
-                        <div className="filter__group">
-                            <label
-                                htmlFor="timeFilter"
-                                className="filter__label"
-                            >
-                                {t('filter.time')}
-                            </label>
-                            <select
-                                id="timeFilter"
-                                value={timeFilter}
-                                onChange={handleTimeChange}
-                                className="filter__select"
-                            >
-                                {timeOptions.map((option) => (
-                                    <option
-                                        key={option.value}
-                                        value={option.value}
-                                    >
-                                        {option.label}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+
+                        {/* Кнопка скидання фільтрів */}
                         <button
                             onClick={resetFilters}
                             className="filter__reset"

@@ -9,6 +9,14 @@
         "timeLessThan20": "Менше 20 годин",
         "timeLessThan50": "Менше 50 годин",
         "timeLessThan100": "Менше 100 годин",
+        "sort": "Сортувати за:",
+        "sortByIdAsc": "ID по зростанню",
+        "sortByIdDesc": "ID по спаданню",
+        "sortByDateAsc": "Даті по зростанню",
+        "sortByDateDesc": "Даті по спаданню",
+        "sortByNameAsc": "Імені по зростанню",
+        "sortByNameDesc": "Імені по спаданню",
+
         "reset": "Скинути фільтри"
     },
     "navMenu": {

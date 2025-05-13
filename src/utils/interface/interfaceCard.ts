@@ -17,4 +17,6 @@ export interface IPortfolioCardFull extends IPortfolioCardPreview {
     timeToEndWork: string;
     company: string;
     data: string;
+    normalizedRole?: string[];
+    normalizedCompany?: string;
 }

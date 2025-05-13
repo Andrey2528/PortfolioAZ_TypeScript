@@ -8,6 +8,13 @@
         "timeLessThan20": "Меньше 20 часов",
         "timeLessThan50": "Меньше 50 часов",
         "timeLessThan100": "Меньше 100 часов",
+        "sort": "Сортировать по:",
+        "sortByIdAsc": "ID по возрастанию",
+        "sortByIdDesc": "ID по убыванию",
+        "sortByDateAsc": "Дате по возрастанию",
+        "sortByDateDesc": "Дате по убыванию",
+        "sortByNameAsc": "Имени по возрастанию",
+        "sortByNameDesc": "Имени по убыванию",
         "reset": "Сбросить фильтры"
     },
     "navMenu": {

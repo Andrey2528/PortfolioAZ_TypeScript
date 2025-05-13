@@ -9,6 +9,14 @@
         "timeLessThan20": "Less than 20 hours",
         "timeLessThan50": "Less than 50 hours",
         "timeLessThan100": "Less than 100 hours",
+        "sort": "Sort by:",
+        "sortByIdAsc": "ID Ascending",
+        "sortByIdDesc": "ID Descending",
+        "sortByDateAsc": "Date Ascending",
+        "sortByDateDesc": "Date Descending",
+        "sortByNameAsc": "Name Ascending",
+        "sortByNameDesc": "Name Descending",
+
         "reset": "Reset Filters"
     },
     "navMenu": {

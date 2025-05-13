@@ -13,7 +13,8 @@ interface NavbarProps {
 }
 
 const Navbar: FC<NavbarProps> = ({ setTheme, theme }) => {
-    const { t } = useTranslation();
+    const { t, ready } = useTranslation();
+    if (!ready) return <div>Loading translations...</div>;
 
     const linksPage = navPage.map((el, i) => (
         <NavLink

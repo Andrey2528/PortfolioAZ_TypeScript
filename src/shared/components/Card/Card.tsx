@@ -1,6 +1,6 @@
+import { useTranslation } from 'react-i18next';
 import '@/styles/index.scss';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import placeholderImg from '../../../assets/placeholder.jpg';
 
 interface ICardProps<T> {

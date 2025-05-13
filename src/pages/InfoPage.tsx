@@ -8,7 +8,8 @@ import { ISkill } from '@/utils/interface/interfaceSocial';
 import { ISocialLink } from '@/utils/interface/interfaceSocial';
 
 const InfoPage: FC = () => {
-    const { t } = useTranslation();
+    const { t, ready } = useTranslation();
+    if (!ready) return <div>Loading translations...</div>;
 
     const socialLinksDb = socialLinks.map((item: ISocialLink) => (
         <li className="info__item" key={item.id}>

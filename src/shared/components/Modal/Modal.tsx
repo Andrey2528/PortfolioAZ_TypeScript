@@ -1,6 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
 import '@/styles/index.scss';
 import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import placeholderImg from '../../../assets/placeholder.jpg';
 
 interface IModalFieldConfig<T> {

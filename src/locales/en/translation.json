@@ -1,141 +1,144 @@
 {
-    "translation": {
-        "filter": {
-            "role": "Role:",
-            "year": "Year:",
-            "time": "Time:",
-            "all": "All",
-            "timeLessThan10": "Less than 10 hours",
-            "timeLessThan20": "Less than 20 hours",
-            "timeLessThan50": "Less than 50 hours",
-            "timeLessThan100": "Less than 100 hours",
-            "reset": "Reset Filters"
+    "filter": {
+        "role": "Role:",
+        "year": "Year:",
+        "time": "Time:",
+        "company": "Company:",
+        "all": "All",
+        "timeLessThan10": "Less than 10 hours",
+        "timeLessThan20": "Less than 20 hours",
+        "timeLessThan50": "Less than 50 hours",
+        "timeLessThan100": "Less than 100 hours",
+        "reset": "Reset Filters"
+    },
+    "navMenu": {
+        "logo": "Andrey Zhukov",
+        "link1": "Front-end Developer",
+        "link2": "About me",
+        "link3": "Portfolio",
+        "link4": "Certificates",
+        "link5": "English",
+        "link6": "Ukrainian",
+        "link7": "Russian",
+        "link8": "Dark mode",
+        "link9": "Light mode"
+    },
+    "theme": {
+        "dark": "Dark mode",
+        "light": "Light mode"
+    },
+    "portfolioCard": {
+        "title": {
+            "title1": "Denis Portfolio",
+            "title2": "Konstruct",
+            "title3": "Fair Partner",
+            "title4": "People Tobacco",
+            "title5": "Meat Hammer Site",
+            "title6": "Manipura",
+            "title7": "Batumi Racing Club",
+            "title8": "Sketch2Site Development",
+            "title9": "Sers",
+            "title10": "Biko Butik",
+            "title11": "Andriy Zhukov",
+            "title12": "Shashlyk Calculator"
         },
-        "navMenu": {
-            "logo": "Andrey Zhukov",
-            "link1": "Front-end\nDeveloper",
-            "link2": "About me",
-            "link3": "Portfolio",
-            "link4": "Sertificates",
-            "link5": "English",
-            "link6": "Українська",
-            "link7": "руский"
+        "description": {
+            "description1": "Denis Portfolio - A basic website that is a standard part of any portfolio.",
+            "description2": "Konstruct - A basic website that is a standard part of any portfolio.",
+            "description3": "Fair Partner - A website for the Polish company Fair Partner. A joint project with Meat Hammer Studio.",
+            "description4": "People Tobacco - A website for a company that produces hookah tobacco.",
+            "description5": "Meat Hammer Site - A company where I worked since 2020. This is its corporate website.",
+            "description6": "Manipura - A business card website for a yoga center.",
+            "description7": "Batumi Racing Club - A website built for a Georgian karting track, the largest karting track in Europe.",
+            "description8": "Sketch2Site Development - A website created for an international web development company.",
+            "description9": "Sers - A website developed on request for a Spanish web development company. Development time - 50 hours.",
+            "description10": "Biko Butik - Business card website for an online shop.",
+            "description11": "Andriy Zhukov - Portfolio website for myself.",
+            "description12": "Shashlyk Calculator - A website for calculating the amount of meat for a holiday."
         },
-        "theme": {
-            "dark": "Dark mode",
-            "light": "Light mode"
+        "subTitle": "Website",
+        "role1": "Developer",
+        "role2": "Designer",
+        "role3": "Project Manager",
+        "role4": "Team Lead",
+        "platform1": "Static site",
+        "platform2": "Adaptive site",
+        "type1": "Marketplace",
+        "type2": "Landing",
+        "type3": "Multi-page",
+        "urlNotAviable": "Site is currently not publicly available.",
+        "old": "(Old design)",
+        "timeWork": {
+            "title": "Time spent",
+            "Hours": "hour",
+            "Hours_plural": "hours",
+            "Days": "day",
+            "Days_plural": "days",
+            "Month": "month",
+            "Month_plural": "months",
+            "Year": "year"
+        }
+    },
+    "InfoPage": {
+        "description": {
+            "description1": "I specialize in front-end development. Being independent, I work with small to large companies, startups, design studios, and creative individuals globally.",
+            "description2": "With 5+ years of dedicated experience, I have been involved with crafting digital experiences that captivate and engage. I focus on interaction and offer a meticulous approach to detail-oriented development. I genuinely relish bringing ideas to life, transforming them into bespoke, user-friendly, and aesthetically pleasing websites.",
+            "description3": "But above all, my biggest passion is forming strong working relationships and genuine bonds with other like-minded, creative people."
         },
-        "portfolioCard": {
-            "title": {
-                "title1": "Denis Portfolio",
-                "title2": "Konstruct",
-                "title3": "Fair Partner",
-                "title4": "People Tobacco",
-                "title5": "Meat Hammer Site",
-                "title6": "Manipura",
-                "title7": "Batumi Racing Club",
-                "title8": "Sketch2Site Development",
-                "title9": "Sers",
-                "title10": "Biko Butik",
-                "title11": "Andriy Zhukov",
-                "title12": "Shashlychny calculator"
-            },
-            "description": {
-                "description1": "Denis Portfolio - A basic website that is a standard part of any portfolio.",
-                "description2": "Konstruct - A basic website that is a standard part of any portfolio.",
-                "description3": "Fair Partner - A website for the Polish company Fair Partner. A joint project with Meat Hammer Studio.",
-                "description4": "People Tobacco - A website for a company that produces hookah tobacco.",
-                "description5": "Meat Hammer Site - A company where I worked since 2020. This is its corporate website.",
-                "description6": "Manipura - A business card website for a yoga center.",
-                "description7": "Batumi Racing Club - A website built for a Georgian karting track, the largest karting track in Europe.",
-                "description8": "Sketch2Site Development - A website created for an international web development company.",
-                "description9": "Sers - A website developed on request for a Spanish web development company. Development time - 50 hours.",
-                "description10": "Biko Butik - business card website for online shop.",
-                "description11": "Andriy Zhukov - site portfolio for me.",
-                "description12": "Shashlychny calculator - a site for calculating the amount of meat for the holiday."
-            },
-            "subTitle": "Web-site",
-            "role1": "Developer",
-            "role2": "Designer",
-            "role3": "Project manager",
-            "role4": "Team lead",
-            "platform1": "Static site",
-            "platform2": "Adaptive site",
-            "type1": "Market place",
-            "type2": "Landing",
-            "type3": "Multi page",
-            "urlNotAviable": "Site is currently not publicly available.",
-            "old": "(Old design)",
-            "timeWork": {
-                "title": "Time spent",
-                "Hours1": "Hours",
-                "Hours2": "Hours",
-                "Days1": "Days",
-                "Days2": "Days",
-                "Month1": "Month",
-                "Month2": "Month",
-                "Year": "Year"
-            }
+        "skills": {
+            "skillsTitle": "Skills",
+            "skillsText1": "HTML, CSS, JavaScript, React, React Native, Redux, Node.js, Express.js, MongoDB, MySQL, PHP",
+            "skillsText2": "C++, C#, Java, Python",
+            "skillsText3": "Figma, Photoshop",
+            "skillsText4": "Git, GitHub, Trello",
+            "skillsText5": "Responsive Design, Mobile First, Progressive Enhancement"
         },
-        "InfoPage": {
-            "description": {
-                "description1": "I specialise in front-end development. Being independent, I work with small to large companies, startups, design studios, and creative individuals globally.",
-                "description2": "With 5+ years of dedicated experience, I have been involved with crafting digital experiences that captivate and engage. I focus on interaction and offer a meticulous approach to detail-oriented development. I genuinely relish bringing ideas to life, transforming them into bespoke, user-friendly and aesthetically pleasing websites.",
-                "description3": "But above all, my biggest passion is forming strong working relationships and genuine bonds with other like-minded, creative people."
-            },
-            "skills": {
-                "skillsTitle": "Skills",
-                "skillsText1": "HTML, CSS, JavaScript, React, React Native, Redux, Node.js, Express.js, MongoDB, MySQL, PHP.",
-                "skillsText2": "C++, C#, Java, Python.",
-                "skillsText3": "Figma, Photoshop.",
-                "skillsText4": "Git, GitHub, Trello.",
-                "skillsText5": "Responsive Design, Mobile First, Progressive Enhancement."
-            },
-            "experience": {
-                "experienceTitle": "Work experience",
-                "experienceText1": "Meat Hammer Studio (2020-2023): Web development, SMM, social media admin, project management.",
-                "experienceText2": "Freelance (2023 - now): Web development, CEO, design."
-            },
-            "titleLocation": "Location",
-            "titleContact": "Contact",
-            "location": "Ivano-Frankivsk, Ukraine",
-            "aboutTitle": "About me",
-            "aboutSubtitle": "Fast adaptation, effective time management",
-            "aboutText": "Team player, responsible, quickly learn new tech. 3 years of IT experience."
+        "experience": {
+            "experienceTitle": "Work experience",
+            "experienceText1": "Meat Hammer Studio (2020-2023): Web development, SMM, social media admin, project management.",
+            "experienceText2": "Freelance (2023 - now): Web development, CEO, design."
         },
-        "modal": {
-            "ID": "Id",
-            "Year": "Year",
-            "Design": "Design",
-            "Role": "Role",
-            "Tags": "Technoligies",
-            "Platform": "Platform",
-            "Type": "Type",
-            "URL": "URL",
-            "company": "Company",
-            "date": "Date"
+        "titleLocation": "Location",
+        "titleContact": "Contact",
+        "location1": "Ivano-Frankivsk, Ukraine",
+        "location2": "Kherson, Ukraine",
+        "aboutTitle": "About me",
+        "aboutSubtitle": "Fast adaptation, effective time management",
+        "aboutText": "Team player, responsible, quickly learn new tech. 5 years of IT experience."
+    },
+    "modal": {
+        "ID": "Id",
+        "Year": "Year",
+        "Design": "Design",
+        "Role": "Role",
+        "Tags": "Technologies",
+        "Platform": "Platform",
+        "Type": "Type",
+        "URL": "URL",
+        "description": "Description",
+        "company": "Company",
+        "date": "Date"
+    },
+    "certificate": {
+        "title": {
+            "title1": "Responsive Web Design",
+            "title2": "Front End Development Libraries",
+            "title3": "Data Visualization",
+            "title4": "Legacy JavaScript Algorithms and Data Structures",
+            "title5": "Blockchain Foundation",
+            "title6": "Introduction to ESIO - Non-technical",
+            "title7": "Introduction to ESIO - Technical",
+            "title8": "ESIO Developer Environment Setup",
+            "title9": "Marketing IT-product"
         },
-        "certificate": {
-            "title": {
-                "title1": "Responsive Web Design",
-                "title2": "Front End Development Libraries",
-                "title3": "Data Visualization",
-                "title4": "Legacy JavaScript Algorithms and Data Structures",
-                "title5": "Blockchain Foundation",
-                "title6": "Introduction to ESIO - Non-technical",
-                "title7": "Introduction to ESIO - Technical",
-                "title8": "ESIO Developer Envirinment Setup",
-                "title9": "Marketing IT-product"
-            },
-            "subTitle": {
-                "subTitle1": "Certificate",
-                "subTitle2": "Course"
-            },
-            "company": {
-                "company1": "Genesis",
-                "company2": "ESIO",
-                "company3": "FreeCodeCamp"
-            }
+        "subTitle": {
+            "subTitle1": "Certificate",
+            "subTitle2": "Course"
+        },
+        "company": {
+            "company1": "Genesis",
+            "company2": "ESIO",
+            "company3": "FreeCodeCamp"
         }
     }
 }

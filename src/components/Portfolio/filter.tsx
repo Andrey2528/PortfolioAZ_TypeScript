@@ -1,5 +1,5 @@
 //import { portfolioCardDB } from '@/api/db/portfolioCardDB';
-import { certificateDB } from '@/api/db/certificateDB';
+//import { certificateDB } from '@/api/db/certificateDB';
 import { TFunction } from 'i18next';
 import { IPortfolioCardFull } from '@/utils/interface/interfaceCard';
 

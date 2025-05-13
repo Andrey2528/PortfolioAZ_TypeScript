@@ -1,68 +1,67 @@
-import i18n from 'i18next';
+import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 import Menu, { Item as MenuItem, SelectInfo } from 'rc-menu';
 import { useEffect, useState } from 'react';
 import ReactGA from 'react-ga4';
-import '@/styles/index.scss';
-import { useTranslation } from 'react-i18next';
+
+enum Language {
+    EN = 'en',
+    UK = 'uk',
+    RU = 'ru',
+}
+
+const languageOptions: { code: Language; labelKey: string }[] = [
+    { code: Language.EN, labelKey: 'navMenu.link5' },
+    { code: Language.UK, labelKey: 'navMenu.link6' },
+    { code: Language.RU, labelKey: 'navMenu.link7' },
+];
 
 const LanguageSwitcher = () => {
-    const { t } = useTranslation();
-    const [defaultLang, setDefaultLang] = useState<string>(() => {
-        return Cookies.get('language') || 'en';
+    const { t, i18n } = useTranslation();
+    const [defaultLang, setDefaultLang] = useState<Language>(() => {
+        const savedLang = Cookies.get('language') as Language;
+        return Object.values(Language).includes(savedLang)
+            ? savedLang
+            : (i18n.language as Language) || Language.EN;
     });
 
     useEffect(() => {
-        console.log(Cookies.get('language'));
-    }, []);
+        if (i18n.language !== defaultLang) {
+            i18n.changeLanguage(defaultLang);
+        }
+    }, [defaultLang, i18n]);
 
     const handleChange = (e: SelectInfo) => {
-        const lang = e.key;
-        Cookies.set('language', lang, { expires: 365 });
+        const selectedLang = e.key as Language;
+        if (selectedLang === defaultLang) return;
 
-        ReactGA.event({
-            category: 'LanguageSwitcher',
-            action: `${lang} version is chosen`,
+        i18n.changeLanguage(selectedLang).then(() => {
+            Cookies.set('language', selectedLang, { expires: 365 });
+            setDefaultLang(selectedLang);
+
+            ReactGA.event({
+                category: 'LanguageSwitcher',
+                action: `${selectedLang} version is chosen`,
+            });
         });
-
-        i18n.changeLanguage(lang);
-        setDefaultLang(lang);
     };
 
     return (
         <ul className="language__list">
             <li className="language__item">
-                <Menu onSelect={handleChange}>
-                    <MenuItem
-                        key="en"
-                        className={
-                            defaultLang === 'en'
-                                ? 'active_li'
-                                : 'navbar__nav__link'
-                        }
-                    >
-                        {t('navMenu.link5')}
-                    </MenuItem>
-                    <MenuItem
-                        key="uk"
-                        className={
-                            defaultLang === 'uk'
-                                ? 'active_li'
-                                : 'navbar__nav__link'
-                        }
-                    >
-                        {t('navMenu.link6')}
-                    </MenuItem>
-                    <MenuItem
-                        key="ru"
-                        className={
-                            defaultLang === 'ru'
-                                ? 'active_li'
-                                : 'navbar__nav__link'
-                        }
-                    >
-                        {t('navMenu.link7')}
-                    </MenuItem>
+                <Menu onSelect={handleChange} selectedKeys={[defaultLang]}>
+                    {languageOptions.map(({ code, labelKey }) => (
+                        <MenuItem
+                            key={code}
+                            className={
+                                defaultLang === code
+                                    ? 'active_li'
+                                    : 'navbar__nav__link'
+                            }
+                        >
+                            {t(labelKey)}
+                        </MenuItem>
+                    ))}
                 </Menu>
             </li>
         </ul>

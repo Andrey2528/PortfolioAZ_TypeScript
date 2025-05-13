@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import socialLinks from '@/api/db/socialLinks';
 import skillsListDB from '@/api/db/skillsList';
 import logo from '@/assets/logo.png';
+import { motion } from 'framer-motion';
 import { FC } from 'react';
 
 import { ISkill } from '@/utils/interface/interfaceSocial';
@@ -12,7 +13,13 @@ const InfoPage: FC = () => {
     if (!ready) return <div>Loading translations...</div>;
 
     const socialLinksDb = socialLinks.map((item: ISocialLink) => (
-        <li className="info__item" key={item.id}>
+        <motion.li
+            className="info__item"
+            key={item.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: item.id * 0.1 }}
+        >
             <a
                 href={item.link}
                 className="info__text"
@@ -21,13 +28,19 @@ const InfoPage: FC = () => {
             >
                 {item.title}
             </a>
-        </li>
+        </motion.li>
     ));
 
     const skillsList = skillsListDB.map((item: ISkill) => (
-        <li className="info__item" key={item.id}>
+        <motion.li
+            className="info__item"
+            key={item.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: item.id * 0.1 }}
+        >
             <p className="info__text info_description">{item.title}</p>
-        </li>
+        </motion.li>
     ));
 
     return (

@@ -1,4 +1,4 @@
-import CardWrapper from '@/components/Portfolio/cardWrapper';
+import CardWrapper from '@/components/Portfolio/CardWrapper';
 
 const HomePage = () => {
     return (

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 import i18n from '@/i18n';
 import Modal from '@/shared/components/Modal/Modal';
 import Card from '@/shared/components/Card/Card';
@@ -26,6 +27,9 @@ const CardWrapper = () => {
     const [selectedRole, setSelectedRole] = useState<string>('');
     const [selectedYear, setSelectedYear] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set()); // Відстежуємо видимі картки
+
+    const observerRef = useRef<IntersectionObserver | null>(null);
 
     // Отримуємо картки
     useEffect(() => {
@@ -51,13 +55,9 @@ const CardWrapper = () => {
 
     // Отримуємо ролі для селекту
     const roles = getRoles(t);
-    // Фільтруємо картки по ролі
-    console.log('Selected Role:', selectedRole);
     const filteredByRoleCards = getFilteredRoles(cards, selectedRole);
-    // Отримуємо унікальні роки
     const uniqueYears = getFilteredYears(filteredByRoleCards);
 
-    // Фільтруємо картки по ролі, року і часу
     const filteredCards = filteredByRoleCards
         .filter((card) => {
             const matchesYear =
@@ -67,7 +67,29 @@ const CardWrapper = () => {
         })
         .sort((a, b) => Number(b.year) - Number(a.year));
 
-    // Відкриття модалки
+    // Intersection Observer для відстеження видимості елементів
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const index = Number(
+                            entry.target.getAttribute('data-index'),
+                        );
+                        setVisibleCards((prev) => new Set(prev).add(index));
+                    }
+                });
+            },
+            { threshold: 0.1 }, // Елемент вважається видимим, якщо 10% його площі у видимій області
+        );
+
+        observerRef.current = observer;
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
     const openModal = (card: IPortfolioCardFull) => {
         setSelectedCard(card);
         setIsModalOpen(true);
@@ -149,28 +171,64 @@ const CardWrapper = () => {
                     </div>
 
                     <div className="card__list">
-                        {filteredCards.map((card) => (
-                            <Card<IPortfolioCardFull>
+                        {filteredCards.map((card, index) => (
+                            <motion.div
                                 key={card.id}
-                                card={card}
-                                openModal={openModal}
-                                titleKey="title"
-                                subTitleKey="subTitle"
-                                imgKey="img"
-                                idKey="id"
-                            />
+                                className="card"
+                                data-index={index} // Додаємо індекс для відстеження
+                                ref={(el) => {
+                                    if (el && observerRef.current) {
+                                        observerRef.current.observe(el);
+                                    }
+                                }}
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={
+                                    visibleCards.has(index)
+                                        ? { opacity: 1, y: 0 }
+                                        : { opacity: 0, y: 50 }
+                                }
+                                transition={{
+                                    duration: 0.5,
+                                    delay: index * 0.1,
+                                }}
+                            >
+                                <Card<IPortfolioCardFull>
+                                    card={card}
+                                    openModal={openModal}
+                                    titleKey="title"
+                                    subTitleKey="subTitle"
+                                    imgKey="img"
+                                    idKey="id"
+                                />
+                            </motion.div>
                         ))}
                     </div>
 
                     {selectedCard && isModalOpen && (
-                        <Modal<IPortfolioCardFull>
-                            card={selectedCard}
-                            onClose={closeModal}
-                            config={modalConfig}
-                            titleKey="title"
-                            subTitleKey="subTitle"
-                            imgKey="img"
-                        />
+                        <motion.div
+                            className="modal-overlay" // Клас для стилізації фону модального вікна
+                            initial={{ opacity: 0 }} // Початковий стан (прозорий фон)
+                            animate={{ opacity: 1 }} // Кінцевий стан (видимий фон)
+                            exit={{ opacity: 0 }} // Стан при закритті (знову прозорий)
+                            transition={{ duration: 0.3 }} // Тривалість анімації
+                        >
+                            <motion.div
+                                className="modal-content" // Клас для стилізації контенту модального вікна
+                                initial={{ opacity: 0, scale: 0.8 }} // Початковий стан (зменшений і прозорий)
+                                animate={{ opacity: 1, scale: 1 }} // Кінцевий стан (повний розмір і видимий)
+                                exit={{ opacity: 0, scale: 0.8 }} // Стан при закритті (зменшений і прозорий)
+                                transition={{ duration: 0.3 }} // Тривалість анімації
+                            >
+                                <Modal<IPortfolioCardFull>
+                                    card={selectedCard}
+                                    onClose={closeModal}
+                                    config={modalConfig}
+                                    titleKey="title"
+                                    subTitleKey="subTitle"
+                                    imgKey="img"
+                                />
+                            </motion.div>
+                        </motion.div>
                     )}
                 </>
             )}

@@ -31,7 +31,7 @@ const Card = <T,>({
     return (
         <div
             id={String(card[idKey])}
-            className={`card ${isActive ? 'active' : ''}`}
+            //className={`card ${isActive ? 'active' : ''}`}
             onClick={handleClick}
         >
             <h3 className="card__title">{t(String(card[titleKey]))}</h3>

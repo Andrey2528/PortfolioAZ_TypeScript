@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { ThemeContext } from '@/ThemeContext'; // заміни шлях, якщо потрібно
-import '@/styles/index.scss';
+import { ThemeContext } from '@/theme/ThemeContext'; // заміни шлях, якщо потрібно
+import '@/shared/styles/index.scss';
 import imgDark from '@/assets/logo_spiner_dark.jpg';
 import imgLight from '@/assets/logo_spiner_light.jpg';
 

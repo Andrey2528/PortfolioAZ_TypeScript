@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import '@/styles/index.scss';
+import '@/shared/styles/index.scss';
 import { useState } from 'react';
 import placeholderImg from '../../../assets/placeholder.jpg';
 

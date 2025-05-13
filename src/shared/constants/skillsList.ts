@@ -1,6 +1,6 @@
-import i18next from '../../i18n';
-
-export const skillsListDB = [
+import i18next from '../../utils/i18n';
+import { ISkill } from '@/utils/interface/interfaceSocial';
+export const skillsListDB: ISkill[] = [
     {
         id: 5,
         title: i18next.t('InfoPage.skills.skillsText5'),

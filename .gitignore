@@ -10,3 +10,4 @@
 /dist/index.html
 node_modules
 stats.html
+.env.local

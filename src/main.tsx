@@ -1,12 +1,12 @@
-import i18n from './i18n';
+import i18n from './utils/i18n.js';
 
 import router from '@/router';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
-import { ThemeProvider } from '@/ThemeContext';
+import { ThemeProvider } from '@/theme/ThemeContext';
 
-import '@/firebase';
+import '@/utils/firebase';
 import { I18nextProvider } from 'react-i18next';
 
 const rootElement = document.getElementById('root') as HTMLElement;

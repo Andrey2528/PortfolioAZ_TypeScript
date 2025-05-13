@@ -1,19 +1,24 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import i18n from '@/i18n';
+import i18n from '@/utils/i18n';
 import Modal from '@/shared/components/Modal/Modal';
-import Card from '@/shared/components/Card/Card';
-import { IPortfolioCardFull } from '@/utils/interface/interfaceCard';
+import RenderCard from '@/shared/components/Card/RenderCard';
+import { IPortfolioCardFull } from '@/shared/interface/interfaceCard';
 import {
     getFilteredRoles,
     getFilteredYears,
     getRoles,
-} from '@/components/Portfolio/filter';
+} from '@/shared/config/filterConfig';
 import modalConfig from '@/shared/components/Modal/modalConfig';
 import { fetchPortfolioCards } from '@/api/connectDB/databaseFetch';
 import { normalizeDBData } from '@/api/connectDB/normalizeDBData';
-import Loader from '../Loader/Loader';
+import Loader from '../../shared/components/Loader/Loader';
+import {
+    animationModalOverlayProps,
+    animationModalContentProps,
+} from '@/shared/config/animationConfig';
+import Filters from './filterContainer';
 
 const tEn = i18n.getFixedT('en');
 
@@ -27,48 +32,46 @@ const CardWrapper = () => {
     const [selectedRole, setSelectedRole] = useState<string>('');
     const [selectedYear, setSelectedYear] = useState<string>('');
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set()); // Відстежуємо видимі картки
+    const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
 
     const observerRef = useRef<IntersectionObserver | null>(null);
 
-    // Отримуємо картки
+    // Завантаження карток
+    const getCards = async () => {
+        try {
+            setIsLoading(true);
+            const data = await fetchPortfolioCards();
+            const normalizedData = normalizeDBData(data, tEn);
+            setCards(normalizedData);
+        } catch (error) {
+            console.error('Error fetching cards:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const getCards = async () => {
-            try {
-                setIsLoading(true);
-                const data = await fetchPortfolioCards();
-                const normalizedData = normalizeDBData(data, tEn);
-                setCards(normalizedData);
-            } catch (error) {
-                console.error('Error fetching cards:', error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
         getCards();
     }, []);
 
-    const resetFilters = () => {
-        setSelectedRole('');
-        setSelectedYear('');
+    // Фільтрація карток
+    const getFilteredCards = () => {
+        const filteredByRoleCards = getFilteredRoles(cards, selectedRole);
+        const filteredByYearCards = filteredByRoleCards.filter((card) =>
+            selectedYear ? Number(card.year) === Number(selectedYear) : true,
+        );
+        return filteredByYearCards.sort(
+            (a, b) => Number(b.year) - Number(a.year),
+        );
     };
 
-    // Отримуємо ролі для селекту
+    const filteredCards = getFilteredCards();
     const roles = getRoles(t);
-    const filteredByRoleCards = getFilteredRoles(cards, selectedRole);
-    const uniqueYears = getFilteredYears(filteredByRoleCards);
+    const uniqueYears = getFilteredYears(filteredCards);
 
-    const filteredCards = filteredByRoleCards
-        .filter((card) => {
-            const matchesYear =
-                !selectedYear || Number(card.year) === Number(selectedYear);
-
-            return matchesYear;
-        })
-        .sort((a, b) => Number(b.year) - Number(a.year));
-
-    // Intersection Observer для відстеження видимості елементів
+    // Intersection Observer
     useEffect(() => {
+        if (observerRef.current) return;
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -80,7 +83,7 @@ const CardWrapper = () => {
                     }
                 });
             },
-            { threshold: 0.1 }, // Елемент вважається видимим, якщо 10% його площі у видимій області
+            { threshold: 0.1 },
         );
 
         observerRef.current = observer;
@@ -90,6 +93,7 @@ const CardWrapper = () => {
         };
     }, []);
 
+    // Обробники подій
     const openModal = (card: IPortfolioCardFull) => {
         setSelectedCard(card);
         setIsModalOpen(true);
@@ -108,116 +112,48 @@ const CardWrapper = () => {
         setSelectedYear(e.target.value);
     };
 
+    const resetFilters = () => {
+        setSelectedRole('');
+        setSelectedYear('');
+    };
+
     return (
         <div className="container">
             {isLoading ? (
                 <Loader />
             ) : (
                 <>
-                    <div className="filter__container">
-                        {/* Фільтр за роллю */}
-                        <div className="filter__group">
-                            <label
-                                htmlFor="roleFilter"
-                                className="filter__label"
-                            >
-                                {t('filter.role')}
-                            </label>
-                            <select
-                                id="roleFilter"
-                                value={selectedRole}
-                                onChange={handleRoleChange}
-                                className="filter__select"
-                            >
-                                <option value="">{t('filter.all')}</option>
-                                {roles.map((role) => (
-                                    <option key={role.key} value={role.key}>
-                                        {role.label}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        {/* Фільтр за роком */}
-                        <div className="filter__group">
-                            <label
-                                htmlFor="yearFilter"
-                                className="filter__label"
-                            >
-                                {t('filter.year')}
-                            </label>
-                            <select
-                                id="yearFilter"
-                                value={selectedYear}
-                                onChange={handleYearChange}
-                                className="filter__select"
-                            >
-                                <option value="">{t('filter.all')}</option>
-                                {uniqueYears.map((year) => (
-                                    <option key={year} value={year}>
-                                        {year}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        {/* Кнопка скидання фільтрів */}
-                        <button
-                            onClick={resetFilters}
-                            className="filter__reset"
-                        >
-                            {t('filter.reset')}
-                        </button>
-                    </div>
+                    <Filters
+                        roles={roles}
+                        uniqueYears={uniqueYears}
+                        selectedRole={selectedRole}
+                        selectedYear={selectedYear}
+                        onRoleChange={handleRoleChange}
+                        onYearChange={handleYearChange}
+                        onReset={resetFilters}
+                    />
 
                     <div className="card__list">
                         {filteredCards.map((card, index) => (
-                            <motion.div
+                            <RenderCard
                                 key={card.id}
-                                className="card"
-                                data-index={index} // Додаємо індекс для відстеження
-                                ref={(el) => {
-                                    if (el && observerRef.current) {
-                                        observerRef.current.observe(el);
-                                    }
-                                }}
-                                initial={{ opacity: 0, y: 50 }}
-                                animate={
-                                    visibleCards.has(index)
-                                        ? { opacity: 1, y: 0 }
-                                        : { opacity: 0, y: 50 }
-                                }
-                                transition={{
-                                    duration: 0.5,
-                                    delay: index * 0.1,
-                                }}
-                            >
-                                <Card<IPortfolioCardFull>
-                                    card={card}
-                                    openModal={openModal}
-                                    titleKey="title"
-                                    subTitleKey="subTitle"
-                                    imgKey="img"
-                                    idKey="id"
-                                />
-                            </motion.div>
+                                card={card}
+                                index={index}
+                                observerRef={observerRef}
+                                visibleCards={visibleCards}
+                                openModal={openModal}
+                            />
                         ))}
                     </div>
 
                     {selectedCard && isModalOpen && (
                         <motion.div
-                            className="modal-overlay" // Клас для стилізації фону модального вікна
-                            initial={{ opacity: 0 }} // Початковий стан (прозорий фон)
-                            animate={{ opacity: 1 }} // Кінцевий стан (видимий фон)
-                            exit={{ opacity: 0 }} // Стан при закритті (знову прозорий)
-                            transition={{ duration: 0.3 }} // Тривалість анімації
+                            className="modal-overlay"
+                            {...animationModalOverlayProps}
                         >
                             <motion.div
-                                className="modal-content" // Клас для стилізації контенту модального вікна
-                                initial={{ opacity: 0, scale: 0.8 }} // Початковий стан (зменшений і прозорий)
-                                animate={{ opacity: 1, scale: 1 }} // Кінцевий стан (повний розмір і видимий)
-                                exit={{ opacity: 0, scale: 0.8 }} // Стан при закритті (зменшений і прозорий)
-                                transition={{ duration: 0.3 }} // Тривалість анімації
+                                className="modal-content"
+                                {...animationModalContentProps}
                             >
                                 <Modal<IPortfolioCardFull>
                                     card={selectedCard}

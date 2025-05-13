@@ -1,8 +1,8 @@
 import { Footer, Navbar } from '@/shared/components';
 import { Outlet, useLocation } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
-import '@/styles/index.scss';
-import { ThemeContext } from '@/ThemeContext';
+import '@/shared/styles/index.scss';
+import { ThemeContext } from '@/theme/ThemeContext';
 
 const Layout = () => {
     const themeContext = useContext(ThemeContext);

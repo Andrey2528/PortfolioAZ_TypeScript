@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '@/shared/components/Navbar/LanguageSwitcher';
-import { navPage } from '@/api/navigation/navPage';
+import { navPage } from '@/shared/constants/navigation/navPage';
 import { NavLink } from 'react-router-dom';
 import ThemeToggle from '@/theme/ThemeToggle';
-import '@/styles/index.scss';
+import '@/shared/styles/index.scss';
 import { FC } from 'react';
 
 // Типізація пропсів

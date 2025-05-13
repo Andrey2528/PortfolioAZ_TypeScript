@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import '@/styles/index.scss';
+import '@/shared/styles/index.scss';
 import { useEffect } from 'react';
 import placeholderImg from '../../../assets/placeholder.jpg';
 

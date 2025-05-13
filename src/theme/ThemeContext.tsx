@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
-import '@/styles/index.scss';
+import '@/shared/styles/index.scss';
 
 interface IThemeProviderProps {
     children: ReactNode;

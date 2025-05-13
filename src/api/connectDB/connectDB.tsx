@@ -1,5 +1,5 @@
 import { collection, addDoc, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../utils/firebase';
 //import portfolioCardDB from '../db/portfolioCardDB';
 import certificateDB from '../db/certificateDB';
 

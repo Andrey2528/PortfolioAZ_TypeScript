@@ -1,5 +1,4 @@
-@use '@/styles/partials/_variables.scss' as vars;
-
+@use '../partials/_variables.scss' as vars;
 .main {
     &__title {
         text-align: center;

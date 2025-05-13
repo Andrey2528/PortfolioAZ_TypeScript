@@ -1,4 +1,4 @@
-import { themeDB } from '@/api/navigation/theme';
+import { themeDB } from '@/shared/constants/navigation/theme';
 
 const ThemeToggle = ({ setThemes, theme }) => {
     const themesList = themeDB.map((el) => {

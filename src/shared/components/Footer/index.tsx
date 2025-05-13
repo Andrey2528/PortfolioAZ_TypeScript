@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import '@/styles/partials/_footer.scss';
-import { socialImg } from '@/api/db/socialImg';
+import '@/shared/styles/index.scss';
+import socialImg from '@/shared/constants/socialImg';
 import { v4 as uuidv4 } from 'uuid';
-import socialLinks from '@/api/db/socialLinks';
+import socialLinks from '@/shared/constants/socialLinks';
 
 const Footer = ({ theme }) => {
     const { t } = useTranslation();

@@ -1,4 +1,4 @@
-@use '@/styles/partials/_variables.scss' as vars;
+@use '../partials/_variables.scss' as vars;
 .dark {
     background: vars.$dark-theme-black;
     color: vars.$dark-theme-white;

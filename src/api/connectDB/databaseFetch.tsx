@@ -1,5 +1,5 @@
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase';
+import { db } from '../../utils/firebase';
 import { IPortfolioCardFull } from '@/utils/interface/interfaceCard';
 
 export const fetchPortfolioCards = async (): Promise<IPortfolioCardFull[]> => {

@@ -1,4 +1,4 @@
-import { ISocialLink } from '../../utils/interface/interfaceSocial';
+import { ISocialLink } from '@/utils/interface/interfaceSocial';
 export const socialLinks: ISocialLink[] = [
     {
         id: 5,

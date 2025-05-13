@@ -7,7 +7,13 @@ import img2Light from '@/assets/images/socialIMG/light/socialInstagram.svg';
 import img3Light from '@/assets/images/socialIMG/light/socialLinkedin.svg';
 import img4Light from '@/assets/images/socialIMG/light/socialTelegram.svg';
 
-export const socialImg = [
+interface ISocialImg {
+    id: number;
+    img: string;
+    title: string;
+}
+
+export const socialImg: ISocialImg[] = [
     {
         id: 8,
         img: img4Light,

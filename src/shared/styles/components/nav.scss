@@ -1,4 +1,4 @@
-@use '@/styles/partials/_variables.scss' as vars;
+@use '../partials/_variables.scss' as vars;
 .navbar__nav {
     display: flex;
     flex-direction: column;

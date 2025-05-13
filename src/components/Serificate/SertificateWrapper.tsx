@@ -2,13 +2,13 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
-import { IPortfolioCardFull } from '@/utils/interface/interfaceCard';
+import { IPortfolioCardFull } from '@/shared/interface/interfaceCard';
 import Card from '@/shared/components/Card/Card';
 import Modal from '@/shared/components/Modal/Modal';
 import modalConfig from '@/shared/components/Modal/modalConfig';
-import { getFilteredCompanies } from '@/components/Portfolio/filter';
+import { getFilteredCompanies } from '@/shared/config/filterConfig';
 import { fetchSertificateCards } from '@/api/connectDB/databaseFetch';
-import Loader from '../Loader/Loader';
+import Loader from '../../shared/components/Loader/Loader';
 
 const SertificateWrapper = () => {
     const { t } = useTranslation();

@@ -1,0 +1,160 @@
+.image-uploader {
+    .current-image {
+        position: relative;
+        margin-bottom: 15px;
+        display: inline-block;
+
+        img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            object-fit: cover;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #dc3545;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+                background: #c82333;
+            }
+        }
+    }
+
+    .upload-zone {
+        border: 2px dashed #ddd;
+        border-radius: 8px;
+        padding: 40px 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 15px;
+
+        &:hover {
+            border-color: #007acc;
+            background: #f8f9fa;
+        }
+
+        &.drag-over {
+            border-color: #007acc;
+            background: #e3f2fd;
+        }
+
+        &.uploading {
+            cursor: not-allowed;
+            background: #f5f5f5;
+        }
+
+        .uploading-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+
+            .spinner {
+                width: 24px;
+                height: 24px;
+                border: 3px solid #f3f3f3;
+                border-top: 3px solid #007acc;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+
+            span {
+                color: #666;
+                font-size: 14px;
+            }
+        }
+
+        .upload-content {
+            .upload-icon {
+                font-size: 48px;
+                margin-bottom: 10px;
+            }
+
+            .upload-text {
+                p {
+                    margin: 0 0 5px 0;
+                    color: #333;
+                    font-size: 16px;
+                }
+
+                small {
+                    color: #666;
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    .url-input-section {
+        margin-bottom: 15px;
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+
+            &:focus {
+                outline: none;
+                border-color: #007acc;
+            }
+        }
+    }
+
+    .upload-tips {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        padding: 15px;
+        font-size: 13px;
+
+        p {
+            margin: 0 0 10px 0;
+            font-weight: 600;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+
+            li {
+                margin-bottom: 5px;
+                color: #666;
+            }
+        }
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

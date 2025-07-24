@@ -49,7 +49,7 @@ $base_body_line_height: 114%;
 $base_font_weight: 400;
 
 /*--color--*/
-$dark-theme-10:  rgba(196, 196, 196, 1);
+$dark-theme-10: rgba(196, 196, 196, 1);
 $dark-theme-20: rgba(153, 153, 153, 1);
 $dark-theme-30: rgba(107, 107, 107, 1);
 $dark-theme-40: rgba(69, 69, 69, 1);
@@ -66,7 +66,6 @@ $light-theme-black: rgba(41, 41, 41, 1);
 $dark-theme-50-radius: rgba(247, 247, 247, 1);
 $dark-theme-50-light: rgba(235, 235, 235, 1);
 
-
 $light-theme-10: rgba(153, 153, 153, 1);
 $light-theme-20: rgba(107, 107, 107, 1);
 $light-theme-30: rgba(196, 196, 196, 1);
@@ -74,7 +73,26 @@ $light-theme-40: rgba(209, 209, 209, 1);
 $light-theme-50: rgba(235, 235, 235, 1);
 $light-theme-60: rgba(247, 247, 247, 1);
 
+// Адмін кольори
+$admin-primary: #2563eb;
+$admin-primary-hover: #1d4ed8;
+$admin-secondary: #64748b;
+$admin-success: #10b981;
+$admin-warning: #f59e0b;
+$admin-danger: #ef4444;
+$admin-info: #06b6d4;
 
+$admin-bg-light: #f8fafc;
+$admin-bg-dark: #0f172a;
+$admin-card-light: #ffffff;
+$admin-card-dark: #1e293b;
+$admin-border-light: #e2e8f0;
+$admin-border-dark: #334155;
+
+// Адмін текст
+$admin-text: #e2e8f0;
+$admin-text-secondary: #94a3b8;
+$admin-text-muted: #64748b;
 
 /*------border------*/
 $border_radius_main: 8px;

@@ -1,0 +1,28 @@
+// Додайте ці правила до ваших Firestore Security Rules:
+
+// Для колекції translations
+match /translations/{document} {
+  // Читання дозволено всім (для завантаження перекладів на сайті)
+  allow read: if true;
+  
+  // Запис, оновлення, видалення тільки для аутентифікованих адмінів
+  allow write, update, delete: if request.auth != null && request.auth.token.email != null;
+}
+
+// Повний приклад правил для обох колекцій:
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Колекція портфоліо
+    match /portfolio/{document} {
+      allow read: if true;
+      allow write, update, delete: if request.auth != null && request.auth.token.email != null;
+    }
+    
+    // Колекція перекладів
+    match /translations/{document} {
+      allow read: if true;
+      allow write, update, delete: if request.auth != null && request.auth.token.email != null;
+    }
+  }
+}

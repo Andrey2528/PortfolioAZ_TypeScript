@@ -3,6 +3,7 @@ export interface IPortfolioCardPreview {
     title: string;
     subTitle: string;
     img: string;
+    numericId?: number;
 }
 
 export interface IPortfolioCardFull extends IPortfolioCardPreview {
@@ -19,4 +20,5 @@ export interface IPortfolioCardFull extends IPortfolioCardPreview {
     data: string;
     normalizedRole?: string[];
     normalizedCompany?: string;
+    numericId?: number;
 }

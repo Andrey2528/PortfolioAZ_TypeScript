@@ -1,0 +1,365 @@
+@use 'sass:color';
+@use '../../partials/variables' as *;
+
+.certificates-manager,
+.skills-manager,
+.social-links-manager {
+    padding: 24px;
+    background: $admin-bg-dark;
+    border-radius: 12px;
+    color: $admin-text;
+
+    .certificates-header,
+    .skills-header,
+    .social-links-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+        padding-bottom: 16px;
+        border-bottom: 2px solid rgba($admin-primary, 0.2);
+
+        h2 {
+            color: $admin-text;
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0;
+        }
+    }
+
+    // Form Overlay
+    .certificates-form-overlay,
+    .skills-form-overlay,
+    .social-links-form-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        backdrop-filter: blur(4px);
+    }
+
+    .certificates-form,
+    .skills-form,
+    .social-links-form {
+        background: $admin-card-dark;
+        border-radius: 16px;
+        padding: 32px;
+        width: 90%;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow-y: auto;
+        border: 1px solid rgba($admin-primary, 0.3);
+
+        h3 {
+            color: $admin-text;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 24px 0;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+
+            label {
+                display: block;
+                color: $admin-text;
+                font-weight: 500;
+                margin-bottom: 8px;
+                font-size: 14px;
+
+                small {
+                    color: color.adjust($admin-text, $alpha: -0.4);
+                    font-weight: 400;
+                }
+            }
+
+            input {
+                width: 100%;
+                padding: 12px 16px;
+                background: rgba($admin-primary, 0.1);
+                border: 2px solid rgba($admin-primary, 0.3);
+                border-radius: 8px;
+                color: $admin-text;
+                font-size: 14px;
+                transition: all 0.3s ease;
+
+                &:focus {
+                    outline: none;
+                    border-color: $admin-primary;
+                    background: rgba($admin-primary, 0.15);
+                }
+
+                &::placeholder {
+                    color: color.adjust($admin-text, $alpha: -0.5);
+                }
+            }
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 32px;
+            padding-top: 16px;
+            border-top: 1px solid rgba($admin-primary, 0.2);
+        }
+    }
+
+    // Lists
+    .certificates-list,
+    .skills-list,
+    .social-links-list {
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: $admin-text-secondary;
+            font-size: 16px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+
+            p {
+                color: $admin-text-secondary;
+                font-size: 18px;
+                margin: 0;
+            }
+        }
+    }
+
+    // Certificates Grid
+    .certificates-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 24px;
+
+        .certificate-card {
+            background: $admin-card-dark;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba($admin-primary, 0.2);
+            transition: all 0.3s ease;
+
+            &:hover {
+                transform: translateY(-4px);
+                border-color: rgba($admin-primary, 0.4);
+                box-shadow: 0 8px 32px rgba($admin-primary, 0.2);
+            }
+
+            .certificate-image {
+                height: 200px;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.3s ease;
+                }
+
+                &:hover img {
+                    transform: scale(1.05);
+                }
+            }
+
+            .certificate-info {
+                padding: 16px;
+
+                h4 {
+                    color: $admin-text;
+                    font-size: 16px;
+                    font-weight: 600;
+                    margin: 0 0 8px 0;
+                    line-height: 1.3;
+                }
+
+                .certificate-date {
+                    color: $admin-text-secondary;
+                    font-size: 14px;
+                    margin: 0 0 16px 0;
+                }
+
+                .certificate-actions {
+                    display: flex;
+                    gap: 8px;
+                }
+            }
+        }
+    }
+
+    // Tables
+    .skills-table,
+    .social-links-table {
+        background: $admin-card-dark;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid rgba($admin-primary, 0.2);
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+            thead {
+                background: rgba($admin-primary, 0.1);
+
+                th {
+                    padding: 16px;
+                    color: $admin-text;
+                    font-weight: 600;
+                    text-align: left;
+                    font-size: 14px;
+                    border-bottom: 2px solid rgba($admin-primary, 0.3);
+                }
+            }
+
+            tbody {
+                tr {
+                    border-bottom: 1px solid rgba($admin-primary, 0.1);
+                    transition: background-color 0.2s ease;
+
+                    &:hover {
+                        background: rgba($admin-primary, 0.05);
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+
+                td {
+                    padding: 16px;
+                    color: $admin-text;
+                    font-size: 14px;
+                    vertical-align: middle;
+
+                    code {
+                        background: rgba($admin-primary, 0.2);
+                        color: $admin-primary;
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        font-family: 'Courier New', monospace;
+                        font-size: 12px;
+                    }
+
+                    .social-link {
+                        color: $admin-primary;
+                        text-decoration: none;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+
+        .skill-actions,
+        .social-link-actions {
+            display: flex;
+            gap: 8px;
+        }
+    }
+
+    // Buttons
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        &.btn-primary {
+            background: $admin-primary;
+            color: white;
+
+            &:hover:not(:disabled) {
+                background: $admin-primary-hover;
+                transform: translateY(-1px);
+            }
+        }
+
+        &.btn-secondary {
+            background: $admin-secondary;
+            color: white;
+
+            &:hover:not(:disabled) {
+                background: color.adjust($admin-secondary, $lightness: -10%);
+            }
+        }
+
+        &.btn-danger {
+            background: $admin-danger;
+            color: white;
+
+            &:hover:not(:disabled) {
+                background: color.adjust($admin-danger, $lightness: -10%);
+                transform: translateY(-1px);
+            }
+        }
+
+        &.btn-sm {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+    }
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .certificates-manager,
+    .skills-manager,
+    .social-links-manager {
+        padding: 16px;
+
+        .certificates-header,
+        .skills-header,
+        .social-links-header {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 16px;
+
+            h2 {
+                text-align: center;
+            }
+        }
+
+        .certificates-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .skills-table,
+        .social-links-table {
+            overflow-x: auto;
+
+            table {
+                min-width: 600px;
+            }
+        }
+
+        .certificates-form,
+        .skills-form,
+        .social-links-form {
+            padding: 20px;
+            margin: 20px;
+        }
+    }
+}

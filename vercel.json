@@ -2,7 +2,7 @@
     "version": 2,
     "buildCommand": "npm run build:simple",
     "outputDirectory": "dist",
-    "installCommand": "npm ci --legacy-peer-deps --include=dev",
+    "installCommand": "rm -rf node_modules package-lock.json && npm install --legacy-peer-deps",
     "framework": "vite",
     "rewrites": [
         {

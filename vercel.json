@@ -1,8 +1,8 @@
 {
     "version": 2,
-    "buildCommand": "npm run build:simple",
+    "buildCommand": "npm run build:npx",
     "outputDirectory": "dist",
-    "installCommand": "rm -rf node_modules package-lock.json && npm install --legacy-peer-deps",
+    "installCommand": "rm -rf node_modules package-lock.json && npm install --legacy-peer-deps --include=dev",
     "framework": "vite",
     "rewrites": [
         {

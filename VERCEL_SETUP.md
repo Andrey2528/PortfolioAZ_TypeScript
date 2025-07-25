@@ -9,6 +9,7 @@
 2. Добавьте следующие переменные:
 
 ### Firebase Configuration
+
 ```
 VITE_FIREBASE_API_KEY = ваш_firebase_api_key
 VITE_FIREBASE_AUTH_DOMAIN = ваш_проект.firebaseapp.com
@@ -20,12 +21,14 @@ VITE_FIREBASE_MEASUREMENT_ID = ваш_measurement_id
 ```
 
 ### GitHub Configuration (для изображений)
+
 ```
 VITE_GITHUB_TOKEN = ваш_github_personal_access_token
 VITE_GITHUB_REPO = ваш_username/название_репозитория
 ```
 
 ### Admin Configuration
+
 ```
 VITE_ADMIN_EMAILS = ваш_admin_email@gmail.com
 ```

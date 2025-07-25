@@ -11,3 +11,11 @@
 node_modules
 stats.html
 .env.local
+
+# Admin files - секретные файлы администратора
+src/components/Admin/
+src/pages/AdminPage.tsx
+src/shared/styles/components/Admin/
+
+# Admin API routes
+src/api/

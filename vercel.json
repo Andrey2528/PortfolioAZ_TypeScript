@@ -1,20 +1,21 @@
 {
-  "version": 2,
-  "buildCommand": "npm run build:simple",
-  "outputDirectory": "dist",
-  "installCommand": "npm ci --legacy-peer-deps",
-  "framework": "vite",
-  "functions": {
-    "app/**/*": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "env": {
-    "NODE_VERSION": "18.x"
-  },
-  "build": {
+    "version": 2,
+    "buildCommand": "npm run build:simple",
+    "outputDirectory": "dist",
+    "installCommand": "npm ci --legacy-peer-deps",
+    "framework": "vite",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ],
     "env": {
-      "NODE_ENV": "production"
+        "NODE_VERSION": "18.x"
+    },
+    "build": {
+        "env": {
+            "NODE_ENV": "production"
+        }
     }
-  }
 }

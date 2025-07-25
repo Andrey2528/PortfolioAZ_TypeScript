@@ -6,10 +6,10 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 export default defineConfig({
     plugins: [
-        react(), 
+        react(),
         compression(),
         // Відключаємо visualizer для production builds на Vercel
-        process.env.NODE_ENV !== 'production' && visualizer()
+        process.env.NODE_ENV !== 'production' && visualizer(),
     ].filter(Boolean),
     resolve: {
         alias: {
@@ -35,5 +35,5 @@ export default defineConfig({
             },
         },
     },
-    base: '/PortfolioAZ_TypeScript/', // Для Vercel
+    base: '/', // Для Vercel
 });

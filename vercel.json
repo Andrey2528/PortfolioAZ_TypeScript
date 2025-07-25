@@ -1,21 +1,7 @@
 {
-    "version": 2,
-    "buildCommand": "npm run build:npx",
-    "outputDirectory": "dist",
-    "installCommand": "npm ci --legacy-peer-deps --include=dev",
-    "framework": "vite",
-    "rewrites": [
-        {
-            "source": "/(.*)",
-            "destination": "/index.html"
-        }
-    ],
-    "env": {
-        "NODE_VERSION": "18.x"
-    },
     "build": {
         "env": {
-            "NODE_ENV": "production"
+            "NODE_VERSION": "20.x"
         }
     }
 }

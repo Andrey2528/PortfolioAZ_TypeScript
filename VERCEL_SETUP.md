@@ -2,32 +2,40 @@
 
 После деплоя проекта в Vercel необходимо добавить переменные окружения в панели управления Vercel.
 
-## Шаги настройки:
+## 🚀 Быстрая настройка:
 
 1. Перейдите в **Vercel Dashboard** → ваш проект → **Settings** → **Environment Variables**
 
-2. Добавьте следующие переменные:
+2. Добавьте следующие переменные **одну за одной**:
 
-### Firebase Configuration
+### Firebase Configuration (обязательно для работы сайта)
 
-```
-VITE_FIREBASE_API_KEY = ваш_firebase_api_key
-VITE_FIREBASE_AUTH_DOMAIN = ваш_проект.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID = ваш_project_id
-VITE_FIREBASE_STORAGE_BUCKET = ваш_проект.firebasestorage.app
-VITE_FIREBASE_MESSAGING_SENDER_ID = ваш_sender_id
-VITE_FIREBASE_APP_ID = ваш_app_id
-VITE_FIREBASE_MEASUREMENT_ID = ваш_measurement_id
-```
+Скопируйте значения из вашего `.env.local`:
 
-### GitHub Configuration (для изображений)
+| Название переменной | Значение | Environment |
+|-------------------|----------|-------------|
+| `VITE_FIREBASE_API_KEY` | `AIzaSyBlaWk2-9QcKr3ZlMayKRYkBfM2djMt9x0` | Production, Preview, Development |
+| `VITE_FIREBASE_AUTH_DOMAIN` | `portfoliodata-b2881.firebaseapp.com` | Production, Preview, Development |
+| `VITE_FIREBASE_PROJECT_ID` | `portfoliodata-b2881` | Production, Preview, Development |
+| `VITE_FIREBASE_STORAGE_BUCKET` | `portfoliodata-b2881.firebasestorage.app` | Production, Preview, Development |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | `156480428499` | Production, Preview, Development |
+| `VITE_FIREBASE_APP_ID` | `1:156480428499:web:2a9f87458051186efdf726` | Production, Preview, Development |
+| `VITE_FIREBASE_MEASUREMENT_ID` | `G-0EPPF0E9CE` | Production, Preview, Development |
 
-```
-VITE_GITHUB_TOKEN = ваш_github_personal_access_token
-VITE_GITHUB_REPO = ваш_username/название_репозитория
-```
+## 📝 Как добавить переменную:
+1. Нажмите **"Add New"**
+2. **Name**: введите название (например: `VITE_FIREBASE_API_KEY`)  
+3. **Value**: вставьте значение
+4. **Environments**: выберите все три: Production, Preview, Development
+5. Нажмите **Save**
 
-### Admin Configuration
+## 🔄 После добавления всех переменных:
+1. Перейдите в **Deployments**
+2. Найдите последний деплой
+3. Нажмите **"Redeploy"** → **"Use existing Build Cache"**
+
+## ✅ Проверка:
+После успешного редеплоя ошибка "Missing App configuration value: projectId" должна исчезнуть, и сайт будет работать полностью.
 
 ```
 VITE_ADMIN_EMAILS = ваш_admin_email@gmail.com

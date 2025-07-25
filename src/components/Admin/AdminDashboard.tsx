@@ -8,9 +8,9 @@ import CertificatesManager from './CertificatesManager';
 import SkillsManager from './SkillsManager';
 import SocialLinksManager from './SocialLinksManager';
 import ProjectsQuickView from './ProjectsQuickView';
-import DataSeedingStatus from './DataSeedingStatus';
-import { seedInitialData, seedPortfolioData } from '../../utils/seedData';
-import { migratePortfolioIds } from '../../utils/migrateIds';
+import MigrationModal from './MigrationModal';
+import AdminDashboardHome from './AdminDashboardHome';
+import '../../shared/styles/components/Admin/AdminDashboard.scss';
 
 const AdminDashboard: React.FC = () => {
     const [portfolioCards, setPortfolioCards] = useState<IPortfolioCardFull[]>(
@@ -18,15 +18,20 @@ const AdminDashboard: React.FC = () => {
     );
     const [loading, setLoading] = useState(true);
     const [activeTab, setActiveTab] = useState<
-        'portfolio' | 'translations' | 'certificates' | 'skills' | 'social'
-    >('portfolio');
+        | 'home'
+        | 'portfolio'
+        | 'translations'
+        | 'certificates'
+        | 'skills'
+        | 'social'
+    >('home');
     const [portfolioSubTab, setPortfolioSubTab] = useState<
         'list' | 'add' | 'edit'
     >('list');
     const [editingCard, setEditingCard] = useState<IPortfolioCardFull | null>(
         null,
     );
-    const [seeding, setSeeding] = useState(false);
+    const [showMigrationModal, setShowMigrationModal] = useState(false);
 
     useEffect(() => {
         loadPortfolioCards();
@@ -44,87 +49,13 @@ const AdminDashboard: React.FC = () => {
         }
     };
 
-    const handleSeedData = async () => {
-        if (
-            !confirm(
-                'Ви впевнені, що хочете завантажити початкові дані? Це може перезаписати існуючі дані.',
-            )
-        ) {
-            return;
-        }
-
-        setSeeding(true);
-        try {
-            const result = await seedInitialData();
-            if (result.success) {
-                alert('Дані успішно завантажені!');
-                loadPortfolioCards();
-            } else {
-                alert('Помилка завантаження даних: ' + result.message);
-            }
-        } catch (error) {
-            console.error('Error seeding data:', error);
-            alert('Помилка завантаження даних');
-        } finally {
-            setSeeding(false);
-        }
+    const handleMigrateIds = () => {
+        setShowMigrationModal(true);
     };
 
-    const handleSeedPortfolio = async () => {
-        if (
-            !confirm(
-                'Ви впевнені, що хочете завантажити дані портфоліо? Це може перезаписати існуючі проекти.',
-            )
-        ) {
-            return;
-        }
-
-        setSeeding(true);
-        try {
-            const result = await seedPortfolioData();
-            if (result.success) {
-                alert(result.message);
-                loadPortfolioCards();
-            } else {
-                alert(
-                    'Помилка завантаження портфоліо: ' +
-                        (result.error || 'Невідома помилка'),
-                );
-            }
-        } catch (error) {
-            console.error('Error seeding portfolio:', error);
-            alert('Помилка завантаження портфоліо');
-        } finally {
-            setSeeding(false);
-        }
-    };
-
-    const handleMigrateIds = async () => {
-        if (
-            !confirm(
-                'Ви впевнені, що хочете мігрувати ID проектів на числові? Це замінить всі існуючі ID.',
-            )
-        ) {
-            return;
-        }
-
-        setSeeding(true);
-        try {
-            const result = await migratePortfolioIds();
-            if (result.success) {
-                alert(result.message);
-                loadPortfolioCards();
-            } else {
-                alert(
-                    'Помилка міграції: ' + (result.error || 'Невідома помилка'),
-                );
-            }
-        } catch (error) {
-            console.error('Error migrating IDs:', error);
-            alert('Помилка міграції ID');
-        } finally {
-            setSeeding(false);
-        }
+    const handleMigrationComplete = () => {
+        loadPortfolioCards();
+        setShowMigrationModal(false);
     };
 
     const handleAddSuccess = () => {
@@ -166,34 +97,13 @@ const AdminDashboard: React.FC = () => {
         <div className="admin-dashboard">
             <header className="admin-header">
                 <h1>Админ-панель портфолио</h1>
-                <div className="admin-actions">
-                    <button
-                        className="btn btn-secondary"
-                        onClick={handleSeedData}
-                        disabled={seeding}
-                    >
-                        {seeding
-                            ? 'Завантаження...'
-                            : '🌱 Завантажити всі дані'}
-                    </button>
-                    <button
-                        className="btn btn-primary"
-                        onClick={handleSeedPortfolio}
-                        disabled={seeding}
-                    >
-                        {seeding
-                            ? 'Завантаження...'
-                            : '💼 Завантажити портфоліо'}
-                    </button>
-                    <button
-                        className="btn btn-warning"
-                        onClick={handleMigrateIds}
-                        disabled={seeding}
-                    >
-                        {seeding ? 'Міграція...' : '🔄 Мігрувати ID'}
-                    </button>
-                </div>
                 <div className="admin-nav">
+                    <button
+                        className={activeTab === 'home' ? 'active' : ''}
+                        onClick={() => setActiveTab('home')}
+                    >
+                        🏠 Головна
+                    </button>
                     <button
                         className={activeTab === 'portfolio' ? 'active' : ''}
                         onClick={() => setActiveTab('portfolio')}
@@ -228,7 +138,9 @@ const AdminDashboard: React.FC = () => {
             </header>
 
             <main className="admin-content">
-                <DataSeedingStatus />
+                {activeTab === 'home' && (
+                    <AdminDashboardHome onRefreshData={loadPortfolioCards} />
+                )}
 
                 {activeTab === 'portfolio' && (
                     <>
@@ -248,13 +160,6 @@ const AdminDashboard: React.FC = () => {
                                 onClick={() => setPortfolioSubTab('add')}
                             >
                                 Добавить работу
-                            </button>
-                            <button
-                                className="btn btn-primary btn-small"
-                                onClick={handleSeedPortfolio}
-                                disabled={seeding}
-                            >
-                                {seeding ? '⏳' : '💼'} Завантажити портфоліо
                             </button>
                         </div>
 
@@ -296,6 +201,13 @@ const AdminDashboard: React.FC = () => {
             <ProjectsQuickView
                 cards={portfolioCards}
                 onSelectProject={handleSelectProjectFromQuickView}
+            />
+
+            {/* Модальне вікно міграції */}
+            <MigrationModal
+                isOpen={showMigrationModal}
+                onClose={() => setShowMigrationModal(false)}
+                onComplete={handleMigrationComplete}
             />
         </div>
     );

@@ -1,0 +1,247 @@
+@use 'sass:color';
+@use '../../partials/variables' as *;
+
+.admin-page-wrapper {
+    min-height: 100vh;
+    background: $admin-bg-dark;
+}
+
+.admin-welcome-header {
+    background: linear-gradient(
+        135deg,
+        $admin-card-dark,
+        color.adjust($admin-card-dark, $lightness: 3%)
+    );
+    border-bottom: 1px solid $admin-border-dark;
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    animation: slideDown 0.5s ease-out;
+
+    .welcome-content {
+        max-width: $container_max_size;
+        margin: 0 auto;
+        padding: 16px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+
+        @media (max-width: #{$maxMobile}) {
+            padding: 12px 16px;
+            flex-direction: column;
+            gap: 12px;
+        }
+    }
+
+    .user-info {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, $admin-primary, $admin-info);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            position: relative;
+            overflow: hidden;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    45deg,
+                    transparent 30%,
+                    rgba(255, 255, 255, 0.1) 50%,
+                    transparent 70%
+                );
+                transform: translateX(-100%);
+                transition: transform 0.6s;
+            }
+
+            &:hover::before {
+                transform: translateX(100%);
+            }
+
+            @media (max-width: #{$maxMobile}) {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            .welcome-text {
+                font-size: $base_body_font_size + 2px;
+                font-weight: 600;
+                color: $dark-theme-white;
+                line-height: 1.2;
+                background: linear-gradient(
+                    135deg,
+                    $dark-theme-white,
+                    $admin-primary
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                animation: textShine 3s ease-in-out infinite;
+
+                @media (max-width: #{$maxMobile}) {
+                    font-size: $base_body_font_size;
+                }
+            }
+
+            .user-email {
+                font-size: $base_body_font_size - 1px;
+                color: $dark-theme-20;
+                font-weight: 400;
+                opacity: 0.8;
+
+                @media (max-width: #{$maxMobile}) {
+                    font-size: $base_body_font_size - 2px;
+                }
+            }
+        }
+
+        @media (max-width: #{$maxMobile}) {
+            gap: 12px;
+        }
+    }
+
+    .logout-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        background: linear-gradient(135deg, #dc2626, #b91c1c);
+        color: white;
+        border: none;
+        border-radius: $border_radius_main;
+        cursor: pointer;
+        font-size: $base_body_font_size;
+        font-weight: 500;
+        font-family: inherit;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        min-width: 120px;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: left 0.5s;
+        }
+
+        &:hover::before {
+            left: 100%;
+        }
+
+        &:hover {
+            background: linear-gradient(135deg, #b91c1c, #991b1b);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+        }
+
+        &:active {
+            transform: translateY(-1px) scale(1);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+
+        .logout-icon {
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        &:hover .logout-icon {
+            transform: rotate(10deg);
+        }
+
+        @media (max-width: #{$maxMobile}) {
+            padding: 10px 16px;
+            font-size: $base_body_font_size - 1px;
+            min-width: 100px;
+            gap: 6px;
+        }
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes textShine {
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+// Покращення для темної теми
+.admin-page-wrapper {
+    .admin-dashboard {
+        padding-top: 0;
+    }
+}
+
+// Responsive покращення
+@media (max-width: #{$maxTablet}) {
+    .admin-welcome-header {
+        .welcome-content {
+            padding: 14px 18px;
+        }
+    }
+}
+
+@media (max-width: #{$maxMobile}) {
+    .admin-welcome-header {
+        position: relative;
+
+        .welcome-content {
+            text-align: center;
+
+            .user-info {
+                justify-content: center;
+            }
+        }
+    }
+}

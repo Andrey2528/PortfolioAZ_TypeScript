@@ -4,6 +4,7 @@ import { auth } from '../utils/firebase';
 import { isAdmin } from '../utils/adminUtils';
 import AdminLogin from '../components/Admin/AdminLogin';
 import AdminDashboard from '../components/Admin/AdminDashboard';
+import '../shared/styles/components/Admin/AdminPage.scss';
 
 const AdminPage: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
@@ -90,34 +91,27 @@ const AdminPage: React.FC = () => {
     }
 
     return (
-        <div>
-            <div
-                style={{
-                    background: '#f8f9fa',
-                    padding: '10px 20px',
-                    borderBottom: '1px solid #dee2e6',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                }}
-            >
-                <span style={{ color: '#666', fontSize: '14px' }}>
-                    Добро пожаловать, {user.email}
-                </span>
-                <button
-                    onClick={handleLogout}
-                    style={{
-                        padding: '6px 12px',
-                        background: '#dc3545',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontSize: '14px',
-                    }}
-                >
-                    Выйти
-                </button>
+        <div className="admin-page-wrapper">
+            <div className="admin-welcome-header">
+                <div className="welcome-content">
+                    <div className="user-info">
+                        <div className="user-avatar">👤</div>
+                        <div className="user-details">
+                            <span className="welcome-text">
+                                Добро пожаловать!
+                            </span>
+                            <span className="user-email">{user.email}</span>
+                        </div>
+                    </div>
+                    <button
+                        onClick={handleLogout}
+                        className="logout-btn"
+                        title="Выйти из системы"
+                    >
+                        <span className="logout-icon">🚪</span>
+                        Выйти
+                    </button>
+                </div>
             </div>
             <AdminDashboard />
         </div>

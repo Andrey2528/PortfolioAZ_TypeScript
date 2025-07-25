@@ -1,0 +1,148 @@
+@use 'sass:color';
+@use '../../partials/variables' as *;
+
+// Глобальні стилі для адмін панелі
+.admin-dashboard {
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    // Smooth transitions для всіх інтерактивних елементів
+    button,
+    input,
+    textarea,
+    select,
+    .card,
+    .nav-item,
+    .progress-bar,
+    .stat-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    // Покращені фокус стилі для доступності
+    *:focus {
+        outline: 2px solid $admin-primary;
+        outline-offset: 2px;
+    }
+
+    // Покращення прокрутки
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: $admin-primary $admin-bg-dark;
+    }
+
+    *::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: $admin-bg-dark;
+        border-radius: 4px;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, $admin-primary, $admin-info);
+        border-radius: 4px;
+
+        &:hover {
+            background: linear-gradient(
+                135deg,
+                color.adjust($admin-primary, $lightness: -10%),
+                color.adjust($admin-info, $lightness: -10%)
+            );
+        }
+    }
+
+    // Покращення для selection
+    ::selection {
+        background: rgba(37, 99, 235, 0.3);
+        color: inherit;
+    }
+
+    // Додаткові стилі для покращення UX
+    .pulse {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7);
+        }
+        70% {
+            box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+        }
+        100% {
+            box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+        }
+    }
+
+    // Стилі для disabled елементів
+    [disabled] {
+        opacity: 0.6;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    // Стилі для loading елементів
+    .loading {
+        position: relative;
+        pointer-events: none;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid $admin-primary;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+    }
+
+    // Responsive стилі
+    @media (max-width: #{$maxTablet}) {
+        padding: 16px;
+
+        .admin-header {
+            margin-bottom: 24px;
+            padding: 20px;
+        }
+
+        .admin-content {
+            padding: 24px;
+        }
+    }
+
+    @media (max-width: #{$maxMobile}) {
+        padding: 12px;
+
+        .admin-header {
+            margin-bottom: 20px;
+            padding: 16px;
+
+            h1 {
+                font-size: $base_h2_font_size;
+            }
+        }
+
+        .admin-content {
+            padding: 16px;
+        }
+
+        .admin-nav {
+            flex-direction: column;
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    }
+}

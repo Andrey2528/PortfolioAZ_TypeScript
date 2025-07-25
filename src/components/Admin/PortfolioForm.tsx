@@ -356,7 +356,7 @@ const PortfolioForm: React.FC<PortfolioFormProps> = ({
                         URL проекта <small>(необов'язково)</small>
                     </label>
                     <input
-                        type="url"
+                        type="text"
                         name="url"
                         value={formData.url || ''}
                         onChange={handleInputChange}

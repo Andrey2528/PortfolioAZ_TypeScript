@@ -23,6 +23,8 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
+        "build:simple": "vite build --config vite.config.simple.js",
+        "build:npx": "npx vite build --config vite.config.simple.js",
         "preview": "vite preview",
         "predeploy": "npm run build",
         "deploy": "gh-pages -d dist"

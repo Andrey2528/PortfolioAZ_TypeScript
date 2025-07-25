@@ -25,6 +25,7 @@
         "build": "vite build --mode production",
         "build:vercel": "npm ci --legacy-peer-deps && vite build --mode production",
         "build:simple": "vite build --config vite.config.simple.js",
+        "build:npx": "npx vite build --config vite.config.simple.js",
         "preview": "vite preview",
         "predeploy": "npm run build",
         "deploy": "gh-pages -d dist"

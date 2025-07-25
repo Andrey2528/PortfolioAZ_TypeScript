@@ -11,8 +11,10 @@ import {
     getRoles,
 } from '@/shared/config/filterConfig';
 import modalConfig from '@/shared/components/Modal/modalConfig';
-import { fetchPortfolioCards } from '@/api/connectDB/databaseFetch';
-import { normalizeDBData } from '@/api/connectDB/normalizeDBData';
+import {
+    fetchPortfolioData,
+    normalizePortfolioData,
+} from '@/utils/firebaseAPI';
 import Loader from '../../shared/components/Loader/Loader';
 import {
     animationModalOverlayProps,
@@ -40,8 +42,8 @@ const CardWrapper = () => {
     const getCards = async () => {
         try {
             setIsLoading(true);
-            const data = await fetchPortfolioCards();
-            const normalizedData = normalizeDBData(data, tEn);
+            const data = await fetchPortfolioData();
+            const normalizedData = normalizePortfolioData(data);
             setCards(normalizedData);
         } catch (error) {
             console.error('Error fetching cards:', error);

@@ -7,7 +7,10 @@ import Card from '@/shared/components/Card/Card';
 import Modal from '@/shared/components/Modal/Modal';
 import modalConfig from '@/shared/components/Modal/modalConfig';
 import { getFilteredCompanies } from '@/shared/config/filterConfig';
-import { fetchSertificateCards } from '@/api/connectDB/databaseFetch';
+import {
+    fetchCertificatesData,
+    normalizeCertificatesData,
+} from '@/utils/firebaseAPI';
 import Loader from '../../shared/components/Loader/Loader';
 
 const SertificateWrapper = () => {
@@ -26,8 +29,9 @@ const SertificateWrapper = () => {
     useEffect(() => {
         const getSertificates = async () => {
             setIsLoading(true);
-            const data = await fetchSertificateCards();
-            setSertificates(data);
+            const data = await fetchCertificatesData();
+            const normalizedData = normalizeCertificatesData(data);
+            setSertificates(normalizedData);
             setIsLoading(false);
         };
         getSertificates();

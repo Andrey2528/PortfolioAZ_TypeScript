@@ -14,18 +14,18 @@ const loadTranslationsFromFirebase = async () => {
     try {
         const translationsCollection = collection(db, 'translations');
         const snapshot = await getDocs(translationsCollection);
-        
+
         const translations = { en: {}, uk: {}, ru: {} };
-        
+
         snapshot.forEach((doc) => {
             const data = doc.data();
             const key = doc.id;
-            
+
             if (data.en) translations.en[key] = data.en;
             if (data.uk) translations.uk[key] = data.uk;
             if (data.ru) translations.ru[key] = data.ru;
         });
-        
+
         return translations;
     } catch (error) {
         console.error('Error loading translations from Firebase:', error);

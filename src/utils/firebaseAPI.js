@@ -6,15 +6,15 @@ export const fetchPortfolioData = async () => {
     try {
         const portfolioCollection = collection(db, 'portfolio');
         const snapshot = await getDocs(portfolioCollection);
-        
+
         const portfolioData = [];
         snapshot.forEach((doc) => {
             portfolioData.push({
                 id: doc.id,
-                ...doc.data()
+                ...doc.data(),
             });
         });
-        
+
         return portfolioData;
     } catch (error) {
         console.error('Error fetching portfolio data:', error);
@@ -27,15 +27,15 @@ export const fetchCertificatesData = async () => {
     try {
         const certificatesCollection = collection(db, 'certificates');
         const snapshot = await getDocs(certificatesCollection);
-        
+
         const certificatesData = [];
         snapshot.forEach((doc) => {
             certificatesData.push({
                 id: doc.id,
-                ...doc.data()
+                ...doc.data(),
             });
         });
-        
+
         return certificatesData;
     } catch (error) {
         console.error('Error fetching certificates data:', error);
@@ -48,15 +48,15 @@ export const fetchSkillsData = async () => {
     try {
         const skillsCollection = collection(db, 'skills');
         const snapshot = await getDocs(skillsCollection);
-        
+
         const skillsData = [];
         snapshot.forEach((doc) => {
             skillsData.push({
                 id: doc.id,
-                ...doc.data()
+                ...doc.data(),
             });
         });
-        
+
         return skillsData;
     } catch (error) {
         console.error('Error fetching skills data:', error);
@@ -69,15 +69,15 @@ export const fetchSocialLinksData = async () => {
     try {
         const socialLinksCollection = collection(db, 'socialLinks');
         const snapshot = await getDocs(socialLinksCollection);
-        
+
         const socialLinksData = [];
         snapshot.forEach((doc) => {
             socialLinksData.push({
                 id: doc.id,
-                ...doc.data()
+                ...doc.data(),
             });
         });
-        
+
         return socialLinksData;
     } catch (error) {
         console.error('Error fetching social links data:', error);
@@ -90,11 +90,11 @@ export const fetchProfileData = async () => {
     try {
         const profileDoc = doc(db, 'profile', 'main');
         const snapshot = await getDoc(profileDoc);
-        
+
         if (snapshot.exists()) {
             return {
                 id: snapshot.id,
-                ...snapshot.data()
+                ...snapshot.data(),
             };
         } else {
             console.log('No profile data found');
@@ -109,20 +109,21 @@ export const fetchProfileData = async () => {
 // Функція для отримання всіх даних одразу
 export const fetchAllData = async () => {
     try {
-        const [portfolio, certificates, skills, socialLinks, profile] = await Promise.all([
-            fetchPortfolioData(),
-            fetchCertificatesData(),
-            fetchSkillsData(),
-            fetchSocialLinksData(),
-            fetchProfileData()
-        ]);
+        const [portfolio, certificates, skills, socialLinks, profile] =
+            await Promise.all([
+                fetchPortfolioData(),
+                fetchCertificatesData(),
+                fetchSkillsData(),
+                fetchSocialLinksData(),
+                fetchProfileData(),
+            ]);
 
         return {
             portfolio,
             certificates,
             skills,
             socialLinks,
-            profile
+            profile,
         };
     } catch (error) {
         console.error('Error fetching all data:', error);
@@ -131,14 +132,14 @@ export const fetchAllData = async () => {
             certificates: [],
             skills: [],
             socialLinks: [],
-            profile: null
+            profile: null,
         };
     }
 };
 
 // Нормалізація даних портфоліо для використання в компонентах
 export const normalizePortfolioData = (portfolioData) => {
-    return portfolioData.map(item => ({
+    return portfolioData.map((item) => ({
         id: item.id,
         title: item.title || {},
         description: item.description || {},
@@ -148,13 +149,13 @@ export const normalizePortfolioData = (portfolioData) => {
         githubUrl: item.githubUrl || '',
         category: item.category || 'web',
         featured: item.featured || false,
-        createdAt: item.createdAt || new Date()
+        createdAt: item.createdAt || new Date(),
     }));
 };
 
 // Нормалізація даних сертифікатів
 export const normalizeCertificatesData = (certificatesData) => {
-    return certificatesData.map(item => ({
+    return certificatesData.map((item) => ({
         id: item.id,
         title: item.title || {},
         description: item.description || {},
@@ -162,18 +163,18 @@ export const normalizeCertificatesData = (certificatesData) => {
         issuer: item.issuer || '',
         issueDate: item.issueDate || '',
         credentialUrl: item.credentialUrl || '',
-        category: item.category || 'general'
+        category: item.category || 'general',
     }));
 };
 
 // Нормалізація даних навичок
 export const normalizeSkillsData = (skillsData) => {
-    return skillsData.map(item => ({
+    return skillsData.map((item) => ({
         id: item.id,
         name: item.name || {},
         level: item.level || 0,
         category: item.category || 'technical',
         icon: item.icon || '',
-        order: item.order || 0
+        order: item.order || 0,
     }));
 };

@@ -22,7 +22,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
+        "build": "vite build --mode production",
+        "build:vercel": "npm ci --legacy-peer-deps && vite build --mode production",
         "preview": "vite preview",
         "predeploy": "npm run build",
         "deploy": "gh-pages -d dist"
@@ -78,5 +79,9 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "engines": {
+        "node": ">=18.0.0",
+        "npm": ">=8.0.0"
     }
 }

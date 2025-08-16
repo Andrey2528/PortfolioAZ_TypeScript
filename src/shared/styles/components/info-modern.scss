@@ -315,6 +315,9 @@ section.info-modern {
                             font-size: 1.2rem;
                             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
                         }
+                        @media (max-width: 768px) {
+                            display: none;
+                        }
                     }
                 }
             }
@@ -521,6 +524,9 @@ section.info-modern {
                                 width: 100%;
                                 display: flex;
                                 align-items: center;
+                                @media (max-width: 768px) {
+                                    justify-content: flex-end;
+                                }
                             }
 
                             .progress-bar-container {
@@ -662,71 +668,11 @@ section.info-modern {
                                     }
                                 }
 
-                                &.frontend {
-                                    background: linear-gradient(
-                                        135deg,
-                                        rgba(vars.$dark-theme-10, 0.15),
-                                        rgba(vars.$dark-theme-10, 0.05)
-                                    );
-                                    color: vars.$dark-theme-10;
-                                    border: 2px solid
-                                        rgba(vars.$dark-theme-10, 0.3);
-                                    box-shadow: 0 2px 8px
-                                        rgba(vars.$dark-theme-10, 0.2);
-                                }
-
-                                &.backend {
-                                    background: linear-gradient(
-                                        135deg,
-                                        rgba(vars.$dark-theme-10, 0.15),
-                                        rgba(vars.$dark-theme-10, 0.05)
-                                    );
-                                    color: vars.$dark-theme-10;
-                                    border: 2px solid
-                                        rgba(vars.$dark-theme-10, 0.3);
-                                    box-shadow: 0 2px 8px
-                                        rgba(vars.$dark-theme-10, 0.2);
-                                }
-
-                                &.tools {
-                                    background: linear-gradient(
-                                        135deg,
-                                        rgba(vars.$dark-theme-10, 0.15),
-                                        rgba(vars.$dark-theme-10, 0.05)
-                                    );
-                                    color: vars.$dark-theme-10;
-                                    border: 2px solid
-                                        rgba(vars.$dark-theme-10, 0.3);
-                                    box-shadow: 0 2px 8px
-                                        rgba(vars.$dark-theme-10, 0.2);
-                                }
-
-                                &.database {
-                                    background: linear-gradient(
-                                        135deg,
-                                        rgba(vars.$dark-theme-10, 0.15),
-                                        rgba(vars.$dark-theme-10, 0.05)
-                                    );
-                                    color: vars.$dark-theme-10;
-                                    border: 2px solid
-                                        rgba(vars.$dark-theme-10, 0.3);
-                                    box-shadow: 0 2px 8px
-                                        rgba(vars.$dark-theme-10, 0.2);
-                                }
-
-                                &.soft {
-                                    background: linear-gradient(
-                                        135deg,
-                                        rgba(vars.$dark-theme-10, 0.15),
-                                        rgba(vars.$dark-theme-10, 0.05)
-                                    );
-                                    color: vars.$dark-theme-10;
-                                    border: 2px solid
-                                        rgba(vars.$dark-theme-10, 0.3);
-                                    box-shadow: 0 2px 8px
-                                        rgba(vars.$dark-theme-10, 0.2);
-                                }
-
+                                &.frontend,
+                                &.backend,
+                                &.tools,
+                                &.database,
+                                &.soft,
                                 &.other {
                                     background: linear-gradient(
                                         135deg,
@@ -1119,205 +1065,163 @@ section.info-modern {
         }
     }
 
-    // Responsive Design
+    // Responsive Design for Tablet
     @media (max-width: vars.$maxTablet) {
         padding: 50px 0;
+
+        .container {
+            padding: 0 20px;
+        }
 
         .section-title {
             font-size: 2.2rem;
             flex-direction: column;
             gap: 10px;
+
+            &::after {
+                width: 60px;
+            }
         }
 
         .about-content {
             grid-template-columns: 1fr !important;
-            gap: 50px;
+            gap: 40px;
+            text-align: center;
+
+            .image-container {
+                max-width: 280px;
+                margin: 0 auto;
+                order: -1;
+            }
+
+            .about-text {
+                .about-subtitle {
+                    font-size: 1.4rem;
+                }
+
+                .about-description {
+                    font-size: 1.1rem;
+                    line-height: 1.7;
+                    text-align: left;
+                }
+            }
         }
 
         .stats-cards {
-            grid-template-columns: 1fr !important;
+            grid-template-columns: repeat(2, 1fr) !important;
             gap: 20px;
         }
 
         .skills-filters {
             gap: 10px;
             padding: 0 10px;
+            flex-wrap: wrap;
+            justify-content: center;
 
             .filter-btn {
                 padding: 10px 18px;
                 font-size: 0.9rem;
+                min-width: 100px;
             }
         }
 
-        .skills-table {
-            .table-header,
-            .table-row {
-                grid-template-columns: 1fr !important;
-
-                .table-cell {
-                    padding: 18px 20px;
-                    border-bottom: 1px solid var(--border-color);
-
-                    &:last-child {
-                        border-bottom: none;
-                    }
-                }
-            }
-
-            .table-header .header-cell {
-                display: none;
-            }
-
-            .table-row .table-cell {
-                position: relative;
-
-                &:before {
-                    content: attr(data-label);
-                    font-weight: 600;
-                    color: var(--text-primary);
-                    display: block;
-                    margin-bottom: 8px;
-                    font-size: 0.9rem;
-                }
-
-                &.skill-name:before {
-                    content: 'Навичка:';
-                }
-                &.skill-level:before {
-                    content: 'Рівень:';
-                }
-
-                &.skill-level .progress-bar-container {
-                    width: 100%;
-                    margin-top: 10px;
-                    max-width: 250px;
-
-                    .progress-text {
-                        right: -40px;
-                        font-size: 0.85rem;
-                    }
-                }
-                &.skill-experience:before {
-                    content: 'Досвід:';
-                }
-                &.skill-category:before {
-                    content: 'Категорія:';
-                }
-            }
+        .skills-grid {
+            grid-template-columns: repeat(
+                auto-fit,
+                minmax(250px, 1fr)
+            ) !important;
+            gap: 20px;
         }
 
-        // Experience responsive
         .experience-timeline {
-            max-width: 100%;
-            padding: 10px;
-
-            &::before {
-                left: 15px;
-            }
-
             .timeline-item {
-                margin-bottom: 40px;
-
-                .timeline-marker {
-                    margin-right: 25px;
-
-                    .marker-dot {
-                        width: 16px;
-                        height: 16px;
-                    }
-
-                    .marker-line {
-                        height: 60px;
-                        width: 3px;
-                    }
-                }
-
                 .timeline-content {
-                    padding: 25px;
+                    padding: 20px;
 
-                    .timeline-header {
-                        flex-direction: column;
-                        align-items: flex-start;
-                        gap: 12px;
-
-                        .company-name {
-                            font-size: 1.4rem;
-                        }
-
-                        .period-badge {
-                            align-self: flex-start;
-                            font-size: 0.8rem;
-                            padding: 6px 12px;
-                        }
-                    }
-
-                    .position-title {
+                    .timeline-title {
                         font-size: 1.1rem;
-                        margin-bottom: 15px;
                     }
 
-                    .description {
-                        font-size: 1rem;
-                        margin-bottom: 20px;
+                    .timeline-company {
+                        font-size: 0.9rem;
                     }
 
-                    .experience-details {
-                        .projects-count {
-                            font-size: 1rem;
-                            padding: 10px 12px;
-                        }
-
-                        .technologies .tech-tags .tech-tag {
-                            padding: 6px 12px;
-                            font-size: 0.8rem;
-                        }
+                    .timeline-description {
+                        font-size: 0.9rem;
                     }
                 }
             }
         }
     }
 
+    // Responsive Design for Mobile
     @media (max-width: vars.$maxMobile) {
-        padding: 40px 0;
+        padding: 30px 0;
 
         .container {
             padding: 0 15px;
         }
 
         .section-title {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             gap: 8px;
+            text-align: center;
 
             .title-icon {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
+
+            &::after {
+                width: 50px;
+            }
+        }
+
+        .section-header {
+            margin-bottom: 40px;
         }
 
         .info-section {
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
 
-        .about-text {
-            .about-subtitle {
-                font-size: 1.3rem;
+        .about-content {
+            .about-text {
+                text-align: center;
+
+                .about-subtitle {
+                    font-size: 1.2rem;
+                    margin-bottom: 15px;
+                }
+
+                .about-description {
+                    font-size: 1rem;
+                    text-align: left;
+                    line-height: 1.6;
+
+                    &::first-letter {
+                        font-size: 2.2rem;
+                        margin: 4px 4px 0 0;
+                    }
+                }
             }
 
-            .about-description {
-                font-size: 1.1rem;
-
-                &::first-letter {
-                    font-size: 2.5rem;
-                    margin: 6px 6px 0 0;
-                }
+            .image-container {
+                max-width: 220px;
+                margin: 0 auto;
+                order: -1;
             }
         }
 
         .stats-cards {
+            grid-template-columns: 1fr !important;
+            gap: 15px;
+
             .stat-card {
-                padding: 25px 15px;
+                padding: 20px 15px;
+                margin: 0 10px;
 
                 .stat-number {
-                    font-size: 2rem;
+                    font-size: 1.8rem;
                 }
 
                 .stat-label {
@@ -1329,40 +1233,51 @@ section.info-modern {
         .skills-filters {
             gap: 8px;
             padding: 0 5px;
+            flex-wrap: wrap;
+            justify-content: center;
 
             .filter-btn {
                 padding: 8px 14px;
-                font-size: 0.85rem;
+                font-size: 0.8rem;
+                min-width: 80px;
+                flex: 0 0 auto;
             }
+        }
+
+        .skills-grid {
+            grid-template-columns: 1fr !important;
+            gap: 15px;
+            margin-top: 25px;
         }
 
         .experience-timeline {
             &::before {
-                left: 10px;
-                width: 3px;
+                left: 8px;
+                width: 2px;
             }
 
             .timeline-item {
-                margin-bottom: 35px;
+                margin-bottom: 30px;
+                padding-left: 25px;
 
                 .timeline-marker {
-                    margin-right: 20px;
+                    margin-right: 15px;
+                    margin-left: -2px;
 
                     .marker-dot {
-                        width: 14px;
-                        height: 14px;
-                        border-width: 3px;
+                        width: 12px;
+                        height: 12px;
                     }
 
                     .marker-line {
                         height: 50px;
                         width: 2px;
-                        margin-top: 10px;
                     }
                 }
 
                 .timeline-content {
-                    padding: 20px;
+                    padding: 15px;
+                    margin-left: 0;
 
                     .timeline-header {
                         .company-name {
@@ -1371,7 +1286,7 @@ section.info-modern {
 
                         .period-badge {
                             font-size: 0.75rem;
-                            padding: 5px 10px;
+                            padding: 4px 8px;
                         }
                     }
 
@@ -1381,33 +1296,94 @@ section.info-modern {
                     }
 
                     .description {
-                        font-size: 0.95rem;
-                        line-height: 1.6;
-                        margin-bottom: 18px;
+                        font-size: 0.9rem;
+                        margin-bottom: 15px;
+                        line-height: 1.5;
                     }
 
                     .experience-details {
                         .projects-count {
-                            font-size: 0.9rem;
+                            font-size: 0.85rem;
                             padding: 8px 10px;
-
-                            .projects-icon {
-                                font-size: 1.1rem;
-                            }
                         }
 
-                        .technologies {
-                            .tech-label {
-                                font-size: 1rem;
-                                margin-bottom: 12px;
+                        .technologies .tech-tags {
+                            gap: 6px;
+
+                            .tech-tag {
+                                padding: 4px 8px;
+                                font-size: 0.75rem;
                             }
+                        }
+                    }
+                }
+            }
+        }
 
-                            .tech-tags {
-                                gap: 6px;
+        .skills-table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 0 -15px;
+            padding: 0 15px;
 
-                                .tech-tag {
-                                    padding: 5px 10px;
-                                    font-size: 0.75rem;
+            .skills-table {
+                min-width: 100%;
+
+                .table-header {
+                    display: none;
+                }
+
+                .table-row {
+                    display: flex !important;
+                    flex-direction: column;
+                    margin-bottom: 20px;
+                    background: var(--bg-card);
+                    border-radius: 8px;
+                    padding: 15px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+                    .table-cell {
+                        padding: 8px 0;
+                        border: none;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        &:before {
+                            content: attr(data-label);
+                            font-weight: 600;
+                            color: var(--text-secondary);
+                            margin-right: 10px;
+                            min-width: 70px;
+                            font-size: 0.8rem;
+                        }
+
+                        &.skill-name:before {
+                            content: 'Навичка:';
+                        }
+                        &.skill-level:before {
+                            content: 'Рівень:';
+                        }
+                        &.skill-experience:before {
+                            content: 'Досвід:';
+                        }
+                        &.skill-category:before {
+                            content: 'Категорія:';
+                        }
+
+                        &.skill-level {
+                            flex-direction: row;
+                            align-items: flex-start;
+
+                            .progress-bar-container {
+                                width: 100%;
+                                margin-top: 8px;
+                                justify-content: flex-end;
+
+                                .progress-text {
+                                    position: static;
+                                    margin-top: 5px;
+                                    font-size: 0.8rem;
                                 }
                             }
                         }
@@ -1416,9 +1392,124 @@ section.info-modern {
             }
         }
     }
+
+    // Additional styles for very small screens (320-480px)
+    @media (max-width: 480px) {
+        padding: 20px 0;
+
+        .container {
+            padding: 0 10px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+
+            .title-icon {
+                font-size: 1.2rem;
+            }
+        }
+
+        .about-content {
+            .image-container {
+                max-width: 180px;
+            }
+
+            .about-text {
+                .about-subtitle {
+                    font-size: 1.1rem;
+                }
+
+                .about-description {
+                    font-size: 0.9rem;
+
+                    &::first-letter {
+                        font-size: 2rem;
+                    }
+                }
+            }
+        }
+
+        .stats-cards {
+            .stat-card {
+                padding: 15px 10px;
+
+                .stat-number {
+                    font-size: 1.6rem;
+                }
+
+                .stat-label {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+
+        .skills-filters {
+            .filter-btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+                min-width: 70px;
+            }
+        }
+
+        .experience-timeline {
+            &::before {
+                left: 6px;
+            }
+
+            .timeline-item {
+                padding-left: 20px;
+                margin-bottom: 25px;
+
+                .timeline-marker {
+                    margin-right: 10px;
+                    margin-left: -1px;
+
+                    .marker-dot {
+                        width: 10px;
+                        height: 10px;
+                    }
+                }
+
+                .timeline-content {
+                    padding: 12px;
+
+                    .timeline-header {
+                        .company-name {
+                            font-size: 1.1rem;
+                        }
+
+                        .period-badge {
+                            font-size: 0.7rem;
+                            padding: 3px 6px;
+                        }
+                    }
+
+                    .position-title {
+                        font-size: 0.9rem;
+                    }
+
+                    .description {
+                        font-size: 0.85rem;
+                    }
+
+                    .experience-details {
+                        .projects-count {
+                            font-size: 0.8rem;
+                            padding: 6px 8px;
+                        }
+
+                        .technologies .tech-tags .tech-tag {
+                            padding: 3px 6px;
+                            font-size: 0.7rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
-// Анімації
+// Animations
 @keyframes shimmer {
     0% {
         transform: translateX(-100%);
@@ -1429,11 +1520,8 @@ section.info-modern {
 }
 
 @keyframes lineExpand {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 60px;
+    to {
+        width: 100px;
     }
 }
 
@@ -1448,16 +1536,6 @@ section.info-modern {
     }
 }
 
-@keyframes pulse {
-    0%,
-    100% {
-        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
-    }
-    50% {
-        box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
-    }
-}
-
 @keyframes float {
     0%,
     100% {
@@ -1468,7 +1546,7 @@ section.info-modern {
     }
 }
 
-// Додаткові анімації для прогрес-барів
+// Additional animations for progress bars
 @keyframes progressLoad {
     0% {
         width: 0%;

@@ -226,26 +226,10 @@ const SertificateWrapper = () => {
                         ))}
                     </div>
                     {selectedCard && isModalOpen && (
-                        <motion.div
-                            className="modal-overlay" // Клас для стилізації фону модального вікна
-                            initial={{ opacity: 0 }} // Початковий стан (прозорий фон)
-                            animate={{ opacity: 1 }} // Кінцевий стан (видимий фон)
-                            exit={{ opacity: 0 }} // Стан при закритті (знову прозорий)
-                            transition={{ duration: 0.3 }} // Тривалість анімації
-                        >
-                            <motion.div
-                                className="modal-content" // Клас для стилізації контенту модального вікна
-                                initial={{ opacity: 0, scale: 0.8 }} // Початковий стан (зменшений і прозорий)
-                                animate={{ opacity: 1, scale: 1 }} // Кінцевий стан (повний розмір і видимий)
-                                exit={{ opacity: 0, scale: 0.8 }} // Стан при закритті (зменшений і прозорий)
-                                transition={{ duration: 0.3 }} // Тривалість анімації
-                            >
-                                <CertificateModal
-                                    card={selectedCard}
-                                    onClose={closeModal}
-                                />
-                            </motion.div>
-                        </motion.div>
+                        <CertificateModal
+                            card={selectedCard}
+                            onClose={closeModal}
+                        />
                     )}
                 </div>
             )}

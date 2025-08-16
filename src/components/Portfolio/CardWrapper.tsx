@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState, useRef } from 'react';
-import { motion } from 'framer-motion';
 import i18n from '@/utils/i18n';
 import Modal from '@/shared/components/Modal/Modal';
 import RenderCard from '@/shared/components/Card/RenderCard';
@@ -16,10 +15,6 @@ import {
     normalizePortfolioData,
 } from '@/utils/firebaseAPI';
 import Loader from '../../shared/components/Loader/Loader';
-import {
-    animationModalOverlayProps,
-    animationModalContentProps,
-} from '@/shared/config/animation.config';
 import Filters from './filterContainer';
 
 const tEn = i18n.getFixedT('en');
@@ -183,24 +178,14 @@ const CardWrapper = () => {
                     </div>
 
                     {selectedCard && isModalOpen && (
-                        <motion.div
-                            className="modal-overlay"
-                            {...animationModalOverlayProps}
-                        >
-                            <motion.div
-                                className="modal-content"
-                                {...animationModalContentProps}
-                            >
-                                <Modal<IPortfolioCardFull>
-                                    card={selectedCard}
-                                    onClose={closeModal}
-                                    config={modalConfig}
-                                    titleKey="title"
-                                    subTitleKey="subTitle"
-                                    imgKey="img"
-                                />
-                            </motion.div>
-                        </motion.div>
+                        <Modal<IPortfolioCardFull>
+                            card={selectedCard}
+                            onClose={closeModal}
+                            config={modalConfig}
+                            titleKey="title"
+                            subTitleKey="subTitle"
+                            imgKey="img"
+                        />
                     )}
                 </>
             )}

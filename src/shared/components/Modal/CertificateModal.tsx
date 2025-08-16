@@ -24,7 +24,7 @@ const CertificateModal: React.FC<ICertificateModalProps> = ({
 
         const handleClickOutside = (event: MouseEvent) => {
             const target = event.target as HTMLElement;
-            if (target.classList.contains('modal-overlay')) {
+            if (target.classList.contains('modal')) {
                 onClose();
             }
         };
@@ -40,61 +40,69 @@ const CertificateModal: React.FC<ICertificateModalProps> = ({
 
     if (!card) return null;
 
+    const handleOverlayClick = (e: React.MouseEvent) => {
+        if (e.target === e.currentTarget) {
+            onClose();
+        }
+    };
+
+    const handleContentClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+    };
+
     return (
-        <div className="modal-overlay" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-content">
+        <div className="modal" onClick={handleOverlayClick}>
+            <div className="modal__content" onClick={handleContentClick}>
                 <button className="modal__close" onClick={onClose}>
-                    ✕
+                    <span>&times;</span>
                 </button>
 
-                <div className="modal__header">
-                    <h2 className="modal__title">{t(card.title)}</h2>
-                </div>
+                <img
+                    src={card.img || placeholderImg}
+                    alt={t(card.title)}
+                    onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.onerror = null;
+                        target.src = placeholderImg;
+                    }}
+                />
 
-                <div className="modal__body">
-                    <div className="modal__image-container">
-                        <img
-                            src={card.img || placeholderImg}
-                            alt={t(card.title)}
-                            className="modal__image"
-                            onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.onerror = null;
-                                target.src = placeholderImg;
-                            }}
-                        />
+                <div className="modal__list">
+                    <div className="modal__row-border">
+                        <p className="card__number card__desc alignCenter">
+                            {t('modal.ID')}:{' '}
+                        </p>
+                        <div className="navbar__nav__link">{card.id}</div>
                     </div>
 
-                    <div className="modal__info">
-                        <div className="modal__field">
-                            <span className="modal__label">
-                                {t('modal.ID')}:
-                            </span>
-                            <span className="modal__value">{card.id}</span>
-                        </div>
+                    <div className="modal__row-border">
+                        <p className="card__number card__desc alignCenter">
+                            {t('modal.company')}:{' '}
+                        </p>
+                        <div className="navbar__nav__link">{card.company}</div>
+                    </div>
 
-                        <div className="modal__field">
-                            <span className="modal__label">
-                                {t('modal.company')}:
-                            </span>
-                            <span className="modal__value">{card.company}</span>
-                        </div>
+                    <div className="modal__row-border">
+                        <p className="card__number card__desc alignCenter">
+                            {t('modal.date')}:{' '}
+                        </p>
+                        <div className="navbar__nav__link">{card.date}</div>
+                    </div>
 
-                        <div className="modal__field">
-                            <span className="modal__label">
-                                {t('modal.date')}:
-                            </span>
-                            <span className="modal__value">{card.date}</span>
+                    <div className="modal__row-border">
+                        <p className="card__number card__desc alignCenter">
+                            {t('modal.description')}:{' '}
+                        </p>
+                        <div className="navbar__nav__link">
+                            {t(card.subTitle)}
                         </div>
+                    </div>
 
-                        <div className="modal__field">
-                            <span className="modal__label">
-                                {t('modal.description')}:
-                            </span>
-                            <span className="modal__value">
-                                {t(card.subTitle)}
-                            </span>
-                        </div>
+                    <div className="modal__row-border">
+                        <p className="card__number card__desc alignCenter">
+                            {t('modal.title')}:{' '}
+                        </p>
+                        <div className="navbar__nav__link">{t(card.title)}</div>
                     </div>
                 </div>
             </div>

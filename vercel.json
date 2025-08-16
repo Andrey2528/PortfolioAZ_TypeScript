@@ -2,7 +2,7 @@
     "version": 2,
     "buildCommand": "npm run build",
     "outputDirectory": "dist",
-    "installCommand": "npm install --legacy-peer-deps",
+    "installCommand": "npm install --legacy-peer-deps --include=dev",
     "framework": "vite",
     "rewrites": [
         {
@@ -11,7 +11,14 @@
         }
     ],
     "env": {
-        "NODE_VERSION": "18.x"
+        "NODE_VERSION": "18.x",
+        "VITE_FIREBASE_API_KEY": "AIzaSyBlaWk2-9QcKr3ZlMayKRYkBfM2djMt9x0",
+        "VITE_FIREBASE_AUTH_DOMAIN": "portfoliodata-b2881.firebaseapp.com",
+        "VITE_FIREBASE_PROJECT_ID": "portfoliodata-b2881",
+        "VITE_FIREBASE_STORAGE_BUCKET": "portfoliodata-b2881.firebasestorage.app",
+        "VITE_FIREBASE_MESSAGING_SENDER_ID": "156480428499",
+        "VITE_FIREBASE_APP_ID": "1:156480428499:web:fe6bd453693e5ff8fdf726",
+        "VITE_FIREBASE_MEASUREMENT_ID": "G-0EPPF0E9CE"
     },
     "build": {
         "env": {

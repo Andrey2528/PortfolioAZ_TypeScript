@@ -24,6 +24,7 @@
         "dev": "vite",
         "dev:admin": "VITE_APP=admin vite",
         "build": "vite build",
+        "build:npx": "vite build",
         "build:admin": "VITE_APP=admin vite build",
         "preview": "vite preview",
         "predeploy": "npm run build",

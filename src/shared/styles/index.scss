@@ -9,8 +9,10 @@
 
 @use 'components/nav.scss';
 @use 'components/cardPortfolio.scss';
-@use 'components/info.scss';
+@use 'components/info-modern.scss';
 @use 'components/dark-theme.scss';
 @use 'components/light-theme.scss';
 @use 'components/modal.scss';
 @use 'components/Loader.scss';
+
+// Стилі адмінки винесені в окремий застосунок

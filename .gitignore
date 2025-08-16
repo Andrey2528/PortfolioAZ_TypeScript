@@ -19,4 +19,4 @@ src/shared/styles/components/Admin/
 src/utils/seedData.ts
 
 # Admin API routes
-src/api/
+/admin

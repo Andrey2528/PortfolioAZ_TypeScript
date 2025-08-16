@@ -2,24 +2,23 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
-import { IPortfolioCardFull } from '@/shared/interface/interfaceCard';
-import Card from '@/shared/components/Card/Card';
-import Modal from '@/shared/components/Modal/Modal';
-import modalConfig from '@/shared/components/Modal/modalConfig';
-import { getFilteredCompanies } from '@/shared/config/filterConfig';
+import CertificateCard from '@/shared/components/Card/CertificateCard';
+import CertificateModal from '@/shared/components/Modal/CertificateModal';
 import {
-    fetchCertificatesData,
-    normalizeCertificatesData,
-} from '@/utils/firebaseAPI';
+    fetchFirebaseCertificates,
+    normalizeCertificates,
+} from '@/api/connectDB/certificatesAPI';
+import { INormalizedCertificate } from '@/shared/interface/Certificate.interface';
 import Loader from '../../shared/components/Loader/Loader';
 
 const SertificateWrapper = () => {
     const { t } = useTranslation();
-    const [sertificates, setSertificates] = useState<IPortfolioCardFull[]>([]);
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [selectedCard, setSelectedCard] = useState<IPortfolioCardFull | null>(
-        null,
+    const [sertificates, setSertificates] = useState<INormalizedCertificate[]>(
+        [],
     );
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [selectedCard, setSelectedCard] =
+        useState<INormalizedCertificate | null>(null);
     const [selectedCompany, setSelectedCompany] = useState<string>('');
     const [sortOption, setSortOption] = useState<string>('id-asc'); // Додано стан для сортування
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -29,10 +28,36 @@ const SertificateWrapper = () => {
     useEffect(() => {
         const getSertificates = async () => {
             setIsLoading(true);
-            const data = await fetchCertificatesData();
-            const normalizedData = normalizeCertificatesData(data);
-            setSertificates(normalizedData);
-            setIsLoading(false);
+            try {
+                console.log('🔍 Starting to fetch certificates...');
+                const data = await fetchFirebaseCertificates();
+                console.log('📊 Raw certificates data:', data);
+                console.log('📊 Data length:', data?.length || 0);
+
+                const normalizedData = normalizeCertificates(data);
+                console.log('✅ Normalized certificates data:', normalizedData);
+                console.log(
+                    '✅ Normalized data length:',
+                    normalizedData?.length || 0,
+                );
+
+                // Проверяем наличие изображений в каждом сертификате
+                normalizedData.forEach((cert, index) => {
+                    console.log(`🖼️ Certificate ${index + 1}:`, {
+                        id: cert.id,
+                        title: cert.title,
+                        img: cert.img,
+                        hasImage: !!cert.img,
+                    });
+                });
+
+                setSertificates(normalizedData);
+            } catch (error) {
+                console.error('❌ Error fetching certificates:', error);
+                setSertificates([]);
+            } finally {
+                setIsLoading(false);
+            }
         };
         getSertificates();
     }, []);
@@ -59,7 +84,7 @@ const SertificateWrapper = () => {
         };
     }, []);
 
-    const openModal = (card: IPortfolioCardFull) => {
+    const openModal = (card: INormalizedCertificate) => {
         setSelectedCard(card);
         setIsModalOpen(true);
     };
@@ -83,7 +108,9 @@ const SertificateWrapper = () => {
             let comparison = 0;
 
             if (key === 'name') {
-                comparison = a.title.localeCompare(b.title); // Сортування за назвою
+                const titleA = typeof a.title === 'string' ? a.title : '';
+                const titleB = typeof b.title === 'string' ? b.title : '';
+                comparison = titleA.localeCompare(titleB); // Сортування за назвою
             } else {
                 comparison = Number(a.id) - Number(b.id); // Сортування за ID
             }
@@ -91,7 +118,10 @@ const SertificateWrapper = () => {
             return order === 'asc' ? comparison : -comparison; // Змінюємо порядок сортування
         });
 
-    const uniqueCompany = getFilteredCompanies(sertificates, t);
+    // Получаем уникальные компании для фильтра
+    const uniqueCompanies = Array.from(
+        new Set(sertificates.map((cert) => cert.company).filter(Boolean)),
+    );
 
     const handleCompanyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedCompany(e.target.value);
@@ -122,7 +152,7 @@ const SertificateWrapper = () => {
                                 className="filter__select"
                             >
                                 <option value="">{t('filter.all')}</option>
-                                {uniqueCompany.map((company) => (
+                                {uniqueCompanies.map((company) => (
                                     <option key={company} value={company}>
                                         {company}
                                     </option>
@@ -188,13 +218,9 @@ const SertificateWrapper = () => {
                                     delay: index * 0.1,
                                 }}
                             >
-                                <Card<IPortfolioCardFull>
+                                <CertificateCard
                                     card={card}
                                     openModal={openModal}
-                                    titleKey="title"
-                                    subTitleKey="subTitle"
-                                    imgKey="img"
-                                    idKey="id"
                                 />
                             </motion.div>
                         ))}
@@ -214,13 +240,9 @@ const SertificateWrapper = () => {
                                 exit={{ opacity: 0, scale: 0.8 }} // Стан при закритті (зменшений і прозорий)
                                 transition={{ duration: 0.3 }} // Тривалість анімації
                             >
-                                <Modal<IPortfolioCardFull>
+                                <CertificateModal
                                     card={selectedCard}
                                     onClose={closeModal}
-                                    config={modalConfig}
-                                    titleKey="title"
-                                    subTitleKey="subTitle"
-                                    imgKey="img"
                                 />
                             </motion.div>
                         </motion.div>

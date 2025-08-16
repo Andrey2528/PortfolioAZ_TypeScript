@@ -1,17 +1,12 @@
 import { motion } from 'framer-motion';
-import { IPortfolioCardFull } from '@/shared/interface/interfaceCard';
-import { animationCardProps } from '@/shared/config/animationConfig';
+import {
+    IPortfolioCardFull,
+    IRenderCardProps,
+} from '@/shared/interface/Card.interface';
+import { animationCardProps } from '@/shared/config/animation.config';
 import Card from '@/shared/components/Card/Card';
 
-interface RenderCardProps {
-    card: IPortfolioCardFull;
-    index: number;
-    observerRef: React.MutableRefObject<IntersectionObserver | null>;
-    visibleCards: Set<number>;
-    openModal: (card: IPortfolioCardFull) => void;
-}
-
-const RenderCard: React.FC<RenderCardProps> = ({
+const RenderCard: React.FC<IRenderCardProps> = ({
     card,
     index,
     observerRef,

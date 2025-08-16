@@ -1,4 +1,4 @@
-import { IPortfolioCardFull } from '../shared/interface/interfaceCard';
+import { IPortfolioCardFull } from '../shared/interface/Card.interface';
 
 /**
  * Нормализует данные карточки портфолио, полученные из Firebase

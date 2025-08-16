@@ -1,21 +1,32 @@
 @use '../partials/_variables.scss' as vars;
 .dark {
+    --text-primary: #{vars.$dark-theme-white};
+    --text-secondary: #{vars.$dark-theme-10};
+    --bg-card: #{vars.$dark-theme-50};
+    --border-color: #{vars.$dark-theme-40};
+    --bg-hover: #{vars.$dark-theme-40};
+
     background: vars.$dark-theme-black;
     color: vars.$dark-theme-white;
+
     .loader {
         background: vars.$dark-theme-black;
     }
+
     .main {
         &__title {
             color: vars.$dark-theme-white;
         }
     }
+
     .navbar__nav__link {
         color: vars.$dark-theme-10;
     }
+
     .active_li {
         color: vars.$dark-theme-white;
     }
+
     .info {
         &__title {
             color: vars.$dark-theme-white;
@@ -27,6 +38,125 @@
             color: vars.$dark-theme-white;
         }
     }
+
+    // InfoPage modern styles
+    .info-modern {
+        .section-title {
+            color: vars.$dark-theme-white;
+        }
+
+        .about-subtitle {
+            color: #3b82f6;
+        }
+
+        .about-description {
+            color: vars.$dark-theme-10;
+        }
+
+        .stat-card {
+            background: vars.$dark-theme-50;
+            border-color: vars.$dark-theme-40;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+            &:hover {
+                background: vars.$dark-theme-40;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            }
+
+            .stat-number {
+                color: #3b82f6;
+            }
+
+            .stat-label {
+                color: vars.$dark-theme-10;
+            }
+        }
+
+        .filter-btn {
+            border-color: vars.$dark-theme-40;
+            color: vars.$dark-theme-white;
+
+            &:hover {
+                border-color: #3b82f6;
+                color: #3b82f6;
+                background: vars.$dark-theme-40;
+            }
+
+            &.active {
+                background: #3b82f6;
+                border-color: #3b82f6;
+                color: white;
+            }
+        }
+
+        .skills-table-container {
+            background: vars.$dark-theme-50;
+            border-color: vars.$dark-theme-40;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .table-row {
+            border-color: vars.$dark-theme-40;
+
+            &:hover {
+                background: vars.$dark-theme-40;
+            }
+        }
+
+        .skill-title {
+            color: vars.$dark-theme-white;
+        }
+
+        .progress-bar-container {
+            background: vars.$dark-theme-40;
+        }
+
+        .progress-text {
+            color: vars.$dark-theme-white;
+        }
+
+        .timeline-content {
+            background: vars.$dark-theme-50;
+            border-color: vars.$dark-theme-40;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+            &:hover {
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+                border-color: #3b82f6;
+            }
+        }
+
+        .company-name {
+            color: vars.$dark-theme-white;
+        }
+
+        .position-title {
+            color: #3b82f6;
+        }
+
+        .description {
+            color: vars.$dark-theme-10;
+        }
+
+        .projects-count {
+            color: vars.$dark-theme-white;
+        }
+
+        .tech-label {
+            color: vars.$dark-theme-white;
+        }
+
+        .marker-dot {
+            background: #3b82f6;
+            border-color: vars.$dark-theme-50;
+            box-shadow: 0 0 0 3px #3b82f6;
+        }
+
+        .marker-line {
+            background: vars.$dark-theme-40;
+        }
+    }
+
     .card {
         border-top: 1px solid vars.$dark-theme-50;
         &__miniature {

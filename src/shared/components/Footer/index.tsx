@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import '@/shared/styles/index.scss';
-import socialImg from '@/shared/constants/socialImg';
-import { v4 as uuidv4 } from 'uuid';
-import socialLinks from '@/shared/constants/socialLinks';
+import socialImg from '@/shared/constants/socialImg.const';
+import socialLinks from '@/shared/constants/socialLinks.const';
 
 const Footer = ({ theme }) => {
     const { t } = useTranslation();
@@ -22,7 +21,7 @@ const Footer = ({ theme }) => {
         const link = socialLinksMap[item.title] || '#';
 
         return (
-            <li key={uuidv4()} className="footer__item">
+            <li key={item.title} className="footer__item">
                 <div className="footer__img-wrapper">
                     <a
                         href={link}

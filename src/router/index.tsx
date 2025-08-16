@@ -3,14 +3,14 @@ import { createHashRouter } from 'react-router-dom';
 import { InfoPage, HomePage, SertificatePage } from '@/pages';
 import Layout from '@/layout/layout';
 
-const routes = [
+const routes: any[] = [
     {
         path: '/',
         element: <Layout />,
         children: [
-            { path: '/', element: <HomePage /> },
-            { path: '/InfoPage', element: <InfoPage /> },
-            { path: '/SertificatePage', element: <SertificatePage /> },
+            { index: true, element: <HomePage /> },
+            { path: 'InfoPage', element: <InfoPage /> },
+            { path: 'SertificatePage', element: <SertificatePage /> },
         ],
     },
 ];

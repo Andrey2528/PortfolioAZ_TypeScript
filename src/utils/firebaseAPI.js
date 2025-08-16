@@ -4,17 +4,17 @@ import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
 // Функція для отримання портфоліо проектів
 export const fetchPortfolioData = async () => {
     try {
-        const portfolioCollection = collection(db, 'portfolio');
+        const portfolioCollection = collection(db, 'portfolioCardData');
         const snapshot = await getDocs(portfolioCollection);
 
         const portfolioData = [];
         snapshot.forEach((doc) => {
+            const docData = doc.data();
             portfolioData.push({
                 id: doc.id,
-                ...doc.data(),
+                ...docData,
             });
         });
-
         return portfolioData;
     } catch (error) {
         console.error('Error fetching portfolio data:', error);
@@ -97,7 +97,7 @@ export const fetchProfileData = async () => {
                 ...snapshot.data(),
             };
         } else {
-            console.log('No profile data found');
+            // Немає даних профілю
             return null;
         }
     } catch (error) {
@@ -139,18 +139,44 @@ export const fetchAllData = async () => {
 
 // Нормалізація даних портфоліо для використання в компонентах
 export const normalizePortfolioData = (portfolioData) => {
-    return portfolioData.map((item) => ({
-        id: item.id,
-        title: item.title || {},
-        description: item.description || {},
-        technologies: item.technologies || [],
-        image: item.image || '',
-        liveUrl: item.liveUrl || '',
-        githubUrl: item.githubUrl || '',
-        category: item.category || 'web',
-        featured: item.featured || false,
-        createdAt: item.createdAt || new Date(),
-    }));
+    if (!portfolioData || !Array.isArray(portfolioData)) {
+        return [];
+    }
+
+    const normalized = portfolioData.map((item, index) => {
+        // Мапимо поля з Firebase структури на IPortfolioCardFull інтерфейс
+        const normalized = {
+            // Основні поля з IPortfolioCardPreview
+            id: item.id,
+            title: item.title || '', // Firebase: title -> Interface: title
+            subTitle: item.subTitle || '', // Firebase: subTitle -> Interface: subTitle
+            img: item.img || '', // Firebase: img -> Interface: img
+            numericId: item.numericId || 0, // Firebase: numericId -> Interface: numericId
+
+            // Додаткові поля з IPortfolioCardFull
+            year: item.year || new Date().getFullYear(), // Firebase: year -> Interface: year
+            design: item.design || '', // Firebase: design -> Interface: design
+            role: item.role || '', // Firebase: role -> Interface: role
+            tag: Array.isArray(item.tag) ? item.tag.join(', ') : item.tag || '', // Firebase: tag[] -> Interface: tag (string)
+            platform: item.platform || '', // Firebase: platform -> Interface: platform
+            type: item.type || [], // Firebase: type -> Interface: type[]
+            url: item.url || '', // Firebase: url -> Interface: url
+            description: item.description || '', // Firebase: description -> Interface: description
+            timeToEndWork:
+                typeof item.timeToEndWork === 'object'
+                    ? `${item.timeToEndWork?.value || ''} ${item.timeToEndWork?.unit || ''}`.trim()
+                    : item.timeToEndWork || '', // Firebase: timeToEndWork{} -> Interface: timeToEndWork (string)
+            company: item.company || '', // Firebase: company -> Interface: company
+            data: item.data || '', // Firebase: data -> Interface: data
+
+            // Нормалізовані поля (опціональні)
+            normalizedRole: item.role ? [item.role] : [],
+            normalizedCompany: item.company || '',
+        };
+
+        return normalized;
+    });
+    return normalized;
 };
 
 // Нормалізація даних сертифікатів

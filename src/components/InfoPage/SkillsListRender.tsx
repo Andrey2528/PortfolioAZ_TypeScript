@@ -1,6 +1,6 @@
 import AnimatedList from '@/shared/components/AnimatedList/AnimatedList';
-import skillsListDB from '@/shared/constants/skillsList';
-import { ISkill } from '@/shared/interface/interfaceSocial';
+import skillsListDB from '@/shared/constants/skillsList.const';
+import { ISkill } from '@/shared/interface/Data.interface';
 
 const SkillsListRender = () => {
     return (

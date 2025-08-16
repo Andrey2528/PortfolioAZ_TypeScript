@@ -4,13 +4,13 @@ import { motion } from 'framer-motion';
 import i18n from '@/utils/i18n';
 import Modal from '@/shared/components/Modal/Modal';
 import RenderCard from '@/shared/components/Card/RenderCard';
-import { IPortfolioCardFull } from '@/shared/interface/interfaceCard';
+import { IPortfolioCardFull } from '@/shared/interface/Card.interface';
 import {
     getFilteredRoles,
     getFilteredYears,
     getRoles,
-} from '@/shared/config/filterConfig';
-import modalConfig from '@/shared/components/Modal/modalConfig';
+} from '@/shared/config/filter.config';
+import modalConfig from '@/shared/config/modal.config';
 import {
     fetchPortfolioData,
     normalizePortfolioData,
@@ -19,7 +19,7 @@ import Loader from '../../shared/components/Loader/Loader';
 import {
     animationModalOverlayProps,
     animationModalContentProps,
-} from '@/shared/config/animationConfig';
+} from '@/shared/config/animation.config';
 import Filters from './filterContainer';
 
 const tEn = i18n.getFixedT('en');
@@ -33,8 +33,11 @@ const CardWrapper = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [selectedRole, setSelectedRole] = useState<string>('');
     const [selectedYear, setSelectedYear] = useState<string>('');
+    const [sortOption, setSortOption] = useState<string>('id-desc'); // ID по убыванию по умолчанию
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+
+    useEffect(() => {}, [cards]);
 
     const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -46,7 +49,7 @@ const CardWrapper = () => {
             const normalizedData = normalizePortfolioData(data);
             setCards(normalizedData);
         } catch (error) {
-            console.error('Error fetching cards:', error);
+            console.error('CardWrapper: Error fetching cards:', error);
         } finally {
             setIsLoading(false);
         }
@@ -56,15 +59,39 @@ const CardWrapper = () => {
         getCards();
     }, []);
 
-    // Фільтрація карток
+    // Фільтрація та сортування карток
     const getFilteredCards = () => {
         const filteredByRoleCards = getFilteredRoles(cards, selectedRole);
+
         const filteredByYearCards = filteredByRoleCards.filter((card) =>
             selectedYear ? Number(card.year) === Number(selectedYear) : true,
         );
-        return filteredByYearCards.sort(
-            (a, b) => Number(b.year) - Number(a.year),
-        );
+
+        // Сортування в залежності від вибраної опції
+        const sortedCards = filteredByYearCards.sort((a, b) => {
+            const [key, order] = sortOption.split('-');
+            let comparison = 0;
+
+            if (key === 'id') {
+                // Сравниваем ID как числа, если возможно, иначе как строки
+                const aId = isNaN(Number(a.id)) ? a.id : Number(a.id);
+                const bId = isNaN(Number(b.id)) ? b.id : Number(b.id);
+
+                if (typeof aId === 'number' && typeof bId === 'number') {
+                    comparison = aId - bId;
+                } else {
+                    comparison = String(aId).localeCompare(String(bId));
+                }
+            } else if (key === 'year') {
+                comparison = Number(a.year) - Number(b.year);
+            } else if (key === 'name') {
+                comparison = a.title.localeCompare(b.title);
+            }
+
+            return order === 'asc' ? comparison : -comparison;
+        });
+
+        return sortedCards;
     };
 
     const filteredCards = getFilteredCards();
@@ -114,9 +141,14 @@ const CardWrapper = () => {
         setSelectedYear(e.target.value);
     };
 
+    const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSortOption(e.target.value);
+    };
+
     const resetFilters = () => {
         setSelectedRole('');
         setSelectedYear('');
+        setSortOption('id-desc'); // Возвращаем к ID по убыванию
     };
 
     return (
@@ -127,11 +159,13 @@ const CardWrapper = () => {
                 <>
                     <Filters
                         roles={roles}
-                        uniqueYears={uniqueYears}
+                        uniqueYears={uniqueYears.map(String)}
                         selectedRole={selectedRole}
                         selectedYear={selectedYear}
+                        selectedSort={sortOption}
                         onRoleChange={handleRoleChange}
                         onYearChange={handleYearChange}
+                        onSortChange={handleSortChange}
                         onReset={resetFilters}
                     />
 

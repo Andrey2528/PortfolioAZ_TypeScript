@@ -19,11 +19,29 @@ const loadTranslationsFromFirebase = async () => {
 
         snapshot.forEach((doc) => {
             const data = doc.data();
-            const key = doc.id;
+            const key = data.key; // Використовуємо поле key замість doc.id
 
-            if (data.en) translations.en[key] = data.en;
-            if (data.uk) translations.uk[key] = data.uk;
-            if (data.ru) translations.ru[key] = data.ru;
+            if (key) {
+                // Створюємо вкладену структуру для ключів типу "portfolioCard.title.title13"
+                const keyParts = key.split('.');
+
+                ['en', 'uk', 'ru'].forEach((lang) => {
+                    if (data[lang]) {
+                        let current = translations[lang];
+
+                        // Створюємо вкладену структуру
+                        for (let i = 0; i < keyParts.length - 1; i++) {
+                            if (!current[keyParts[i]]) {
+                                current[keyParts[i]] = {};
+                            }
+                            current = current[keyParts[i]];
+                        }
+
+                        // Встановлюємо значення для останньої частини ключа
+                        current[keyParts[keyParts.length - 1]] = data[lang];
+                    }
+                });
+            }
         });
 
         return translations;
@@ -45,25 +63,19 @@ export const initializeI18nWithFirebase = async () => {
             Object.keys(firebaseTranslations.en).length > 0 ||
             Object.keys(firebaseTranslations.ru).length > 0;
 
-        // Об'єднуємо статичні переклади з Firebase перекладами
+        // Об'єднуємо статичні переклади з Firebase перекладами (пріоритет Firebase)
         const mergedTranslations = {
             en: { ...en, ...firebaseTranslations.en },
             uk: { ...uk, ...firebaseTranslations.uk },
             ru: { ...ru, ...firebaseTranslations.ru },
         };
 
-        // Використовуємо об'єднані переклади якщо є дані з Firebase, інакше статичні
-        const resources = hasFirebaseData
-            ? {
-                  en: { translation: mergedTranslations.en },
-                  uk: { translation: mergedTranslations.uk },
-                  ru: { translation: mergedTranslations.ru },
-              }
-            : {
-                  en: { translation: en },
-                  uk: { translation: uk },
-                  ru: { translation: ru },
-              };
+        // Завжди використовуємо об'єднані переклади
+        const resources = {
+            en: { translation: mergedTranslations.en },
+            uk: { translation: mergedTranslations.uk },
+            ru: { translation: mergedTranslations.ru },
+        };
 
         await i18n
             .use(LanguageDetector)
@@ -89,23 +101,17 @@ export const initializeI18nWithFirebase = async () => {
                     useSuspense: false,
                 },
                 missingKeyHandler: (lngs, ns, key, fallbackValue) => {
-                    if (process.env.NODE_ENV === 'development') {
-                        console.warn(
-                            `Missing translation key: ${key} for languages: ${lngs.join(', ')}`,
-                        );
-                    }
+                    console.warn(
+                        `❌ Missing translation key: ${key} for languages: ${lngs.join(', ')}`,
+                    );
                     return fallbackValue || key;
                 },
                 initImmediate: false,
             });
 
-        console.log(
-            'i18n initialized with',
-            hasFirebaseData ? 'Firebase + static' : 'static only',
-            'translations',
-        );
+        // i18n ініціалізовано успішно
     } catch (error) {
-        console.error('Error initializing i18n with Firebase:', error);
+        console.error('❌ Error initializing i18n with Firebase:', error);
 
         // Fallback до статичних перекладів
         await i18n
@@ -138,9 +144,7 @@ export const initializeI18nWithFirebase = async () => {
                 initImmediate: false,
             });
 
-        console.log(
-            'i18n initialized with static translations only (fallback)',
-        );
+        // Fallback до статичних перекладів
     }
 };
 
@@ -151,10 +155,10 @@ export const reloadTranslations = async () => {
 
         // Оновлюємо ресурси i18n
         Object.keys(firebaseTranslations).forEach((lang) => {
-            const existingTranslations =
-                i18n.getResourceBundle(lang, 'translation') || {};
+            const existingStaticTranslations =
+                lang === 'en' ? en : lang === 'uk' ? uk : ru;
             const mergedTranslations = {
-                ...existingTranslations,
+                ...existingStaticTranslations,
                 ...firebaseTranslations[lang],
             };
             i18n.addResourceBundle(
@@ -166,7 +170,8 @@ export const reloadTranslations = async () => {
             );
         });
 
-        console.log('Translations reloaded from Firebase');
+        // Примусово оновлюємо інтерфейс
+        i18n.emit('loaded');
     } catch (error) {
         console.error('Error reloading translations:', error);
     }

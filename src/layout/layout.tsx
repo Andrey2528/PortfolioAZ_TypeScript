@@ -1,6 +1,6 @@
 import { Footer, Navbar } from '@/shared/components';
 import { Outlet, useLocation } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import '@/shared/styles/index.scss';
 import { ThemeContext } from '@/theme/ThemeContext';
 

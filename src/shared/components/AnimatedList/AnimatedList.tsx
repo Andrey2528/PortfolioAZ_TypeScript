@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { animationSertificateProps } from '@/shared/config/animationConfig';
-import { IAnimListProps } from '@/utils/interface/interfaceAnimList';
+import { animationSertificateProps } from '@/shared/config/animation.config';
+import { IAnimListProps } from '@/shared/interface/AnimList.interface';
 
 const AnimatedList = <T,>({
     items,

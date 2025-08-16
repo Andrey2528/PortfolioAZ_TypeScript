@@ -1,24 +1,9 @@
 import { useTranslation } from 'react-i18next';
-
-import '@/shared/styles/index.scss';
 import { useEffect } from 'react';
 import placeholderImg from '../../../assets/placeholder.jpg';
+import { IModalProps, IModalField } from '@/shared/interface/Modal.interface';
 
-interface IModalFieldConfig<T> {
-    key: keyof T;
-    label: string;
-    type?: 'link' | 'list' | 'text';
-    transform?: (value: any) => any;
-}
-
-interface IModalProps<T> {
-    card: T | null;
-    onClose: () => void;
-    config?: IModalFieldConfig<T>[];
-    titleKey?: keyof T;
-    subTitleKey?: keyof T;
-    imgKey?: keyof T;
-}
+import '@/shared/styles/index.scss';
 
 const Modal = <T,>({
     card,
@@ -44,7 +29,7 @@ const Modal = <T,>({
             </ul>
         ) : null;
 
-    const renderField = (field: IModalFieldConfig<T>) => {
+    const renderField = (field: IModalField<T>) => {
         const value = card[field.key];
         if (!value) return null;
 

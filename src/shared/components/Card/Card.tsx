@@ -2,15 +2,7 @@ import { useTranslation } from 'react-i18next';
 import '@/shared/styles/index.scss';
 import { useState } from 'react';
 import placeholderImg from '../../../assets/placeholder.jpg';
-
-interface ICardProps<T> {
-    card: T;
-    openModal: (card: T) => void;
-    titleKey: keyof T;
-    subTitleKey: keyof T;
-    imgKey: keyof T;
-    idKey: keyof T;
-}
+import { ICardProps } from '@/shared/interface/Card.interface';
 
 const Card = <T,>({
     card,

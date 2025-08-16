@@ -1,16 +1,25 @@
 @use '../partials/_variables.scss' as vars;
 
 .light {
+    --text-primary: #{vars.$light-theme-black};
+    --text-secondary: #{vars.$light-theme-10};
+    --bg-card: #{vars.$light-theme-60};
+    --border-color: #{vars.$light-theme-50};
+    --bg-hover: #{vars.$light-theme-50};
+
     background: vars.$light-theme-white;
     color: vars.$light-theme-black;
+
     .loader {
         background: vars.$light-theme-white;
     }
+
     .main {
         &__title {
             color: vars.$light-theme-black;
         }
     }
+
     .info {
         &__title {
             color: vars.$light-theme-black;
@@ -22,12 +31,133 @@
             color: vars.$light-theme-black;
         }
     }
+
+    // InfoPage modern styles
+    .info-modern {
+        .section-title {
+            color: vars.$light-theme-black;
+        }
+
+        .about-subtitle {
+            color: #3b82f6;
+        }
+
+        .about-description {
+            color: vars.$light-theme-10;
+        }
+
+        .stat-card {
+            background: vars.$light-theme-60;
+            border-color: vars.$light-theme-50;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+            &:hover {
+                background: vars.$light-theme-50;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            }
+
+            .stat-number {
+                color: #3b82f6;
+            }
+
+            .stat-label {
+                color: vars.$light-theme-10;
+            }
+        }
+
+        .filter-btn {
+            border-color: vars.$light-theme-50;
+            color: vars.$light-theme-black;
+
+            &:hover {
+                border-color: #3b82f6;
+                color: #3b82f6;
+                background: vars.$light-theme-50;
+            }
+
+            &.active {
+                background: #3b82f6;
+                border-color: #3b82f6;
+                color: white;
+            }
+        }
+
+        .skills-table-container {
+            background: vars.$light-theme-60;
+            border-color: vars.$light-theme-50;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .table-row {
+            border-color: vars.$light-theme-50;
+
+            &:hover {
+                background: vars.$light-theme-50;
+            }
+        }
+
+        .skill-title {
+            color: vars.$light-theme-black;
+        }
+
+        .progress-bar-container {
+            background: vars.$light-theme-50;
+        }
+
+        .progress-text {
+            color: vars.$light-theme-black;
+        }
+
+        .timeline-content {
+            background: vars.$light-theme-60;
+            border-color: vars.$light-theme-50;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+            &:hover {
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+                border-color: #3b82f6;
+            }
+        }
+
+        .company-name {
+            color: vars.$light-theme-black;
+        }
+
+        .position-title {
+            color: #3b82f6;
+        }
+
+        .description {
+            color: vars.$light-theme-10;
+        }
+
+        .projects-count {
+            color: vars.$light-theme-black;
+        }
+
+        .tech-label {
+            color: vars.$light-theme-black;
+        }
+
+        .marker-dot {
+            background: #3b82f6;
+            border-color: vars.$light-theme-60;
+            box-shadow: 0 0 0 3px #3b82f6;
+        }
+
+        .marker-line {
+            background: vars.$light-theme-50;
+        }
+    }
+
     .navbar__nav__link {
         color: vars.$light-theme-10;
     }
+
     .active_li {
         color: vars.$dark-theme-black;
     }
+
     .card {
         border-top: 1px solid vars.$dark-theme-50-light;
         &__miniature {

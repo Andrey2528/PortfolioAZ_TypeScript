@@ -1,13 +1,15 @@
 import { useTranslation } from 'react-i18next';
-import { IFiltersProps } from '@/shared/interface/interfaceFilterProps';
+import { IFiltersProps } from '@/shared/interface/FilterProps.interface';
 
 const Filters: React.FC<IFiltersProps> = ({
     roles,
     uniqueYears,
     selectedRole,
     selectedYear,
+    selectedSort,
     onRoleChange,
     onYearChange,
+    onSortChange,
     onReset,
 }) => {
     const { t } = useTranslation();
@@ -49,6 +51,33 @@ const Filters: React.FC<IFiltersProps> = ({
                             {year}
                         </option>
                     ))}
+                </select>
+            </div>
+
+            <div className="filter__group">
+                <label htmlFor="sortFilter" className="filter__label">
+                    {t('filter.sort')}
+                </label>
+                <select
+                    id="sortFilter"
+                    value={selectedSort || 'id-desc'}
+                    onChange={onSortChange || (() => {})}
+                    className="filter__select"
+                >
+                    <option value="id-asc">{t('filter.sortByIdAsc')}</option>
+                    <option value="id-desc">{t('filter.sortByIdDesc')}</option>
+                    <option value="year-asc">
+                        {t('filter.sortByDateAsc')}
+                    </option>
+                    <option value="year-desc">
+                        {t('filter.sortByDateDesc')}
+                    </option>
+                    <option value="name-asc">
+                        {t('filter.sortByNameAsc')}
+                    </option>
+                    <option value="name-desc">
+                        {t('filter.sortByNameDesc')}
+                    </option>
                 </select>
             </div>
 

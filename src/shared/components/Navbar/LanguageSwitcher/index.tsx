@@ -2,7 +2,6 @@ import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 import Menu, { Item as MenuItem, SelectInfo } from 'rc-menu';
 import { useEffect, useState } from 'react';
-import ReactGA from 'react-ga4';
 import { motion } from 'framer-motion';
 
 // Enum для підтримуваних мов
@@ -44,11 +43,6 @@ const LanguageSwitcher = () => {
         i18n.changeLanguage(selectedLang).then(() => {
             Cookies.set('language', selectedLang, { expires: 365 });
             setDefaultLang(selectedLang);
-
-            ReactGA.event({
-                category: 'LanguageSwitcher',
-                action: `${selectedLang} version is chosen`,
-            });
         });
     };
 

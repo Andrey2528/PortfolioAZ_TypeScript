@@ -6,10 +6,12 @@ import ThemeToggle from '@/theme/ThemeToggle';
 import '@/shared/styles/index.scss';
 import { FC } from 'react';
 
+type Theme = 'light' | 'dark';
+
 // Типізація пропсів
 interface NavbarProps {
-    setTheme: (theme: string) => void;
-    theme: string;
+    setTheme: (theme: Theme) => void;
+    theme: Theme;
 }
 
 const Navbar: FC<NavbarProps> = ({ setTheme, theme }) => {

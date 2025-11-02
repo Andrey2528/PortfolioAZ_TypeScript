@@ -1,6 +1,12 @@
-import i18next from '../../utils/i18n';
-import { ISkill } from '@/utils/interface/interfaceSocial';
-export const skillsListDB: ISkill[] = [
+import i18next from '../../utils/i18nWithFirebase';
+
+// Простий інтерфейс для списку навичок
+interface ISkillItem {
+    id: number;
+    title: string;
+}
+
+export const skillsListDB: ISkillItem[] = [
     {
         id: 5,
         title: i18next.t('InfoPage.skills.skillsText5'),

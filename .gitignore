@@ -11,6 +11,7 @@
 node_modules
 stats.html
 .env.local
+.env
 
 # Admin files - секретные файлы администратора
 src/components/Admin/

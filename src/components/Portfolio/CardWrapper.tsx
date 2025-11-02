@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState, useRef } from 'react';
-import i18n from '@/utils/i18n';
+import i18n from '@/utils/i18nWithFirebase';
 import Modal from '@/shared/components/Modal/Modal';
 import RenderCard from '@/shared/components/Card/RenderCard';
 import { IPortfolioCardFull } from '@/shared/interface/Card.interface';

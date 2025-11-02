@@ -18,7 +18,7 @@ const Layout = () => {
 
     return (
         <main className={`Layout ${theme}-theme`}>
-            <Navbar setTheme={toggleTheme} />
+            <Navbar setTheme={toggleTheme} theme={theme} />
 
             <section className="Layout__section">
                 <Outlet />

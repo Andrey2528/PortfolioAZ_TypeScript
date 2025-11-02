@@ -1,4 +1,4 @@
-import i18n from '../../utils/i18n';
+import i18n from '../../utils/i18nWithFirebase';
 import { fetchPortfolioCards } from './databaseFetch';
 import { normalizeDBData } from '../normalizeData/normalizeDBData';
 

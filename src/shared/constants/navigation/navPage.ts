@@ -1,4 +1,4 @@
-import i18next from '../../../utils/i18n';
+import i18next from '../../../utils/i18nWithFirebase';
 
 export const navPage = [
     {

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import i18n from '@/utils/i18nWithFirebase';
 import Modal from '@/shared/components/Modal/Modal';
 import RenderCard from '@/shared/components/Card/RenderCard';
@@ -21,6 +22,7 @@ const tEn = i18n.getFixedT('en');
 
 const CardWrapper = () => {
     const { t } = useTranslation();
+    const [searchParams] = useSearchParams();
     const [cards, setCards] = useState<IPortfolioCardFull[]>([]);
     const [selectedCard, setSelectedCard] = useState<IPortfolioCardFull | null>(
         null,
@@ -31,6 +33,9 @@ const CardWrapper = () => {
     const [sortOption, setSortOption] = useState<string>('id-desc'); // ID по убыванию по умолчанию
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+
+    // Отримуємо компанію з URL параметрів
+    const companyFromUrl = searchParams.get('company');
 
     useEffect(() => {}, [cards]);
 
@@ -62,8 +67,15 @@ const CardWrapper = () => {
             selectedYear ? Number(card.year) === Number(selectedYear) : true,
         );
 
+        // Фільтрація за компанією з URL
+        const filteredByCompanyCards = companyFromUrl
+            ? filteredByYearCards.filter(
+                  (card) => card.company === companyFromUrl,
+              )
+            : filteredByYearCards;
+
         // Сортування в залежності від вибраної опції
-        const sortedCards = filteredByYearCards.sort((a, b) => {
+        const sortedCards = filteredByCompanyCards.sort((a, b) => {
             const [key, order] = sortOption.split('-');
             let comparison = 0;
 
@@ -163,6 +175,49 @@ const CardWrapper = () => {
                         onSortChange={handleSortChange}
                         onReset={resetFilters}
                     />
+
+                    {companyFromUrl && (
+                        <div
+                            style={{
+                                padding: '15px 20px',
+                                margin: '20px 0',
+                                background:
+                                    'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1))',
+                                borderRadius: '12px',
+                                borderLeft: '4px solid #3b82f6',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                fontSize: '1rem',
+                                fontWeight: '600',
+                                color: 'var(--text-primary)',
+                            }}
+                        >
+                            <span style={{ fontSize: '1.3rem' }}>🔍</span>
+                            <span>
+                                Фільтр за компанією:{' '}
+                                <strong>{companyFromUrl}</strong>
+                            </span>
+                            <button
+                                onClick={() =>
+                                    (window.location.href = '/portfolio')
+                                }
+                                style={{
+                                    marginLeft: 'auto',
+                                    padding: '6px 14px',
+                                    background: '#3b82f6',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '8px',
+                                    cursor: 'pointer',
+                                    fontSize: '0.9rem',
+                                    fontWeight: '600',
+                                }}
+                            >
+                                Скинути фільтр
+                            </button>
+                        </div>
+                    )}
 
                     <div className="card__list">
                         {filteredCards.map((card, index) => (

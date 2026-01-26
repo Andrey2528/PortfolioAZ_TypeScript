@@ -1,8 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { FC, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getSkills } from '@/api/connectDB/dataAPI';
-import { doc, getDoc } from 'firebase/firestore';
+import {
+    doc,
+    getDoc,
+    collection,
+    getDocs,
+    query,
+    where,
+} from 'firebase/firestore';
 import { db } from '@/utils/firebase';
 import {
     IInfoPage,
@@ -10,15 +18,20 @@ import {
     ISkillCategory,
     IExperienceItem,
 } from '@/shared/interface/InfoPage.interface';
+import { IPortfolioCardFull } from '@/shared/interface/Card.interface';
 import Loader from '@/shared/components/Loader/Loader';
 
 import logo from '@/assets/logo.png';
 
 const InfoPage: FC = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [skills, setSkills] = useState<ISkill[]>([]);
     const [selectedCategory, setSelectedCategory] = useState<string>('all');
     const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [portfolioProjects, setPortfolioProjects] = useState<
+        IPortfolioCardFull[]
+    >([]);
     const [categories, setCategories] = useState<ISkillCategory[]>([
         { id: '1', key: 'all', label: 'Всі', order: 1 },
         { id: '2', key: 'frontend', label: 'Frontend', order: 2 },
@@ -96,6 +109,19 @@ const InfoPage: FC = () => {
                     }),
                 );
                 setSkills(mappedSkills);
+
+                // Завантаження проектів портфоліо
+                const portfolioSnapshot = await getDocs(
+                    collection(db, 'portfolio'),
+                );
+                const projects = portfolioSnapshot.docs.map(
+                    (doc) =>
+                        ({
+                            id: doc.id,
+                            ...doc.data(),
+                        }) as IPortfolioCardFull,
+                );
+                setPortfolioProjects(projects);
             } catch (error) {
                 console.error('Error loading InfoPage data:', error);
             } finally {
@@ -364,6 +390,77 @@ const InfoPage: FC = () => {
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            {(() => {
+                                                const relatedProjects =
+                                                    portfolioProjects.filter(
+                                                        (p) =>
+                                                            p.company ===
+                                                            exp.company,
+                                                    );
+                                                return (
+                                                    relatedProjects.length >
+                                                        0 && (
+                                                        <div className="related-projects">
+                                                            <div className="projects-header">
+                                                                <span className="projects-icon">
+                                                                    🔗
+                                                                </span>
+                                                                <span>
+                                                                    Проекти (
+                                                                    {
+                                                                        relatedProjects.length
+                                                                    }
+                                                                    )
+                                                                </span>
+                                                            </div>
+                                                            <div className="projects-list">
+                                                                {relatedProjects
+                                                                    .slice(0, 3)
+                                                                    .map(
+                                                                        (
+                                                                            project,
+                                                                        ) => (
+                                                                            <div
+                                                                                key={
+                                                                                    project.id
+                                                                                }
+                                                                                className="project-chip"
+                                                                            >
+                                                                                {t(
+                                                                                    project.title,
+                                                                                    {
+                                                                                        defaultValue:
+                                                                                            project.title,
+                                                                                    },
+                                                                                )}
+                                                                            </div>
+                                                                        ),
+                                                                    )}
+                                                                {relatedProjects.length >
+                                                                    3 && (
+                                                                    <div className="project-chip more">
+                                                                        +
+                                                                        {relatedProjects.length -
+                                                                            3}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                            <button
+                                                                className="view-all-projects-btn"
+                                                                onClick={() =>
+                                                                    navigate(
+                                                                        `/portfolio?company=${encodeURIComponent(exp.company)}`,
+                                                                    )
+                                                                }
+                                                            >
+                                                                Переглянути всі
+                                                                проекти →
+                                                            </button>
+                                                        </div>
+                                                    )
+                                                );
+                                            })()}
                                         </div>
                                     </motion.div>
                                 ))}

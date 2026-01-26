@@ -112,7 +112,7 @@ section.info-modern {
             .about-subtitle {
                 font-size: 1.5rem;
                 font-weight: 700;
-                background: vars.$dark-theme-50-light;
+                //background: vars.$dark-theme-50-light;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -1057,6 +1057,94 @@ section.info-modern {
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+
+                    .related-projects {
+                        margin-top: 25px;
+                        padding: 20px;
+                        background: linear-gradient(
+                            135deg,
+                            rgba(vars.$dark-theme-30, 0.05),
+                            rgba(vars.$dark-theme-20, 0.05)
+                        );
+                        border-radius: 15px;
+                        border-left: 4px solid vars.$dark-theme-30;
+
+                        .projects-header {
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            margin-bottom: 15px;
+                            font-weight: 700;
+                            font-size: 1.05rem;
+                            color: var(--text-primary);
+
+                            .projects-icon {
+                                font-size: 1.2rem;
+                            }
+                        }
+
+                        .projects-list {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 10px;
+                            margin-bottom: 15px;
+
+                            .project-chip {
+                                background: var(--bg-card);
+                                border: 1px solid rgba(vars.$dark-theme-30, 0.2);
+                                padding: 8px 16px;
+                                border-radius: 20px;
+                                font-size: 0.85rem;
+                                font-weight: 600;
+                                color: var(--text-primary);
+                                transition: all 0.3s ease;
+                                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+                                &:hover {
+                                    transform: translateY(-2px);
+                                    box-shadow: 0 4px 12px
+                                        rgba(vars.$dark-theme-30, 0.15);
+                                    border-color: vars.$dark-theme-30;
+                                }
+
+                                &.more {
+                                    background: vars.$dark-theme-30;
+                                    color: white;
+                                    border-color: vars.$dark-theme-30;
+                                }
+                            }
+                        }
+
+                        .view-all-projects-btn {
+                            width: 100%;
+                            padding: 12px 24px;
+                            background: linear-gradient(
+                                135deg,
+                                vars.$dark-theme-30,
+                                vars.$dark-theme-20
+                            );
+                            color: white;
+                            border: none;
+                            border-radius: 25px;
+                            font-size: 0.95rem;
+                            font-weight: 600;
+                            cursor: pointer;
+                            transition: all 0.3s
+                                cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                            box-shadow: 0 4px 15px
+                                rgba(vars.$dark-theme-30, 0.3);
+
+                            &:hover {
+                                transform: translateY(-2px);
+                                box-shadow: 0 8px 25px
+                                    rgba(vars.$dark-theme-30, 0.4);
+                            }
+
+                            &:active {
+                                transform: translateY(0);
                             }
                         }
                     }

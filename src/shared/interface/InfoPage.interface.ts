@@ -36,4 +36,5 @@ export interface IExperienceItem {
     description: string;
     technologies: string[];
     projects: number;
+    projectIds?: string[]; // ID проектів з портфоліо
 }

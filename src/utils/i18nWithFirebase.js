@@ -3,46 +3,57 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
 import { db } from './firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import { cacheManager, CACHE_TTL } from './cacheManager';
 
 // Статичні переклади як fallback
 import en from '../locales/en/translation.json';
 import uk from '../locales/uk/translation.json';
 import ru from '../locales/ru/translation.json';
 
-// Функція для завантаження перекладів з Firebase
+// Функція для завантаження перекладів з Firebase з кешуванням
 const loadTranslationsFromFirebase = async () => {
     try {
-        const translationsCollection = collection(db, 'translations');
-        const snapshot = await getDocs(translationsCollection);
+        // Використовуємо кеш-менеджер для обгортання запиту
+        const translations = await cacheManager.wrap(
+            'translations_all',
+            async () => {
+                const translationsCollection = collection(db, 'translations');
+                const snapshot = await getDocs(translationsCollection);
 
-        const translations = { en: {}, uk: {}, ru: {} };
+                const translations = { en: {}, uk: {}, ru: {} };
 
-        snapshot.forEach((doc) => {
-            const data = doc.data();
-            const key = data.key; // Використовуємо поле key замість doc.id
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const key = data.key; // Використовуємо поле key замість doc.id
 
-            if (key) {
-                // Створюємо вкладену структуру для ключів типу "portfolioCard.title.title13"
-                const keyParts = key.split('.');
+                    if (key) {
+                        // Створюємо вкладену структуру для ключів типу "portfolioCard.title.title13"
+                        const keyParts = key.split('.');
 
-                ['en', 'uk', 'ru'].forEach((lang) => {
-                    if (data[lang]) {
-                        let current = translations[lang];
+                        ['en', 'uk', 'ru'].forEach((lang) => {
+                            if (data[lang]) {
+                                let current = translations[lang];
 
-                        // Створюємо вкладену структуру
-                        for (let i = 0; i < keyParts.length - 1; i++) {
-                            if (!current[keyParts[i]]) {
-                                current[keyParts[i]] = {};
+                                // Створюємо вкладену структуру
+                                for (let i = 0; i < keyParts.length - 1; i++) {
+                                    if (!current[keyParts[i]]) {
+                                        current[keyParts[i]] = {};
+                                    }
+                                    current = current[keyParts[i]];
+                                }
+
+                                // Встановлюємо значення для останньої частини ключа
+                                current[keyParts[keyParts.length - 1]] =
+                                    data[lang];
                             }
-                            current = current[keyParts[i]];
-                        }
-
-                        // Встановлюємо значення для останньої частини ключа
-                        current[keyParts[keyParts.length - 1]] = data[lang];
+                        });
                     }
                 });
-            }
-        });
+
+                return translations;
+            },
+            { ttl: CACHE_TTL.DAY }, // Кешуємо на 24 години
+        );
 
         return translations;
     } catch (error) {

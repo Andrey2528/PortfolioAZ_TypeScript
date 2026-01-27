@@ -1,105 +1,136 @@
 import { db } from '../utils/firebase';
 import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import { cacheManager, CACHE_TTL } from './cacheManager';
 
-// Функція для отримання портфоліо проектів
+// Функція для отримання портфоліо проектів з кешуванням
 export const fetchPortfolioData = async () => {
     try {
-        const portfolioCollection = collection(db, 'portfolioCardData');
-        const snapshot = await getDocs(portfolioCollection);
+        return await cacheManager.wrap(
+            'portfolio_data',
+            async () => {
+                const portfolioCollection = collection(db, 'portfolioCardData');
+                const snapshot = await getDocs(portfolioCollection);
 
-        const portfolioData = [];
-        snapshot.forEach((doc) => {
-            const docData = doc.data();
-            portfolioData.push({
-                id: doc.id,
-                ...docData,
-            });
-        });
-        return portfolioData;
+                const portfolioData = [];
+                snapshot.forEach((doc) => {
+                    const docData = doc.data();
+                    portfolioData.push({
+                        id: doc.id,
+                        ...docData,
+                    });
+                });
+                return portfolioData;
+            },
+            { ttl: CACHE_TTL.MEDIUM }, // Кешуємо на 30 хвилин
+        );
     } catch (error) {
         console.error('Error fetching portfolio data:', error);
         return [];
     }
 };
 
-// Функція для отримання сертифікатів
+// Функція для отримання сертифікатів з кешуванням
 export const fetchCertificatesData = async () => {
     try {
-        const certificatesCollection = collection(db, 'certificates');
-        const snapshot = await getDocs(certificatesCollection);
+        return await cacheManager.wrap(
+            'certificates_data',
+            async () => {
+                const certificatesCollection = collection(db, 'certificates');
+                const snapshot = await getDocs(certificatesCollection);
 
-        const certificatesData = [];
-        snapshot.forEach((doc) => {
-            certificatesData.push({
-                id: doc.id,
-                ...doc.data(),
-            });
-        });
+                const certificatesData = [];
+                snapshot.forEach((doc) => {
+                    certificatesData.push({
+                        id: doc.id,
+                        ...doc.data(),
+                    });
+                });
 
-        return certificatesData;
+                return certificatesData;
+            },
+            { ttl: CACHE_TTL.MEDIUM }, // Кешуємо на 30 хвилин
+        );
     } catch (error) {
         console.error('Error fetching certificates data:', error);
         return [];
     }
 };
 
-// Функція для отримання навичок
+// Функція для отримання навичок з кешуванням
 export const fetchSkillsData = async () => {
     try {
-        const skillsCollection = collection(db, 'skills');
-        const snapshot = await getDocs(skillsCollection);
+        return await cacheManager.wrap(
+            'skills_data',
+            async () => {
+                const skillsCollection = collection(db, 'skills');
+                const snapshot = await getDocs(skillsCollection);
 
-        const skillsData = [];
-        snapshot.forEach((doc) => {
-            skillsData.push({
-                id: doc.id,
-                ...doc.data(),
-            });
-        });
+                const skillsData = [];
+                snapshot.forEach((doc) => {
+                    skillsData.push({
+                        id: doc.id,
+                        ...doc.data(),
+                    });
+                });
 
-        return skillsData;
+                return skillsData;
+            },
+            { ttl: CACHE_TTL.MEDIUM }, // Кешуємо на 30 хвилин
+        );
     } catch (error) {
         console.error('Error fetching skills data:', error);
         return [];
     }
 };
 
-// Функція для отримання соціальних посилань
+// Функція для отримання соціальних посилань з кешуванням
 export const fetchSocialLinksData = async () => {
     try {
-        const socialLinksCollection = collection(db, 'socialLinks');
-        const snapshot = await getDocs(socialLinksCollection);
+        return await cacheManager.wrap(
+            'social_links_data',
+            async () => {
+                const socialLinksCollection = collection(db, 'socialLinks');
+                const snapshot = await getDocs(socialLinksCollection);
 
-        const socialLinksData = [];
-        snapshot.forEach((doc) => {
-            socialLinksData.push({
-                id: doc.id,
-                ...doc.data(),
-            });
-        });
+                const socialLinksData = [];
+                snapshot.forEach((doc) => {
+                    socialLinksData.push({
+                        id: doc.id,
+                        ...doc.data(),
+                    });
+                });
 
-        return socialLinksData;
+                return socialLinksData;
+            },
+            { ttl: CACHE_TTL.LONG }, // Кешуємо на 2 години (рідко змінюється)
+        );
     } catch (error) {
         console.error('Error fetching social links data:', error);
         return [];
     }
 };
 
-// Функція для отримання інформації профілю
+// Функція для отримання інформації профілю з кешуванням
 export const fetchProfileData = async () => {
     try {
-        const profileDoc = doc(db, 'profile', 'main');
-        const snapshot = await getDoc(profileDoc);
+        return await cacheManager.wrap(
+            'profile_data',
+            async () => {
+                const profileDoc = doc(db, 'profile', 'main');
+                const snapshot = await getDoc(profileDoc);
 
-        if (snapshot.exists()) {
-            return {
-                id: snapshot.id,
-                ...snapshot.data(),
-            };
-        } else {
-            // Немає даних профілю
-            return null;
-        }
+                if (snapshot.exists()) {
+                    return {
+                        id: snapshot.id,
+                        ...snapshot.data(),
+                    };
+                } else {
+                    // Немає даних профілю
+                    return null;
+                }
+            },
+            { ttl: CACHE_TTL.LONG }, // Кешуємо на 2 години
+        );
     } catch (error) {
         console.error('Error fetching profile data:', error);
         return null;

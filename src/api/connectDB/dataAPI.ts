@@ -15,21 +15,28 @@ import {
     ISocialLink,
     ISocialImage,
 } from '../../shared/interface/Data.interface';
+import { cacheManager, CACHE_TTL } from '../../utils/cacheManager';
 
 // Certificates API
 export const getCertificates = async (): Promise<ICertificate[]> => {
     try {
-        const q = query(
-            collection(db, 'certificates'),
-            orderBy('date', 'desc'),
-        );
-        const snapshot = await getDocs(q);
-        return snapshot.docs.map(
-            (doc) =>
-                ({
-                    id: doc.data().id || parseInt(doc.id),
-                    ...doc.data(),
-                }) as ICertificate,
+        return await cacheManager.wrap(
+            'certificates_list',
+            async () => {
+                const q = query(
+                    collection(db, 'certificates'),
+                    orderBy('date', 'desc'),
+                );
+                const snapshot = await getDocs(q);
+                return snapshot.docs.map(
+                    (doc) =>
+                        ({
+                            id: doc.data().id || parseInt(doc.id),
+                            ...doc.data(),
+                        }) as ICertificate,
+                );
+            },
+            { ttl: CACHE_TTL.MEDIUM },
         );
     } catch (error) {
         console.error('Error getting certificates:', error);
@@ -50,6 +57,10 @@ export const addCertificate = async (
         const newCertificate = { ...certificate, id: maxId + 1 };
 
         await addDoc(collection(db, 'certificates'), newCertificate);
+
+        // Інвалідуємо кеш
+        cacheManager.remove('certificates_list');
+        cacheManager.remove('certificates_data');
     } catch (error) {
         console.error('Error adding certificate:', error);
         throw error;
@@ -69,6 +80,10 @@ export const updateCertificate = async (
                 doc(db, 'certificates', docToUpdate.id),
                 certificate,
             );
+
+            // Інвалідуємо кеш
+            cacheManager.remove('certificates_list');
+            cacheManager.remove('certificates_data');
         }
     } catch (error) {
         console.error('Error updating certificate:', error);
@@ -83,6 +98,10 @@ export const deleteCertificate = async (id: number): Promise<void> => {
 
         if (docToDelete) {
             await deleteDoc(doc(db, 'certificates', docToDelete.id));
+
+            // Інвалідуємо кеш
+            cacheManager.remove('certificates_list');
+            cacheManager.remove('certificates_data');
         }
     } catch (error) {
         console.error('Error deleting certificate:', error);
@@ -93,14 +112,23 @@ export const deleteCertificate = async (id: number): Promise<void> => {
 // Skills API
 export const getSkills = async (): Promise<ISkill[]> => {
     try {
-        const q = query(collection(db, 'skills'), orderBy('id', 'desc'));
-        const snapshot = await getDocs(q);
-        return snapshot.docs.map(
-            (doc) =>
-                ({
-                    id: doc.data().id || parseInt(doc.id),
-                    ...doc.data(),
-                }) as ISkill,
+        return await cacheManager.wrap(
+            'skills_list',
+            async () => {
+                const q = query(
+                    collection(db, 'skills'),
+                    orderBy('id', 'desc'),
+                );
+                const snapshot = await getDocs(q);
+                return snapshot.docs.map(
+                    (doc) =>
+                        ({
+                            id: doc.data().id || parseInt(doc.id),
+                            ...doc.data(),
+                        }) as ISkill,
+                );
+            },
+            { ttl: CACHE_TTL.MEDIUM },
         );
     } catch (error) {
         console.error('Error getting skills:', error);
@@ -116,6 +144,10 @@ export const addSkill = async (skill: Omit<ISkill, 'id'>): Promise<void> => {
         const newSkill = { ...skill, id: maxId + 1 };
 
         await addDoc(collection(db, 'skills'), newSkill);
+
+        // Інвалідуємо кеш
+        cacheManager.remove('skills_list');
+        cacheManager.remove('skills_data');
     } catch (error) {
         console.error('Error adding skill:', error);
         throw error;
@@ -132,6 +164,10 @@ export const updateSkill = async (
 
         if (docToUpdate) {
             await updateDoc(doc(db, 'skills', docToUpdate.id), skill);
+
+            // Інвалідуємо кеш
+            cacheManager.remove('skills_list');
+            cacheManager.remove('skills_data');
         }
     } catch (error) {
         console.error('Error updating skill:', error);
@@ -146,6 +182,10 @@ export const deleteSkill = async (id: number): Promise<void> => {
 
         if (docToDelete) {
             await deleteDoc(doc(db, 'skills', docToDelete.id));
+
+            // Інвалідуємо кеш
+            cacheManager.remove('skills_list');
+            cacheManager.remove('skills_data');
         }
     } catch (error) {
         console.error('Error deleting skill:', error);
@@ -181,14 +221,23 @@ export const cleanupTestSkills = async (): Promise<void> => {
 // Social Links API
 export const getSocialLinks = async (): Promise<ISocialLink[]> => {
     try {
-        const q = query(collection(db, 'socialLinks'), orderBy('id', 'desc'));
-        const snapshot = await getDocs(q);
-        return snapshot.docs.map(
-            (doc) =>
-                ({
-                    id: doc.data().id || parseInt(doc.id),
-                    ...doc.data(),
-                }) as ISocialLink,
+        return await cacheManager.wrap(
+            'social_links_list',
+            async () => {
+                const q = query(
+                    collection(db, 'socialLinks'),
+                    orderBy('id', 'desc'),
+                );
+                const snapshot = await getDocs(q);
+                return snapshot.docs.map(
+                    (doc) =>
+                        ({
+                            id: doc.data().id || parseInt(doc.id),
+                            ...doc.data(),
+                        }) as ISocialLink,
+                );
+            },
+            { ttl: CACHE_TTL.LONG },
         );
     } catch (error) {
         console.error('Error getting social links:', error);
@@ -208,6 +257,10 @@ export const addSocialLink = async (
         const newSocialLink = { ...socialLink, id: maxId + 1 };
 
         await addDoc(collection(db, 'socialLinks'), newSocialLink);
+
+        // Інвалідуємо кеш
+        cacheManager.remove('social_links_list');
+        cacheManager.remove('social_links_data');
     } catch (error) {
         console.error('Error adding social link:', error);
         throw error;
@@ -224,6 +277,10 @@ export const updateSocialLink = async (
 
         if (docToUpdate) {
             await updateDoc(doc(db, 'socialLinks', docToUpdate.id), socialLink);
+
+            // Інвалідуємо кеш
+            cacheManager.remove('social_links_list');
+            cacheManager.remove('social_links_data');
         }
     } catch (error) {
         console.error('Error updating social link:', error);
@@ -238,6 +295,10 @@ export const deleteSocialLink = async (id: number): Promise<void> => {
 
         if (docToDelete) {
             await deleteDoc(doc(db, 'socialLinks', docToDelete.id));
+
+            // Інвалідуємо кеш
+            cacheManager.remove('social_links_list');
+            cacheManager.remove('social_links_data');
         }
     } catch (error) {
         console.error('Error deleting social link:', error);

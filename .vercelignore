@@ -1,0 +1,10 @@
+# Ignore admin for main site deployment
+
+/admin/
+
+# Build artifacts
+
+/dist/
+/admin/dist/
+stats.html
+.DS_Store
